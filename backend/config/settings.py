@@ -63,12 +63,14 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    ]
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        #'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ),
 }
 
 SIMPLE_JWT = {
@@ -80,8 +82,8 @@ REST_AUTH = {
     "USE_JWT": True,
 
     # JWT Cookies
-    "JWT_AUTH_COOKIE": "_auth",
-    "JWT_AUTH_REFRESH_COOKIE": "_refresh",
+    "JWT_AUTH_COOKIE": "access_token",  # optional
+    "JWT_AUTH_REFRESH_COOKIE": "refresh_token",
 
     # Local Dev Settings
     "JWT_AUTH_HTTPONLY": False,  # Allow React to read cookies
@@ -124,7 +126,13 @@ if DEBUG:
     CORS_ALLOW_CREDENTIALS = True
 else:
     CORS_ALLOWED_ORIGINS = [
-        "http://localhost:3000/",
+        "http://localhost:3000",
+        "http://localhost:5173",  # Vite default port
+    ]
+    CORS_ALLOW_CREDENTIALS = True
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost:3000",
+        "http://localhost:5173",
     ]
 
 ROOT_URLCONF = 'config.urls'

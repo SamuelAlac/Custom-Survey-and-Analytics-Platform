@@ -43,13 +43,14 @@ class StudentRegistrationSerializer(UserRegistrationSerializer):
     def save(self, request=None):
         user = super().save(request)
         user.role = User.ROLES.STUDENT
-        user.save()
+        user.save(update_fields=['role'])
         return user
     
 
 class UserLoginSerializer(LoginSerializer):
     username = None
     email = serializers.EmailField(required=True)
+    remember_me = serializers.BooleanField(required=False, default=False)
 
     def validate(self, attrs):
         attrs['username'] = attrs.get('email')

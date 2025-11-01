@@ -1,6 +1,31 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useForm, type SubmitHandler } from 'react-hook-form'
+import { loginUser, logoutUser } from '../../../features/auth/api';
+
+type FormFields = {
+    email: string;
+    password: string;
+    rememberMe: boolean;
+}
 
 const TeacherLogin = () => {
+
+    const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({})
+    const navigate = useNavigate()
+
+    const onSubmit: SubmitHandler<FormFields> = async (formData) =>{
+        try {
+            const { email, password, rememberMe } = formData
+            const res = await loginUser({ email, password, rememberMe })
+            console.log(`Login successfull, token: ${res.access}`);
+            navigate('/Teacher/Dashboard')
+        } catch (error) {
+            if (error.email) setError('email', { message: error.email[0] });
+            if (error.password) setError('password', { message: error.password[0] });
+            if (error.detail) setError('root', { message: error.detail });
+        }
+    }
+
   return (
     <section className='flex flex-col justify-center items-center bg-white'>
         <Link to="/" className='hidden md:block text-[#F37611] text-start w-60 md:w-110'>Back to u</Link>
@@ -10,22 +35,24 @@ const TeacherLogin = () => {
                 <p className='text-[#ACA6A7] text-sm md:text-md'>Enter your email and password to access your account.</p>
             </div>
 
-            <form className='text-black w-60 md:w-110 h-75 text-start mt-5 flex flex-col space-y-3 md:space-y-5'>
+            <form onSubmit={handleSubmit(onSubmit)} className='text-black w-60 md:w-110 h-75 text-start mt-5 flex flex-col space-y-3 md:space-y-5'>
                 <div className='flex flex-col'>
                     <label htmlFor="email" className='text-md md:text-2xl font-bold text-start'>Email</label>
-                    <input type="email" name='email' placeholder='Email'
+                    <input { ...register('email') } type="email" name='email' placeholder='Email'
                     className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]'/>
+                    {errors.email && <div className="text-red-900">{errors.email.message}</div>}
                 </div>
 
                 <div className='flex flex-col'>
                     <label htmlFor="password" className='text-md md:text-2xl font-bold text-start'>Password</label>
-                    <input type="password" name='password' placeholder='Password'
+                    <input { ...register('password') } type="password" name='password' placeholder='Password'
                     className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]'/>
+                    {errors.password && <div className="text-red-900">{errors.password.message}</div>}
                 </div>
 
                 <div className='flex items-center justify-between'>
                     <div className='flex items-center gap-1'>
-                        <input type="checkbox" name="remember_me" className='checkbox checkbox-sm rounded-sm
+                        <input { ...register('rememberMe') } type="checkbox" name="remember_me" className='checkbox checkbox-sm rounded-sm
                         bg-white border-[#ACA6A7] border checked:text-[#F37611]'/>
                         <span className='text-[#ACA6A7] text-[10px] md:text-sm'>Remember me</span>
                     </div>

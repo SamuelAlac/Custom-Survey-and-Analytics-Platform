@@ -20,11 +20,13 @@ from django.conf import settings
 from django.views.static import serve
 from . import views
 from dj_rest_auth.registration.views import VerifyEmailView
+from accounts.views import CustomLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_view),
     path('api/v1/auth/', include('dj_rest_auth.urls')),
+    path('api/v1/auth/login/', CustomLoginView.as_view(), name='login'),
     path("api/v1/auth/registration/account-confirm-email/",
         VerifyEmailView.as_view(),
         name="account_confirm_email",
