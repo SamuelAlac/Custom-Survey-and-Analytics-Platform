@@ -19,11 +19,17 @@ from django.urls import path, include, re_path
 from django.conf import settings
 from django.views.static import serve
 from . import views
+from dj_rest_auth.registration.views import VerifyEmailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index_view),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api/v1/auth/', include('dj_rest_auth.urls')),
+    path("api/v1/auth/registration/account-confirm-email/",
+        VerifyEmailView.as_view(),
+        name="account_confirm_email",
+    ),
+    path('api/v1/auth/registration/', include('dj_rest_auth.registration.urls')),
 ]
 
 if settings.DEBUG:

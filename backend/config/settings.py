@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 import environ
 import os
 
@@ -47,8 +48,17 @@ INSTALLED_APPS = [
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+    'dj_rest_auth',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
     'api',
 ]
+
+SITE_ID = 1
 
 AUTH_USER_MODEL = 'accounts.User'
 
@@ -56,19 +66,66 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ]
 }
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
+
+REST_AUTH = {
+    "USE_JWT": True,
+
+    # JWT Cookies
+    "JWT_AUTH_COOKIE": "_auth",
+    "JWT_AUTH_REFRESH_COOKIE": "_refresh",
+
+    # Local Dev Settings
+    "JWT_AUTH_HTTPONLY": False,  # Allow React to read cookies
+    "JWT_AUTH_SECURE": False,
+    "JWT_AUTH_SAMESITE": "Lax",
+
+    # Custom serializer
+    "LOGIN_SERIALIZER": "accounts.serializers.UserLoginSerializer",
+    'REGISTER_SERIALIZER': 'accounts.serializers.UserRegistrationSerializer',
+}
+
+ACCOUNT_LOGIN_METHODS = {"email"}
+ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
+ACCOUNT_EMAIL_VERIFICATION = "none"  # disable email confirm for now
+# ACCOUNT_EMAIL_VERIFICATION = "mandatory" # Require email confirmation
+# ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # No need to send POST request to confirmation link
+
+# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "http://localhost:3000/login"
+# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "http://localhost:3000/dashboard"
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ALLOW_CREDENTIALS = True
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:3000/",
+    ]
 
 ROOT_URLCONF = 'config.urls'
 

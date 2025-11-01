@@ -9,8 +9,6 @@ class User(AbstractUser):
         STUDENT = 'STUDENT', 'Student'
         TEACHER = 'TEACHER', 'Teacher'
 
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=10, choices=ROLES.choices)
     terms_and_condition = models.BooleanField(default=False)
