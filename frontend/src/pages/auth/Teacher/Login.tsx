@@ -20,9 +20,6 @@ const TeacherLogin = () => {
             console.log(`Login successfull, token: ${res.access}`);
             navigate('/Teacher/Dashboard')
         } catch (error) {
-            if (error.email) setError('email', { message: error.email[0] });
-            if (error.password) setError('password', { message: error.password[0] });
-            if (error.detail) setError('root', { message: error.detail });
         }
     }
 

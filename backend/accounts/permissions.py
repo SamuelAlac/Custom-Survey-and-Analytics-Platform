@@ -16,6 +16,9 @@ class IsTeacher(HasRole):
 class IsStudent(HasRole):
     required_role = 'STUDENT'
 
+class IsAdmin(HasRole):
+    required_role = 'ADMIN'
+
 # sample
 
 #permission_classes = [IsTeacher | IsAdmin]

@@ -39,7 +39,7 @@ class Student(User):
         return self.section.name if self.section else "No Section Assigned"
     
 class StudentProfile(models.Model):
-    student = models.OneToOneField(User, on_delete=models.CASCADE)
+    student = models.OneToOneField(User, on_delete=models.CASCADE, related_name='studentprofile')
     section = models.ForeignKey('core.Section', on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

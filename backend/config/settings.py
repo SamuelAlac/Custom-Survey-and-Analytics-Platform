@@ -48,13 +48,9 @@ INSTALLED_APPS = [
     'students.apps.StudentsConfig',
     'teachers.apps.TeachersConfig',
     'rest_framework',
-    'rest_framework.authtoken',
     'rest_framework_simplejwt',
-    'dj_rest_auth',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'dj_rest_auth.registration',
+    'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
     'api',
 ]
 
@@ -64,49 +60,27 @@ AUTH_USER_MODEL = 'accounts.User'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        #'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
+        #'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
     ),
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-}
-
-REST_AUTH = {
-    "USE_JWT": True,
-
-    # JWT Cookies
-    "JWT_AUTH_COOKIE": "access_token",  # optional
-    "JWT_AUTH_REFRESH_COOKIE": "refresh_token",
-
-    # Local Dev Settings
-    "JWT_AUTH_HTTPONLY": False,  # Allow React to read cookies
-    "JWT_AUTH_SECURE": False,
-    "JWT_AUTH_SAMESITE": "Lax",
-
-    # Custom serializer
-    "LOGIN_SERIALIZER": "accounts.serializers.UserLoginSerializer",
-    'REGISTER_SERIALIZER': 'accounts.serializers.UserRegistrationSerializer',
-}
-
-ACCOUNT_LOGIN_METHODS = {"email"}
-ACCOUNT_SIGNUP_FIELDS = ["email*", "password1*", "password2*"]
-ACCOUNT_EMAIL_VERIFICATION = "none"  # disable email confirm for now
-# ACCOUNT_EMAIL_VERIFICATION = "mandatory" # Require email confirmation
-# ACCOUNT_CONFIRM_EMAIL_ON_GET = True  # No need to send POST request to confirmation link
-
-# ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = "http://localhost:3000/login"
-# ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "http://localhost:3000/dashboard"
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+}   
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -116,7 +90,6 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    "allauth.account.middleware.AccountMiddleware",
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]

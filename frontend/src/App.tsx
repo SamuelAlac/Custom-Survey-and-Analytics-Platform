@@ -9,6 +9,7 @@ import NewSurvey from './pages/teacher/new_survey/NewSurvey'
 import TeacherLogin from './pages/auth/Teacher/Login'
 import { AuthLayout } from './layouts/AuthLayout'
 import StudentLogin from './pages/auth/Student/Login'
+import StudentRegister from './pages/auth/Student/Register'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'Student-Login',
         element: <StudentLogin/>
+      },
+      {
+        path: 'Student-Register',
+        element: <StudentRegister/>
       }
     ]
   },

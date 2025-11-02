@@ -11,11 +11,13 @@ class User(AbstractUser):
 
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=10, choices=ROLES.choices)
+    verification_token = models.CharField(max_length=36, blank=True, null=True)
+    is_verified = models.BooleanField(default=False)
     terms_and_condition = models.BooleanField(default=False)
 
     # comment lng to pag gagawa superuser nababalew
-    # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def save(self, *args, **kwargs):
         if not self.pk and not self.role:
