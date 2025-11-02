@@ -5,7 +5,7 @@ export const loginUser = async({ email, password, rememberMe} : { email: string;
         const res = await axios.post('/token/', { email, password, remember_me: rememberMe })
         return res.data
     } catch (error) {
-      console.log(`Failed to login: ${error}`)
+      console.log(`Failed to login user: ${error}`)
     }
 }
 
@@ -23,16 +23,34 @@ export const registerUser = async ({ fname, lname, email, password1, password2, 
     })
     return res.data
   } catch (error) {
-    console.log(`Failed to register: ${error}`)
+    console.log(`Failed to register user: ${error}`)
+  }
+}
+
+export const verifyUser = async ({email, code}: { email: string, code:string }) =>{
+  try {
+    const res = await axios.post('/verify-code/',{ email, code })
+    return res
+  } catch (error) {
+    console.log(`Failed to verify user: ${error}`)
+  }
+}
+
+export const reVerifyUser = async ({email}: { email: string }) =>{
+  try {
+    const res = await axios.post('/resend-code/', { email })
+    return res
+  } catch (error) {
+    console.log(`Failed to resend verifiction to user: ${error}`)
   }
 }
 
 export const logoutUser = async () => {
   try {
-    await axios.post('/logout/');
-    return { success: true };
+    const res = await axios.post('/logout/');
+    return res.data
   } catch (error) {
-    return { success: false, error };
+    console.log(`Failed to logout user: ${error}`)
   }
 };
 

@@ -12,6 +12,8 @@ from django.db import transaction
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from django.utils import timezone
+from django.core.mail import send_mail
 
 # Create your views here.
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -65,7 +67,7 @@ class RegisterView(generics.CreateAPIView):
 
         section_name = getattr(user, 'section_name', None)
         return Response({
-            "message": "User registered successfully. Please verify your email to activate your account.",
+            "message": "User registered successfully. Please verify your email using the code sent.",
             "user": {
                 "id": str(user.id),
                 "username": user.username,
@@ -76,10 +78,11 @@ class RegisterView(generics.CreateAPIView):
                 'terms_and_condition': user.terms_and_condition,
             }
         }, status=status.HTTP_201_CREATED)
+    
 
 class VerifyEmailView(generics.GenericAPIView):
     permission_classes = [AllowAny]
-
+    #FOR VERIFICATION THRU EMAIL BEFORE
     def get(self, request, token, *args, **kwargs):
         try:
             user = User.objects.get(verification_token=token)
@@ -96,11 +99,74 @@ class VerifyEmailView(generics.GenericAPIView):
             user.save()
 
         return Response({"message": "Email verified successfully. You can now log in."}, status=status.HTTP_200_OK)
+
+class VerifyEmailCodeView(APIView):
+    permission_classes = [AllowAny]
+    
+    def post(self, request, *args, **kwargs):
+        if not isinstance(request.data, dict):
+            return Response({"error": "Invalid payload format. Must be JSON object with 'email' and 'code'."}, status=400)
+
+        email = request.data.get('email')
+        code = request.data.get('code')
+
+        if not email or not code:
+            return Response({'error': 'Email and code are required.'}, status=400)
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({"error": "User not found."}, status=404)
+
+        if user.is_verified:
+            return Response({"message": "Email already verified."}, status=400)
+
+        if user.verification_code != code:
+            return Response({"error": "Invalid verification code."}, status=400)
+
+        if user.code_expiration < timezone.now():
+            return Response({"error": "Verification code expired."}, status=400)
         
-# class StudentRegisterView(generics.CreateAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = StudentRegistrationSerializer
-#     permission_classes = [AllowAny]
+        with transaction.atomic():
+            user.is_verified = True
+            user.is_active = True
+            user.verification_code = None
+            user.code_expiration = None
+            user.save()
+
+        return Response({"message": "Email verified successfully! You can now log in."}, status=200)
+
+    
+class ResendVerificationCodeView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        email = request.data.get('email')
+        if not email:
+            return Response({"error": "Email is required."}, status=400)
+
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({"error": "User not found."}, status=404)
+
+        if user.is_verified:
+            return Response({"message": "Email already verified."}, status=400)
+
+        # Generate new code
+        code = user.generate_verification_code()
+
+        subject = "Resend: Your Email Verification Code"
+        message = f"Your new verification code is: {code}. It will expire in 10 minutes."
+        send_mail(
+            subject,
+            message,
+            'samuelalac21@gmail.com',
+            [user.email],
+            fail_silently=False,
+        )
+
+        return Response({"message": "Verification code resent successfully."}, status=200)
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]

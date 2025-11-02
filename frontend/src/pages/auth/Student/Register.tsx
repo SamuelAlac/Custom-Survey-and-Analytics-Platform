@@ -22,8 +22,10 @@ const StudentRegister = () => {
         try {
             const { fname, lname, email, password1, password2, section, tac } = formData
             const res = await registerUser({ fname, lname, email, password1, password2, section, tac })
-            console.log(`Registration successfull, message: ${res.message}`);
-            navigate('/Student/Dashboard')
+            console.log(`Registration successfull, message: ${res.message} userID: ${res.user.id}`);
+            navigate(`/Auth/Student-Register/${res.user.id}?email=${encodeURIComponent(email)}`,{
+                state: { email }
+            })
         } catch (error) {
         }
     }

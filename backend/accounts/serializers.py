@@ -82,13 +82,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
             user.role = role
         user.set_password((password)) # hashes the password
         user.is_active = False
-        user.verification_token = str(uuid.uuid4())
+        # FOR VERTIFICATION THRU EMAIL BEFORE
+        # user.verification_token = str(uuid.uuid4())
         user.save()
-
-        # profile, created = StudentProfile.objects.get_or_create(student=user)
-        # if section_instance:
-        #     profile.section = section_instance
-        #     profile.save(update_fields=['section'])
 
         profile, created = StudentProfile.objects.get_or_create(
             student=user,
@@ -100,20 +96,34 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
         user.section_name = profile.section.name if profile.section else None
 
-        request = self.context.get('request')
-        if request:
-            verification_url = request.build_absolute_uri(
-                reverse('verify-email', kwargs={'token': user.verification_token})
-            )
-            subject = 'Verify Your Email Address'
-            message = f'Click the link to verify your email: {verification_url}'
-            send_mail(
-                subject,
-                message,
-                'samuelalac21@gmail',
-                [user.email],
-                fail_silently=False,
-            )
+        # FOR VERTIFICATION THRU EMAIL BEFORE
+        # request = self.context.get('request')
+        # if request:
+        #     verification_url = request.build_absolute_uri(
+        #         reverse('verify-email', kwargs={'token': user.verification_token})
+        #     )
+        #     subject = 'Verify Your Email Address'
+        #     message = f'Click the link to verify your email: {verification_url}'
+        #     send_mail(
+        #         subject,
+        #         message,
+        #         'samuelalac21@gmail',
+        #         [user.email],
+        #         fail_silently=False,
+        #     )
+
+        code = user.generate_verification_code()
+        subject = "Verify Your Email Address"
+        message = f"Your verification code is: {code}. It will expire in 10 minutes."
+        send_mail(
+            subject,
+            message,
+            'samuelalac21@gmail.com',
+            [user.email],
+            fail_silently=False,
+        )
+
+        return user
         
         return user
 

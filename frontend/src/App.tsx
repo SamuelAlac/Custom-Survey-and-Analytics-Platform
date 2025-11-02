@@ -10,6 +10,7 @@ import TeacherLogin from './pages/auth/Teacher/Login'
 import { AuthLayout } from './layouts/AuthLayout'
 import StudentLogin from './pages/auth/Student/Login'
 import StudentRegister from './pages/auth/Student/Register'
+import VerifyAccount from './pages/auth/Student/VerifyAccount'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: 'Student-Register',
         element: <StudentRegister/>
+      },
+      {
+        path: 'Student-Register/:id',
+        element: <VerifyAccount/>,
       }
     ]
   },
