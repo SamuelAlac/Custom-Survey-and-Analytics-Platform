@@ -1,23 +1,26 @@
 from rest_framework.permissions import BasePermission
 
 class HasRole(BasePermission):
-    required_role = None 
+    allowed_roles = []
 
     def has_permission(self, request, view):
         return bool(
             request.user
             and request.user.is_authenticated
-            and getattr(request.user, "role", None) == self.required_role
+            and getattr(request.user, "role", None) in self.allowed_roles
         )
 
 class IsTeacher(HasRole):
-    required_role = 'TEACHER'
+    allowed_roles = ['TEACHER']
     
 class IsStudent(HasRole):
-    required_role = 'STUDENT'
+    allowed_roles = ["STUDENT"]
 
 class IsAdmin(HasRole):
-    required_role = 'ADMIN'
+    allowed_roles = ['ADMIN']
+
+class IsTeacherOrAdmin(HasRole):
+    allowed_roles = ['TEACHER', 'ADMIN']
 
 # sample
 

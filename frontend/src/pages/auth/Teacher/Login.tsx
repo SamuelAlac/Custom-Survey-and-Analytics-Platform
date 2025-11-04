@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { loginUser, logoutUser } from '../../../features/auth/api';
+import { loginUser } from '../../../features/auth/api';
+import { useAuth } from '../../../context/AuthContext';
 
 type FormFields = {
     email: string;
@@ -12,12 +13,13 @@ const TeacherLogin = () => {
 
     const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({})
     const navigate = useNavigate()
+    const { login, loading } = useAuth()
 
     const onSubmit: SubmitHandler<FormFields> = async (formData) =>{
         try {
             const { email, password, rememberMe } = formData
-            const res = await loginUser({ email, password, rememberMe })
-            console.log(`Login successfull, token: ${res.access}`);
+            await login({ email, password, rememberMe })
+            console.log('Login successfull');
             navigate('/Teacher/Dashboard')
         } catch (error) {
         }
@@ -56,7 +58,7 @@ const TeacherLogin = () => {
                     <Link to="/" className='hidden md:block text-[#F37611] text-sm'>Forgot your password?</Link>
                 </div>
 
-                <button type='submit' className='bg-[#F37611] text-md md:text-xl h-10 rounded-lg text-white shadow-lg shadow-black/30'>Log in</button>
+                <button type='submit' disabled={loading} className='bg-[#F37611] text-md md:text-xl h-10 rounded-lg text-white shadow-lg shadow-black/30'>Log in</button>
                 <Link to="/" className='block md:hidden text-[#F37611] text-[12px] text-end md:text-sm'>Forgot your password?</Link>
             </form>
             <Link to="/" className='md:hidden text-[#F37611] text-center text-sm'>Back to ewan</Link>

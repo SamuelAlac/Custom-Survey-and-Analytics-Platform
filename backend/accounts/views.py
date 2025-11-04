@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth import login, authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import timedelta
-from .serializers import MyTokenObtainPairSerializer, UserRegistrationSerializer, StudentRegistrationSerializer # UserLoginSerializer
+from .serializers import MyTokenObtainPairSerializer, UserRegistrationSerializer, AccountSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny
@@ -14,6 +14,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.utils import timezone
 from django.core.mail import send_mail
+from .authentication import CookieJWTAuthentication
 
 # Create your views here.
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -39,7 +40,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
         response.set_cookie(
             "access", access_token,
             httponly=True,
-            secure=not request.get_host().startswith("localhost"),
+            secure= False, #not request.get_host().startswith("localhost"),
             samesite="Lax",
             max_age=max_age_seconds
         )
@@ -53,8 +54,17 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
         return response
 
-User = get_user_model()
 
+class AccountView(generics.RetrieveAPIView):
+    serializer_class = AccountSerializer
+    # authentication_classes = [JWTAuthentication]
+    authentication_classes = [CookieJWTAuthentication]  # read token from cookie
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+User = get_user_model()
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserRegistrationSerializer
@@ -168,18 +178,24 @@ class ResendVerificationCodeView(APIView):
 
         return Response({"message": "Verification code resent successfully."}, status=200)
 
+
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:
             refresh_token = request.data.get('refresh')
-            token = RefreshToken(refresh_token)
-            token.blacklist()
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
         except Exception:
             return Response({"detail": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+        
+        response = Response({"detail": "Successfully logged out"}, status=status.HTTP_200_OK)
+        response.delete_cookie('access_token')
+        response.delete_cookie('refresh_token')
 
-        return Response({"detail": "Successfully logged out"}, status=status.HTTP_200_OK)
+        return response
 
 
 

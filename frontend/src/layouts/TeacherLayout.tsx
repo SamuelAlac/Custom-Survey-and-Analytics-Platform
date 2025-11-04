@@ -2,7 +2,7 @@ import { Outlet, Link, useNavigate } from 'react-router-dom'
 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { logoutUser } from '../features/auth/api';
+import { useAuth } from '../context/AuthContext';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -16,9 +16,10 @@ const ScrollToTop = () => {
 
 export const TeacherLayout = () => {
   const navigate = useNavigate()
+  const { logout } = useAuth()
 
-  const logout = async () =>{
-        await logoutUser()
+  const logoutUser = async () =>{
+        await logout()
         alert('Logout successfull')
         navigate('/')
     }
@@ -67,7 +68,7 @@ export const TeacherLayout = () => {
 
           <div>
             <div className='flex items-center justify-center h-20 space-x-2.5 space-y-1'>
-              <button onClick={logout}>
+              <button onClick={logoutUser}>
                   <img src='/logout_icon.svg' alt="Dashboard Icon"/>
               </button>
             </div>

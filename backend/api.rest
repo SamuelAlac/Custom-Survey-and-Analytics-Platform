@@ -1,6 +1,26 @@
 ### HAS NO ACCESS
 GET http://127.0.0.1:8000/
 
+### LOGIN USER
+POST http://127.0.0.1:8000/api/auth/token/
+Content-Type: application/json
+
+{
+    "email": "samuelalac21@gmail.com",
+    "password": "Samuel@0613"
+}
+
+### GET AUTH STATE
+GET http://127.0.0.1:8000/api/auth/my-account/
+Cookie: access=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyMTA1MDQzLCJpYXQiOjE3NjIxMDQ3NDMsImp0aSI6ImJkY2YzMGNmMzVjNjQwN2M5YjJiNTQ1ZWM5YjI1MjFkIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.1VjEV5pOe0R5MUwHepHIZtax-BLl3g1HZCZiaRu3p4Y
+### GET SECTIONS
+GET http://127.0.0.1:8000/api/core/sections/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyMDgyNjUwLCJpYXQiOjE3NjIwNzkwNTAsImp0aSI6IjBmNDc5NmVkOWFiNDRlYzM5N2I5MzVmNjA3MDc0M2IzIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.k7GNWCQ7cS0bpmBCkOvt95AK6ROEUPDAsyNpT0rYPW8
+
+### GET SURVEYS
+GET http://127.0.0.1:8000/api/core/surveys/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyMDk4OTY2LCJpYXQiOjE3NjIwOTUzNjYsImp0aSI6ImNiOGFmMTRiYjhjODQ0MWNiMWYwZDFjZjQ5ZjMxNzBhIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.jmDE4a4DOfgpKmuoV9rwSlPKxUrH99E7QyGTZi8Sq5c
+
 ### HAS ACCESS
 GET http://127.0.0.1:8000/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyMDAxMzE4LCJpYXQiOjE3NjE5OTc3MTgsImp0aSI6ImE0YzdjNjU0MzQ5ODQxYjc4YTFkNTgyZGZkZjg5OGY3IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.ghha5F4CUZmh5sNJei8VBkm8ARL8-ifuQg7bFsBLmVE

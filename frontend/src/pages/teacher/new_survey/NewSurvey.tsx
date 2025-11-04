@@ -14,13 +14,13 @@ interface Question {
 interface SurveyFormFields {
     title: string;
     due_date: string;
-    section: string;
+    section: string[];
     questions: Question[];
 }
 
 const NewSurvey = () => {
     const { register, control, handleSubmit, setValue, getValues } = useForm<SurveyFormFields>({
-        defaultValues: { title: '', due_date: '', section: '', questions: [] }
+        defaultValues: { title: '', due_date: '', section: [], questions: [] }
     })
     const [questions, setQuestions] = useState<Question[]>([])
 
@@ -117,6 +117,8 @@ const NewSurvey = () => {
 
                         <div className='flex flex-col w-full space-y-1.5'>
                             <label htmlFor="title">Assign to Section</label>
+
+                            {/* CHANGING THIS SOON TO BE ABLE TO SELECT MULTIPLE SECTIONS */}
                             <select {...register('section')} name="section" required className="border border-[#ACA6A7] p-2 rounded-lg placeholder-[#ACA6A7]">
                                 <option value="">None</option>
                                 <option value="BSIT 4H-G1">BSIT 4H-G1</option>

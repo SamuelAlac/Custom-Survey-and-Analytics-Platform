@@ -9,6 +9,8 @@ from core.models import Section
 from students.models import Student, StudentProfile
 from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import timedelta
+from .models import User
+from core.serializers import SectionSerializer
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -33,8 +35,8 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     section = serializers.SlugRelatedField(
         queryset=Section.objects.all(),
         slug_field='name',
-        required=False,
-        allow_null=True
+        required=True,
+        allow_null=False
     )
 
     section_name = serializers.SerializerMethodField()
@@ -64,6 +66,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         if not attrs.get('terms_and_condition'):
             raise serializers.ValidationError({'terms_and_condition': 'You must accept the terms and conditions to register.'})
         
+        if not attrs.get('section'):
+            raise serializers.ValidationError({
+                'section': 'Section is required and must exist.'
+            })
+
         return attrs
 
     def validate_email(self, value):
@@ -124,88 +131,17 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         )
 
         return user
-        
-        return user
 
-class StudentRegistrationSerializer(UserRegistrationSerializer):
-    def save(self, request=None):
-        user = super().save(request)
-        user.role = User.ROLES.STUDENT
-        user.save(update_fields=['role'])
-        return user
+class AccountSerializer(serializers.ModelSerializer):
+    section = serializers.SerializerMethodField()
 
-    # def save(self, request=None):
-    #     password = self.validated_data.pop('password1')
-    #     self.validated_data.pop('password2')
-    #     role = getattr(User.ROLES, 'STUDENT', None)
-        
-    #     user = User(**self.validated_data)
-    #     if role:
-    #         user.role = role
-    #     user.set_password(password) # hashes the password
-    #     user.save()
-    #     return user
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'section']
 
-
-
-
-
-
-
-
-
-
-
-
-# class UserRegistrationSerializer(serializers.ModelSerializer):
-#     password1 = serializers.CharField(write_only=True)
-#     password2 = serializers.CharField(write_only=True)
-
-#     class Meta:
-#         # model = CustomUser
-#         model = User
-#         # default user model fields
-#         fields = ['id', 'email', 'first_name', 'last_name', 'password1', 'password2', 'terms_and_condition',]
-
-#     def validate_password1(self, value):
-#         validate_password(value)
-#         return value
-    
-#     def validate(self, attrs):
-#         if attrs['password1'] != attrs['password2']:
-#             raise serializers.ValidationError({ 'password': 'Passwords do not match' })
-#         return attrs
-    
-#     def save(self, request=None):
-#         password = self.validated_data.pop('password1')
-#         self.validated_data.pop('password2')
-#         role = getattr(User.ROLES, 'STUDENT', None)
-        
-#         user = User(**self.validated_data)
-#         if role:
-#             user.role = role
-#         user.set_password(password) # hashes the password
-#         user.save()
-#         return user
-
-# # For STUDENT
-class StudentRegistrationSerializer(UserRegistrationSerializer):
-    def save(self, request=None):
-        user = super().save(request)
-        user.role = User.ROLES.STUDENT
-        user.save(update_fields=['role'])
-        return user
-    
-
-# class UserLoginSerializer(LoginSerializer):
-#     username = None
-#     email = serializers.EmailField(required=True)
-#     remember_me = serializers.BooleanField(required=False, default=False)
-
-#     class Meta:
-#         model = User
-#         fields = ["id", "username", "email", "first_name", "last_name", "role"]
-
-#     def validate(self, attrs):
-#         attrs['username'] = attrs.get('email')
-#         return super().validate(attrs)
+    def get_section(self, obj):
+        if obj.role ==  User.ROLES.STUDENT and hasattr(obj, 'studentprofile'):
+            section = obj.studentprofile.section
+            if section:
+                return SectionSerializer(section).data
+        return None
