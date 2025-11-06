@@ -45,7 +45,10 @@ debug.log
 
 .venv
 .env
+<<<<<<< HEAD
 # db.sqlite3
+=======
+>>>>>>> f0d4f71a59b24be528088f232fc8f8faa3f61a86
 
 # theme/static_src/node_modules/
 # theme/static/css/dist/
