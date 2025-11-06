@@ -23,5 +23,6 @@ export const SurveyList = () => {
             </div>
         </div>
     </div>
+
   )
 }
