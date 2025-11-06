@@ -15,7 +15,7 @@ export const VerifyAccount = () => {
         e.preventDefault();
         console.log(`Entered OTP: ${otp}`)
         const res = await verifyUser({ email: email, code: otp })
-        if (res.success){
+        if (res.success !== false){
             navigate('/Auth/Student-Login')
         }
     }
