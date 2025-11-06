@@ -40,7 +40,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
         response.set_cookie(
             "access", access_token,
             httponly=True,
-            secure= False, #not request.get_host().startswith("localhost"),
+            secure= not request.get_host().startswith("localhost"),
             samesite="Lax",
             max_age=max_age_seconds
         )

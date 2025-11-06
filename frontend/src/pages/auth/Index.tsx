@@ -1,35 +1,30 @@
 import { Link } from "react-router-dom"
 const Index = () => {
   return (
-    // <main className='bg-[#FBA02C] flex justify-center items-center min-h-screen w-full'>
-    //       <div className='bg-white w-full m-5 md:m-0 md:w-140 h-100 md:h-140 rounded-4xl flex flex-col justify-center items-center space-y-3
-    //       shadow-lg shadow-black/30'>
-    //           <h2 className='text-black text-xl md:text-3xl font-bold'>Welcome to Survey Corps</h2>
-    //           <div className='text-center w-52 md:w-90'>
-    //               <p className='text-[#ACA6A7]'>Choose to log in as a student or as a teacher.</p>
-    //           </div>
-    //           <p className='text-black text-lg md:text-xl font-bold mt-2'>Log in as</p>
-              
-    //           <div className='text-[#F37611] text-center md:mt-5 flex flex-col items-center space-y-5'>
-    //                 <Link to='Auth/Student-Login' className='bg-[#FFD9B3] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20'>As Student</Link>
-    //               <Link to='Auth/Teacher-Login' className='bg-[#FFD9B3] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20'>As Teacher</Link>
-    //           </div>
-    //       </div>
-    //   </main>
     <main className="bg-[url(/index_bg.svg)] bg-cover flex justify-center items-center min-h-screen w-full">
-
-        <div className='bg-white w-full m-5 md:m-0 md:w-140 h-100 md:h-140 rounded-4xl flex flex-col justify-center items-center space-y-3
-        shadow-lg shadow-black/30'>
-            <h2 className='text-black text-xl md:text-3xl font-bold'>Welcome to Survey Corps</h2>
-            <div className='text-center w-52 md:w-90'>
-                <p className='text-[#ACA6A7]'>Choose to log in as a student or as a teacher.</p>
+        <div className="bg-white w-220 h-120 flex justify-between rounded-4xl">
+          <div className="flex-1 flex justify-center items-center m-1.5 bg-[url(/index_hero.svg)] bg-cover rounded-l-4xl">
+            <figure className="flex flex-col items-center">
+              <img src="survey_corps_logo.svg" alt="" />
+                <h1 className="text-white font-bold text-2xl">Custom Survey</h1>
+                <h1 className="text-white font-bold text-2xl">and Analytics Platform</h1>
+            </figure>
+          </div>
+          <div className='w-110 bg-white flex flex-col justify-center items-center space-y-2.5 rounded-r-4xl'>
+            <h2 className='text-black text-xl md:text-2xl font-bold'>Welcome to Survey Corps</h2>
+            <div className='text-justify w-52 md:w-71'>
+                <p className='text-[#ACA6A7]'>
+                  Making every voice heard in education. Log in to participate
+                  surveys or create meaningful feedback opportunities.
+                </p>
             </div>
-            <p className='text-black text-lg md:text-xl font-bold mt-2'>Log in as</p>
+            <p className='text-black text-lg md:text-xl font-bold mt-5'>Log in as</p>
             
-            <div className='text-[#F37611] text-center md:mt-5 flex flex-col items-center space-y-5'>
-                  <Link to='Auth/Student-Login' className='bg-[#FFD9B3] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20'>As Student</Link>
-                <Link to='Auth/Teacher-Login' className='bg-[#FFD9B3] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20'>As Teacher</Link>
+            <div className='text-[#F37611] text-center md:mt-5 flex flex-col items-center space-y-5 text-black'>
+                  <Link to='Auth/Student-Login' className='bg-[#FBA02C] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20 font-semibold'>As Student</Link>
+                <Link to='Auth/Teacher-Login' className='bg-[#FBA02C] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20 font-semibold'>As Teacher</Link>
             </div>
+        </div>
         </div>
     </main>
   )

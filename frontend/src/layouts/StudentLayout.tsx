@@ -1,7 +1,8 @@
-import { Link, Outlet } from 'react-router-dom'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { useAuth } from '../context/AuthContext';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -16,6 +17,16 @@ const ScrollToTop = () => {
 export default ScrollToTop;
 
 export const StudentLayout = () => {
+
+  const navigate = useNavigate()
+  const { logout } = useAuth()
+
+  const logoutUser = async () =>{
+        await logout()
+        alert('Logout successfull')
+        navigate('/')
+    }
+
   return (
     <div className='w-full min-h-screen flex'>
         <aside className='bg-[#FBA02C] fixed h-screen w-25 md:w-24 flex flex-col justify-center text-white'>
@@ -60,9 +71,9 @@ export const StudentLayout = () => {
 
           <div>
             <div className='flex items-center justify-center h-20 space-x-2.5 space-y-1'>
-              <Link to='/'>
+              <button onClick={logoutUser}>
                   <img src='/logout_icon.svg' alt="Dashboard Icon"/>
-              </Link>
+              </button>
             </div>
           </div>
         </aside>

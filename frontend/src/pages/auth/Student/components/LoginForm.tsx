@@ -16,21 +16,23 @@ type Toast = {
     duration?: number;
 };
 
-export const LoginForm = () => {
+import React from 'react'
+
+const LoginForm = () => {
 
     const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({})
     const navigate = useNavigate()
     const { login, loading, logout } = useAuth()
 
     const [toast, setToast] = useState<Toast | null>(null);
-    
+
     const showToast = (type: Toast['type'], message: string, duration = 3000) => {
     setToast({ type, message, duration });
 
     setTimeout(() => {
         setToast(null);
     }, duration);
-    }
+    };
 
     const onSubmit: SubmitHandler<FormFields> = async (formData) =>{
         try {
@@ -38,25 +40,25 @@ export const LoginForm = () => {
             const res = await login({ email, password, rememberMe })
             console.log(res)
             if (res.user){
-                if (res.user.role == 'TEACHER' || res.user.role === 'ADMIN'){
+                if (res.user.role == 'STUDENT'){
                     console.log('login successfull')
                     showToast('success', 'Login successful! Redirecting...');
-                    setTimeout(() => navigate('/Teacher/Dashboard'), 1500);
+                    setTimeout(() => navigate('/Student/Dashboard'), 1500);
                 }else{
                     await logout()
                     showToast('warning', 'You are not authorized authorized.' );
                 }
             }
         } catch (error: any) {
-            showToast('warning', error?.detail);
-            if (error?.email) {
-            setError("email", { type: "server", message: error.email[0] });
-            }
-            if (error?.password) {
-            setError("password", { type: "server", message: error.password[0] });
+                showToast('warning', error?.detail);
+                if (error?.email) {
+                setError("email", { type: "server", message: error.email[0] });
+                }
+                if (error?.password) {
+                setError("password", { type: "server", message: error.password[0] });
+                }
             }
         }
-    }
 
   return (
     <>
@@ -96,9 +98,11 @@ export const LoginForm = () => {
             <Link to="/" className='hidden md:block text-[#F37611] text-sm'>Forgot your password?</Link>
         </div>
 
-        <button type='submit' disabled={loading} className='bg-[#F37611] text-md md:text-xl h-10 rounded-lg text-white shadow-lg shadow-black/30'>Log in</button>
+        <button type='submit' className='bg-[#F37611] text-md md:text-xl h-10 rounded-lg text-white shadow-lg shadow-black/30'>Log in</button>
         <Link to="/" className='block md:hidden text-[#F37611] text-[12px] text-end md:text-sm'>Forgot your password?</Link>
     </form>
     </>
   )
 }
+
+export default LoginForm

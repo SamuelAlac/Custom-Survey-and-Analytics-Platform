@@ -11,10 +11,10 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) 
     if (!user) return <Navigate to='/' replace />;
 
     if (allowedRoles && !allowedRoles.includes(user.role)){
-        // return user.role === 'TEACHER' || user.role === 'ADMIN'
-        // ? <Navigate to="/Teacher/Dashboard" replace />
-        // : <Navigate to="/Student/Dashboard" replace />;
-        return <Navigate to={'/'} replace/>
+        return user.role === 'TEACHER' || user.role === 'ADMIN'
+        ? <Navigate to="/Teacher/Dashboard" replace />
+        : <Navigate to="/Student/Dashboard" replace />;
+        // return <Navigate to={'/'} replace/>
     }
 
     return <Outlet/>
