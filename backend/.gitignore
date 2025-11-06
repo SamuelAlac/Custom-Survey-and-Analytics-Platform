@@ -45,7 +45,7 @@ debug.log
 
 .venv
 .env
-db.sqlite3
+#db.sqlite3
 
 # theme/static_src/node_modules/
 # theme/static/css/dist/
