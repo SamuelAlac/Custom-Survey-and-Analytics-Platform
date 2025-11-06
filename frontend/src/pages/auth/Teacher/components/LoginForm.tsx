@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useAuth } from '../../../../context/AuthContext';
+import { useAuth } from '../../../../context/AuthContext'
 
 
 type FormFields = {
