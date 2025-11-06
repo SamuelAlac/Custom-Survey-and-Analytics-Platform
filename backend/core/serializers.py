@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Section, Survey
+from .models import Section, Survey, Question
 
 class SectionSerializer(serializers.ModelSerializer):
     created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
@@ -12,11 +12,18 @@ class SectionSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['created_at', 'updated_at']
 
-class SurveySerialier(serializers.ModelSerializer):
+class QuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+class SurveySerializer(serializers.ModelSerializer):
     created_by = serializers.StringRelatedField(read_only=True)
     updated_by = serializers.StringRelatedField(read_only=True)
+
+    survey_questions = QuestionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Survey
         fields = '__all__'
-        read_only_fields = ['created_at', 'updated_at', 'created_by', 'updated_by']
+        read_only_fields = ['created_at', 'updated_at', 'created_by', 'updated_by', 'survey_questions']

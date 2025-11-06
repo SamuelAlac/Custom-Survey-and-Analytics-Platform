@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 
 const TeacherDashboard = () => {
+
   return (
     <section className='space-y-7.5'>
         <div className='h-10 md:h-15 flex flex-col md:flex-row justify-between items-center'>

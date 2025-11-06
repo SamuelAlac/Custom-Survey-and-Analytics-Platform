@@ -11,6 +11,7 @@ import { AuthLayout } from './layouts/AuthLayout'
 import StudentLogin from './pages/auth/Student/Login'
 import StudentRegister from './pages/auth/Student/Register'
 import VerifyAccount from './pages/auth/Student/VerifyAccount'
+import { ProtectedRoute } from './routes/ProtectedRoute'
 
 const router = createBrowserRouter([
   {
@@ -21,51 +22,49 @@ const router = createBrowserRouter([
     path: '/Auth',
     element: <AuthLayout/>,
     children: [
+      { path: 'Teacher-Login', element: <TeacherLogin/> },
+      { path: 'Student-Login', element: <StudentLogin/> },
+      { path: 'Student-Register', element: <StudentRegister/> },
+      { path: 'Student-Register/:id', element: <VerifyAccount/>, }
+    ]
+  },
+  {
+    element: <ProtectedRoute allowedRoles={['STUDENT']}/>,
+    children: [
       {
-        path: 'Teacher-Login',
-        element: <TeacherLogin/>
-      },
-      {
-        path: 'Student-Login',
-        element: <StudentLogin/>
-      },
-      {
-        path: 'Student-Register',
-        element: <StudentRegister/>
-      },
-      {
-        path: 'Student-Register/:id',
-        element: <VerifyAccount/>,
+        path: '/Student',
+        element: <StudentLayout/>,
+        children: [
+          { path: "Dashboard", element: <StudentDashboard /> },
+          { path: "MyResponses", element: <StudentResponses /> },
+        ]
       }
     ]
   },
   {
-    path: '/Student',
-    element: <StudentLayout/>,
+    element: <ProtectedRoute allowedRoles={['TEACHER', 'ADMIN']} />,
     children: [
       {
-        path: 'Dashboard',
-        element: <StudentDashboard/>,
+        path: "/Teacher",
+        element: <TeacherLayout />,
+        children: [
+          { path: "Dashboard", element: <TeacherDashboard /> },
+          { path: "NewSurvey", element: <NewSurvey /> },
+        ],
       },
-      {
-        path: 'MyResponses',
-        element: <StudentResponses/>,
-      }
     ]
-  },
-  {
-    path: '/Teacher',
-    element: <TeacherLayout/>,
-    children: [
-      {
-        path: 'Dashboard',
-        element: <TeacherDashboard/>,
-      },
-      {
-        path: 'NewSurvey',
-        element: <NewSurvey/>
-      }
-    ]
+    // path: '/Teacher',
+    // element: <TeacherLayout/>,
+    // children: [
+    //   {
+    //     path: 'Dashboard',
+    //     element: <TeacherDashboard/>,
+    //   },
+    //   {
+    //     path: 'NewSurvey',
+    //     element: <NewSurvey/>
+    //   }
+    // ]
   }
 ])
 

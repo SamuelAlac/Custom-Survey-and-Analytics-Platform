@@ -30,9 +30,9 @@ export const registerUser = async ({ fname, lname, email, password1, password2, 
 export const verifyUser = async ({email, code}: { email: string, code:string }) =>{
   try {
     const res = await axios.post('/auth/verify-code/',{ email, code })
-    return res
+    return res.data
   } catch (error) {
-    console.log(`Failed to verify user: ${error}`)
+    return { message: 'failed to verify user', success: false }
   }
 }
 
@@ -47,7 +47,12 @@ export const reVerifyUser = async ({email}: { email: string }) =>{
 
 export const getMyAccount= async() =>{
     try {
-        const res = await axios.get('/auth/my-account/')
+        const token = localStorage.getItem('access')
+        const res = await axios.get('/auth/my-account/',{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
         return res.data
     } catch (error) {
         console.log(`Failed to get your account: ${error}`)

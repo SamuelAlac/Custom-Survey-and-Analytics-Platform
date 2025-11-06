@@ -17,12 +17,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) =>{
     const { data: user, isLoading: loading } = useUser()
 
     const login = async ({ email, password, rememberMe }: { email: string, password: string, rememberMe: boolean }) => {
-        await loginUser({ email, password, rememberMe });
+        const res = await loginUser({ email, password, rememberMe });
+
+        if(res?.access){
+            localStorage.setItem('access', res.access);
+        }
+
+        if (res?.refresh) {
+            localStorage.setItem('refresh', res.refresh);
+        }
+
         queryClient.invalidateQueries({ queryKey: ['myaccount'] });
+        return user
     };
 
     const logout = async () => {
         await logoutUser();
+        localStorage.removeItem('access');
+        localStorage.removeItem('refresh');
         queryClient.setQueryData(['myaccount'], null);
     };
 

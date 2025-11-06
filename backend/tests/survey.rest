@@ -1,0 +1,47 @@
+### GET SURVEYS
+GET http://127.0.0.1:8000/api/core/surveys/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAxMzEwLCJpYXQiOjE3NjI0MDEwMTAsImp0aSI6IjU5NzZmODNhMjlkYzQyYTNiMzY4MWZlZGQ3N2M3NjAyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.177DfHApdajXH25MQo9hn5B0_V9quD4-pCEZ4hCR6S0
+
+### CREATE SURVEY
+POST http://127.0.0.1:8000/api/core/surveys/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAxMzEwLCJpYXQiOjE3NjI0MDEwMTAsImp0aSI6IjU5NzZmODNhMjlkYzQyYTNiMzY4MWZlZGQ3N2M3NjAyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.177DfHApdajXH25MQo9hn5B0_V9quD4-pCEZ4hCR6S0
+Content-Type: application/json
+
+{
+    "title": "Test Survey 2",
+    "description": "testing survey"
+}
+
+### GET SURVEY
+GET http://127.0.0.1:8000/api/core/surveys/3/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAwNzY1LCJpYXQiOjE3NjI0MDA0NjUsImp0aSI6ImQyYmY2M2M5Y2FkODQ0MDhiODg1NTZmMDYyMDhiNTJiIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.7Dp0neXVLp8rtX09TL3u4sEvXoEy3Nc1tAXZngXvNk4
+
+### UPDATE SURVEY
+PUT http://127.0.0.1:8000/api/core/surveys/3/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAwNzY1LCJpYXQiOjE3NjI0MDA0NjUsImp0aSI6ImQyYmY2M2M5Y2FkODQ0MDhiODg1NTZmMDYyMDhiNTJiIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.7Dp0neXVLp8rtX09TL3u4sEvXoEy3Nc1tAXZngXvNk4
+Content-Type: application/json
+
+{
+    "title": "Updated Survey 2",
+    "description": "Collecting"
+}
+
+### DELETE SURVEY
+DELETE http://127.0.0.1:8000/api/core/surveys/3/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAwNzY1LCJpYXQiOjE3NjI0MDA0NjUsImp0aSI6ImQyYmY2M2M5Y2FkODQ0MDhiODg1NTZmMDYyMDhiNTJiIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.7Dp0neXVLp8rtX09TL3u4sEvXoEy3Nc1tAXZngXvNk4
+
+
+############ OLD #################
+### CREATE SURVEY
+POST http://127.0.0.1:8000/api/core/surveys/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyMzkyMDUwLCJpYXQiOjE3NjIzOTE3NTAsImp0aSI6ImVlNTU3YTlkZTc2NTRlNWM5MTA1MTZmNWM5YjYwYWFkIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.DAyL4dDZEcxci3Cx4rTJz8xcN5vsHrb7D3rm_hJqXt4 
+Content-Type: application/json
+
+{
+  "title": "Test Survey",
+  "description": "Collecting customer satisfaction levels",
+  "survey_questions": [
+    { "text": "How satisfied are you with our service?", "question_type": "likert", "order": 1 },
+    { "text": "What can we improve?", "question_type": "text", "order": 2 }
+  ]
+}

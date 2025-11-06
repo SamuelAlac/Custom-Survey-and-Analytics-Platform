@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Link, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import OTPInput from 'react-otp-input';
 import { verifyUser } from '../../../features/auth/api';
 
 export const VerifyAccount = () => {
-    const { id } = useParams();
+    // const { id } = useParams();
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate()
     const email = searchParams.get('email');
     if (!email) throw new Error('Email not found')
     const [otp, setOtp] = useState('');
@@ -14,7 +15,9 @@ export const VerifyAccount = () => {
         e.preventDefault();
         console.log(`Entered OTP: ${otp}`)
         const res = await verifyUser({ email: email, code: otp })
-        console.log(res)
+        if (res.success){
+            navigate('/Auth/Student-Login')
+        }
     }
 
   return (

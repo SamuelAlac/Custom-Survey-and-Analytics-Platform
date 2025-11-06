@@ -50,7 +50,7 @@ class Question(models.Model):
         MCQ = 'mcq', 'Multiple Choice'
         LIKERT = 'likert', 'Likert Scale'
         
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='survey_question')
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='survey_questions')
     text = models.TextField()
     question_type = models.CharField(max_length=20, choices=Types.choices)
     order = models.PositiveIntegerField(default=0)

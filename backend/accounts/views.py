@@ -6,6 +6,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import timedelta
 from .serializers import MyTokenObtainPairSerializer, UserRegistrationSerializer, AccountSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import AllowAny
 from django.db import transaction
@@ -14,7 +15,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.utils import timezone
 from django.core.mail import send_mail
-from .authentication import CookieJWTAuthentication
 
 # Create your views here.
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -57,8 +57,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 class AccountView(generics.RetrieveAPIView):
     serializer_class = AccountSerializer
-    # authentication_classes = [JWTAuthentication]
-    authentication_classes = [CookieJWTAuthentication]  # read token from cookie
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
