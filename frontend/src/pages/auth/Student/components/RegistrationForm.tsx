@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { registerUser } from '../../../../features/auth/api';
-import { useSections } from '../../../../features/section/hook';
+import { useSections } from '../../../../features/section/hooks';
 
 type FormFields = {
     fname: string;

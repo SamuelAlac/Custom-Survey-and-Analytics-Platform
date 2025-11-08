@@ -54,15 +54,6 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
         return response
 
-
-class AccountView(generics.RetrieveAPIView):
-    serializer_class = AccountSerializer
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user
-
 User = get_user_model()
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
@@ -196,54 +187,10 @@ class LogoutView(APIView):
 
         return response
 
+class AccountView(generics.RetrieveAPIView):
+    serializer_class = AccountSerializer
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
-
-
-
-
-
-
-# class   CustomLoginView(LoginView):
-#     def post(self, request):
-#         user = authenticate(email=request.data['email'], password=request.data['password'])
-#         if user:
-#             remember_me = request.data.get('remember_me', False)
-#             refresh = RefreshToken.for_user(user)
-
-#             # Adjust token lifetime
-#             if remember_me:
-#                 refresh.set_exp(lifetime=timedelta(days=30))
-#             else:
-#                 refresh.set_exp(lifetime=timedelta(days=1))
-
-#             access_token = refresh.access_token
-
-#             user_data = UserLoginSerializer(user).data
-
-#             response = Response({
-#                 "detail": "Login successful",
-#                 "user": user_data,
-#                 "access": str(access_token),
-#                 "refresh": str(refresh),
-#             })
-
-#             # Store tokens as cookies
-#             response.set_cookie(
-#                 "access", str(access_token),
-#                 httponly=True,
-#                 secure=not request.get_host().startswith("localhost"),
-#                 samesite="Lax",
-#                 max_age=60 * 60 * 24 * (30 if remember_me else 1)
-#             )
-#             response.set_cookie(
-#                 "refresh", str(refresh),
-#                 httponly=True,
-#                 secure=not request.get_host().startswith("localhost"),
-#                 samesite="Lax",
-#                 max_age=60 * 60 * 24 * (30 if remember_me else 1)
-#             )
-
-#             return response
-
-#         return Response({"detail": "Invalid credentials"}, status=400)
-    
+    def get_object(self):
+        return self.request.user

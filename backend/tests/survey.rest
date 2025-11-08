@@ -1,28 +1,28 @@
 ### GET SURVEYS
 GET http://127.0.0.1:8000/api/core/surveys/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAxMzEwLCJpYXQiOjE3NjI0MDEwMTAsImp0aSI6IjU5NzZmODNhMjlkYzQyYTNiMzY4MWZlZGQ3N2M3NjAyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.177DfHApdajXH25MQo9hn5B0_V9quD4-pCEZ4hCR6S0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTEyMjgwLCJpYXQiOjE3NjI1MTE5ODAsImp0aSI6IjNmM2RiMGQxZjk5ZjQxMWRhZGVmYzhlMDllZWRiYjk1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.HJsmJDaYGYtzxnZKZLd0USKYSnp8HzzBI4giQ8e5V3E
 
 ### CREATE SURVEY
 POST http://127.0.0.1:8000/api/core/surveys/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAxMzEwLCJpYXQiOjE3NjI0MDEwMTAsImp0aSI6IjU5NzZmODNhMjlkYzQyYTNiMzY4MWZlZGQ3N2M3NjAyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.177DfHApdajXH25MQo9hn5B0_V9quD4-pCEZ4hCR6S0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTEyMjgwLCJpYXQiOjE3NjI1MTE5ODAsImp0aSI6IjNmM2RiMGQxZjk5ZjQxMWRhZGVmYzhlMDllZWRiYjk1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.HJsmJDaYGYtzxnZKZLd0USKYSnp8HzzBI4giQ8e5V3E
 Content-Type: application/json
 
 {
-    "title": "Test Survey 2",
+    "title": "Test Survey",
     "description": "testing survey"
 }
 
 ### GET SURVEY
-GET http://127.0.0.1:8000/api/core/surveys/3/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAwNzY1LCJpYXQiOjE3NjI0MDA0NjUsImp0aSI6ImQyYmY2M2M5Y2FkODQ0MDhiODg1NTZmMDYyMDhiNTJiIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.7Dp0neXVLp8rtX09TL3u4sEvXoEy3Nc1tAXZngXvNk4
+GET http://127.0.0.1:8000/api/core/surveys/12/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTEyMjgwLCJpYXQiOjE3NjI1MTE5ODAsImp0aSI6IjNmM2RiMGQxZjk5ZjQxMWRhZGVmYzhlMDllZWRiYjk1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.HJsmJDaYGYtzxnZKZLd0USKYSnp8HzzBI4giQ8e5V3E
 
 ### UPDATE SURVEY
-PUT http://127.0.0.1:8000/api/core/surveys/3/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAwNzY1LCJpYXQiOjE3NjI0MDA0NjUsImp0aSI6ImQyYmY2M2M5Y2FkODQ0MDhiODg1NTZmMDYyMDhiNTJiIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.7Dp0neXVLp8rtX09TL3u4sEvXoEy3Nc1tAXZngXvNk4
+PUT http://127.0.0.1:8000/api/core/surveys/12/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTEyMjgwLCJpYXQiOjE3NjI1MTE5ODAsImp0aSI6IjNmM2RiMGQxZjk5ZjQxMWRhZGVmYzhlMDllZWRiYjk1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.HJsmJDaYGYtzxnZKZLd0USKYSnp8HzzBI4giQ8e5V3E
 Content-Type: application/json
 
 {
-    "title": "Updated Survey 2",
+    "title": "Updated Survey",
     "description": "Collecting"
 }
 
@@ -30,6 +30,26 @@ Content-Type: application/json
 DELETE http://127.0.0.1:8000/api/core/surveys/3/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDAwNzY1LCJpYXQiOjE3NjI0MDA0NjUsImp0aSI6ImQyYmY2M2M5Y2FkODQ0MDhiODg1NTZmMDYyMDhiNTJiIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.7Dp0neXVLp8rtX09TL3u4sEvXoEy3Nc1tAXZngXvNk4
 
+
+
+
+# ### GET SURVEY BUILDER
+# POST http://127.0.0.1:8000/api/core/survey-builder/
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNDk3NDc0LCJpYXQiOjE3NjI0OTcxNzQsImp0aSI6IjI1MGZmYTBjM2E3ZTQxYmJiNDY2YTk2NDFlOWE5MzIxIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.idLQwH5oPZ6KiTc5a5-Kf88Atz1AmW7E93Bahv0BmTw
+# Content-Type: application/json
+
+# {
+#   "title": "Student Evaluation Survey",
+#   "description": "End of semester feedback form",
+#   "survey_questions": [
+#     { "text": "How satisfied are you with the course?", "question_type": "likert", "order": 1 },
+#     { "text": "Any suggestions for improvement?", "question_type": "text", "order": 2 }
+#   ],
+#   "assignment_surveys": {
+#     "sections": [1, 2],
+#     "due_date": "2025-11-30T23:59:00Z"
+#   }
+# }
 
 ############ OLD #################
 ### CREATE SURVEY

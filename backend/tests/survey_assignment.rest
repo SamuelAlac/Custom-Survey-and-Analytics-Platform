@@ -1,0 +1,28 @@
+### GET SURVEY ASSIGNMENTS
+GET http://127.0.0.1:8000/api/core/survey-assignments/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTYzOTM4LCJpYXQiOjE3NjI1NjAzMzgsImp0aSI6IjBlNzg4OGNiOTU0ZjQ1ODM5ODMzNjI5YTE1ZTBlMDY1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.noS2ixEr9P2VznKtYlSaNKmS3wQS4fUgp_B40yWKtT4
+
+### CREATE SURVEY ASSIGNMENTS
+POST http://127.0.0.1:8000/api/core/survey-assignments/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTEyOTMyLCJpYXQiOjE3NjI1MTI2MzIsImp0aSI6IjlhM2QxYjcwN2QyNTRiNGJiNjRmMDI3OTc1YzA2YTQyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.e3QrsDx3xr_dq1J4-5lSn-OwuYFQhgIIcmqUpiEbwI0
+Content-Type: application/json
+
+{
+    "survey": 12,
+    "sections": [1,2]
+}
+
+### GET SURVEY ASSIGNMENT
+GET http://127.0.0.1:8000/api/core/survey-assignments/10/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTYzOTM4LCJpYXQiOjE3NjI1NjAzMzgsImp0aSI6IjBlNzg4OGNiOTU0ZjQ1ODM5ODMzNjI5YTE1ZTBlMDY1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.noS2ixEr9P2VznKtYlSaNKmS3wQS4fUgp_B40yWKtT4
+
+
+### UPDATE SURVEY_ASSIGNMENTS
+PUT http://127.0.0.1:8000/api/core/survey-assignments/10/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTEyOTMyLCJpYXQiOjE3NjI1MTI2MzIsImp0aSI6IjlhM2QxYjcwN2QyNTRiNGJiNjRmMDI3OTc1YzA2YTQyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.e3QrsDx3xr_dq1J4-5lSn-OwuYFQhgIIcmqUpiEbwI0
+Content-Type: application/json
+
+{
+    "survey": 12,
+    "sections": [1]
+}

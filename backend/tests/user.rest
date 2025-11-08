@@ -1,0 +1,12 @@
+### LOGIN
+POST http://127.0.0.1:8000/api/auth/token/
+Content-Type: application/json
+
+{
+    "email": "samuelalac04@gmail.com",
+    "password": "Samuel@061303"
+}
+
+### GET USER ACCOUNT
+GET http://127.0.0.1:8000/api/auth/my-account/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjA1MzI1LCJpYXQiOjE3NjI2MDE3MjUsImp0aSI6ImYxZmQwNTA0ZjljMTQ4YzE4MTgxNDNjZTE2YTEyOGUyIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ.TzVWUrWdrZrc-knTCtu_mQ2YfEsAMcmMcwfTxh3_Auw

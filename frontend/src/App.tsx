@@ -5,13 +5,14 @@ import StudentDashboard from './pages/student/dashboard/StudentDashboard'
 import TeacherDashboard from './pages/teacher/dashboard/TeacherDashboard'
 import StudentResponses from './pages/student/my_responses/StudentResponses'
 import { TeacherLayout } from './layouts/TeacherLayout'
-import NewSurvey from './pages/teacher/new_survey/NewSurvey'
 import TeacherLogin from './pages/auth/Teacher/Login'
 import { AuthLayout } from './layouts/AuthLayout'
 import StudentLogin from './pages/auth/Student/Login'
 import StudentRegister from './pages/auth/Student/Register'
 import VerifyAccount from './pages/auth/Student/VerifyAccount'
 import { ProtectedRoute } from './routes/ProtectedRoute'
+import CreateSurvey from './pages/teacher/new_survey/CreateSurvey'
+import NewSurvey from './pages/teacher/new_survey/NewSurvey'
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,8 @@ const router = createBrowserRouter([
         children: [
           { path: "Dashboard", element: <TeacherDashboard /> },
           { path: "NewSurvey", element: <NewSurvey /> },
+          { path: "NewSurvey/Create-Survey", element: <CreateSurvey /> },
+
         ],
       },
     ]

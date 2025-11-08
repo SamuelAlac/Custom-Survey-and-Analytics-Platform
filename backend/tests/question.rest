@@ -1,0 +1,48 @@
+### GET QUESTIONS
+GET http://127.0.0.1:8000/api/core/questions/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTczNTM2LCJpYXQiOjE3NjI1Njk5MzYsImp0aSI6IjQ4ZDYwOGVlODdjOTQzMzFhZTFkMjBjNjRmMjgzY2I5IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.O73iy-HESmfaOkCHSNnv0bXRXcedmoB_j84fzOBmy8I
+
+### CREATE QUESTION
+POST http://127.0.0.1:8000/api/core/questions/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTczNTM2LCJpYXQiOjE3NjI1Njk5MzYsImp0aSI6IjQ4ZDYwOGVlODdjOTQzMzFhZTFkMjBjNjRmMjgzY2I5IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.O73iy-HESmfaOkCHSNnv0bXRXcedmoB_j84fzOBmy8I
+Content-Type: application/json
+
+{
+  "survey": 12,
+  "text": "What is preferred programming language?",
+  "question_type": "mcq",
+  "order": 1,
+  "question_choices": [
+    {"text": "Python"},
+    {"text": "Java"},
+    {"text": "Go"}
+  ]
+}
+
+### GET QUESTION
+GET http://127.0.0.1:8000/api/core/questions/23/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTYzOTM4LCJpYXQiOjE3NjI1NjAzMzgsImp0aSI6IjBlNzg4OGNiOTU0ZjQ1ODM5ODMzNjI5YTE1ZTBlMDY1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.noS2ixEr9P2VznKtYlSaNKmS3wQS4fUgp_B40yWKtT4
+
+### UPDATE QUESTIONS
+PUT http://127.0.0.1:8000/api/core/questions/23/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTYzOTM4LCJpYXQiOjE3NjI1NjAzMzgsImp0aSI6IjBlNzg4OGNiOTU0ZjQ1ODM5ODMzNjI5YTE1ZTBlMDY1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.noS2ixEr9P2VznKtYlSaNKmS3wQS4fUgp_B40yWKtT4
+Content-Type: application/json
+
+{
+  "survey": 12,
+  "text": "What is your preferred programming language?",
+  "question_type": "mcq",
+  "order": 1,
+  "question_choices": [
+    {"text": "Python"},
+    {"text": "Java"}
+  ]
+}
+
+### DELETE QUESTION
+DELETE http://127.0.0.1:8000/api/core/questions/22/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTYzOTM4LCJpYXQiOjE3NjI1NjAzMzgsImp0aSI6IjBlNzg4OGNiOTU0ZjQ1ODM5ODMzNjI5YTE1ZTBlMDY1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.noS2ixEr9P2VznKtYlSaNKmS3wQS4fUgp_B40yWKtT4
+
+### DELETE CHOICE
+DELETE http://127.0.0.1:8000/api/core/choices/17/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTYzOTM4LCJpYXQiOjE3NjI1NjAzMzgsImp0aSI6IjBlNzg4OGNiOTU0ZjQ1ODM5ODMzNjI5YTE1ZTBlMDY1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.noS2ixEr9P2VznKtYlSaNKmS3wQS4fUgp_B40yWKtT4

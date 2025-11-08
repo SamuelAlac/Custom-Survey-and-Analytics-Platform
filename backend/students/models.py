@@ -43,9 +43,3 @@ class StudentProfile(models.Model):
     section = models.ForeignKey('core.Section', on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
-# class Response(models.Model):
-#     pass
-
-# class Answer(models.Model):
-#     response = models.ForeignKey(Response)

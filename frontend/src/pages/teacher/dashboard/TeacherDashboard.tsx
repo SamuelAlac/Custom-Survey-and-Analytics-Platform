@@ -59,7 +59,7 @@ const TeacherDashboard = () => {
 
         </div>
 
-        <div className='min-h-155 bg-white mt-15 rounded-xl p-5 space-y-8'>
+        <div className='min-h-155 bg-white mt-15 rounded-xl p-5 space-y-8 shadow-lg shadow-black/30'>
             <h1 className='md:text-4xl text-black font-bold'>Recent Surveys</h1>
             <div className='space-y-5'>
 

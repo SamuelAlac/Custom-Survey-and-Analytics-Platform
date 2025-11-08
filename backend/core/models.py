@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class Survey(models.Model):
@@ -26,7 +27,7 @@ class Section(models.Model):
 
 
 class SurveyAssignment(models.Model):
-    survey = models.ForeignKey(Survey, on_delete=models.CASCADE)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='assignment_surveys')
     sections = models.ManyToManyField(Section, related_name='section_assignments')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='survey_assignment_created', on_delete=models.SET_NULL, null=True, blank=True)
     updated_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='survey_assignment_updated', on_delete=models.SET_NULL, null=True, blank=True)
@@ -58,3 +59,25 @@ class Question(models.Model):
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='question_choices')
     text = models.CharField(max_length=255)
+
+    def clean(self):
+        # Prevent adding choices to short-answer questions
+        if self.question.question_type == Question.Types.TEXT:
+            raise ValidationError("Short answer questions cannot have choices.")
+
+    def save(self, *args, **kwargs):
+        # Automatically call clean() before saving
+        self.clean()
+        super().save(*args, **kwargs)
+
+class Response(models.Model):
+    respondent = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='survey_respondent', on_delete=models.SET_NULL, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+class Answer(models.Model):
+    response = models.ForeignKey(Response, on_delete=models.CASCADE, related_name='response_answer')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='response_question')
+    answer = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

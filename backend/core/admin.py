@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Survey, SurveyAssignment, Section, Question, Choice
+from .models import *
 
 # Register your models here.
 class SurveyAdmin(admin.ModelAdmin):
@@ -33,3 +33,16 @@ class QuestionAdmin(admin.ModelAdmin):
     ordering = ['survey', 'order']
     inlines = [ChoiceInline]
 admin.site.register(Question, QuestionAdmin)
+
+class AnswerInline(admin.TabularInline):
+    model = Answer
+    extra = 0
+    readonly_fields = ['created_at', 'updated_at']
+
+class ResponseAdmin(admin.ModelAdmin):
+    list_display = ['id', 'respondent', 'created_at']
+    search_fields = ['respondent__email']
+    readonly_fields = ['created_at', 'updated_at']
+    inlines = [AnswerInline]
+
+admin.site.register(Response, ResponseAdmin)

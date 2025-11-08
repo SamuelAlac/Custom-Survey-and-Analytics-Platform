@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "email": "samuelalac21@gmail.com",
-    "password": "Samuel@0613"
+    "password": "1234"
 }
 
 ### GET SECTIONS
