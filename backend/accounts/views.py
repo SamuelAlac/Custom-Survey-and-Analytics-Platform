@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from rest_framework import generics, status
-from rest_framework.response import Response
+from rest_framework.response import Response as DRFResponse
 from django.contrib.auth import login, authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import timedelta
-from .serializers import MyTokenObtainPairSerializer, UserRegistrationSerializer, AccountSerializer
+from .serializers import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth import get_user_model
@@ -28,7 +28,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
         access_token = data['access']
         refresh_token = data['refresh']
 
-        response = Response({
+        response = DRFResponse({
             "detail": "Login successful",
             "access": access_token,
             "refresh": refresh_token
@@ -65,8 +65,8 @@ class RegisterView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
 
-        section_name = getattr(user, 'section_name', None)
-        return Response({
+        section_name = serializer.data.get('section_name')
+        return DRFResponse({
             "message": "User registered successfully. Please verify your email using the code sent.",
             "user": {
                 "id": str(user.id),
@@ -87,10 +87,10 @@ class VerifyEmailView(generics.GenericAPIView):
         try:
             user = User.objects.get(verification_token=token)
         except User.DoesNotExist:
-            return Response({"error": "Invalid verification token."}, status=status.HTTP_404_NOT_FOUND)
+            return DRFResponse({"error": "Invalid verification token."}, status=status.HTTP_404_NOT_FOUND)
 
         if user.is_verified:
-            return Response({"message": "Email already verified."}, status=status.HTTP_400_BAD_REQUEST)
+            return DRFResponse({"message": "Email already verified."}, status=status.HTTP_400_BAD_REQUEST)
 
         with transaction.atomic():
             user.is_verified = True
@@ -98,7 +98,7 @@ class VerifyEmailView(generics.GenericAPIView):
             user.verification_token = None
             user.save()
 
-        return Response({"message": "Email verified successfully. You can now log in."}, status=status.HTTP_200_OK)
+        return DRFResponse({"message": "Email verified successfully. You can now log in."}, status=status.HTTP_200_OK)
 
 class VerifyEmailCodeView(APIView):
     permission_classes = [AllowAny]
@@ -111,21 +111,21 @@ class VerifyEmailCodeView(APIView):
         code = request.data.get('code')
 
         if not email or not code:
-            return Response({'error': 'Email and code are required.'}, status=400)
+            return DRFResponse({'error': 'Email and code are required.'}, status=400)
 
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return Response({"error": "User not found."}, status=404)
+            return DRFResponse({"error": "User not found."}, status=404)
 
         if user.is_verified:
-            return Response({"message": "Email already verified."}, status=400)
+            return DRFResponse({"message": "Email already verified."}, status=400)
 
         if user.verification_code != code:
-            return Response({"error": "Invalid verification code."}, status=400)
+            return DRFResponse({"error": "Invalid verification code."}, status=400)
 
         if user.code_expiration < timezone.now():
-            return Response({"error": "Verification code expired."}, status=400)
+            return DRFResponse({"error": "Verification code expired."}, status=400)
         
         with transaction.atomic():
             user.is_verified = True
@@ -134,7 +134,7 @@ class VerifyEmailCodeView(APIView):
             user.code_expiration = None
             user.save()
 
-        return Response({"message": "Email verified successfully! You can now log in."}, status=200)
+        return DRFResponse({"message": "Email verified successfully! You can now log in."}, status=200)
 
     
 class ResendVerificationCodeView(APIView):
@@ -143,15 +143,15 @@ class ResendVerificationCodeView(APIView):
     def post(self, request):
         email = request.data.get('email')
         if not email:
-            return Response({"error": "Email is required."}, status=400)
+            return DRFResponse({"error": "Email is required."}, status=400)
 
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            return Response({"error": "User not found."}, status=404)
+            return DRFResponse({"error": "User not found."}, status=404)
 
         if user.is_verified:
-            return Response({"message": "Email already verified."}, status=400)
+            return DRFResponse({"message": "Email already verified."}, status=400)
 
         # Generate new code
         code = user.generate_verification_code()
@@ -166,7 +166,7 @@ class ResendVerificationCodeView(APIView):
             fail_silently=False,
         )
 
-        return Response({"message": "Verification code resent successfully."}, status=200)
+        return DRFResponse({"message": "Verification code resent successfully."}, status=200)
 
 
 class LogoutView(APIView):
@@ -179,11 +179,11 @@ class LogoutView(APIView):
                 token = RefreshToken(refresh_token)
                 token.blacklist()
         except Exception:
-            return Response({"detail": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
+            return DRFResponse({"detail": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
         
-        response = Response({"detail": "Successfully logged out"}, status=status.HTTP_200_OK)
-        response.delete_cookie('access_token')
-        response.delete_cookie('refresh_token')
+        response = DRFResponse({"detail": "Successfully logged out"}, status=status.HTTP_200_OK)
+        response.delete_cookie('access')
+        response.delete_cookie('refresh')
 
         return response
 
@@ -194,3 +194,34 @@ class AccountView(generics.RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+
+class UserSurveyDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSurveySerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def get_permissions(self):
+        permission_map  = {
+            'GET': [IsAuthenticated],
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+    
+class UserResponseDetailView(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserResponseSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def get_permissions(self):
+        permission_map  = {
+            'GET': [IsAuthenticated],
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]

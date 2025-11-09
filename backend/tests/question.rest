@@ -4,18 +4,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### CREATE QUESTION
 POST http://127.0.0.1:8000/api/core/questions/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTczNTM2LCJpYXQiOjE3NjI1Njk5MzYsImp0aSI6IjQ4ZDYwOGVlODdjOTQzMzFhZTFkMjBjNjRmMjgzY2I5IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.O73iy-HESmfaOkCHSNnv0bXRXcedmoB_j84fzOBmy8I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjIxNzk1LCJpYXQiOjE3NjI2MTgxOTUsImp0aSI6ImUwNTdkNjY4ZWE4NDQzOGJiNmE5NjM1ZDNiZTY5NDcwIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.-A3AZ3YsveuBDX2ZAN59drGnwC3GQkiNT7aaJaxLXiI
 Content-Type: application/json
 
 {
-  "survey": 12,
-  "text": "What is preferred programming language?",
+  "survey": 16,
+  "text": "What is preferred food?",
   "question_type": "mcq",
   "order": 1,
   "question_choices": [
-    {"text": "Python"},
-    {"text": "Java"},
-    {"text": "Go"}
+    {"text": "Fries"},
+    {"text": "Fries"},
+    {"text": "Fries"}
   ]
 }
 

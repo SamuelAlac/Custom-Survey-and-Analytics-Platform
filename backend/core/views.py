@@ -12,6 +12,8 @@ from accounts.permissions import *
 from config.pagination import StandardResultsSetPagination
 
 # Create your views here.
+
+##### SECTIONS VIEW #####
 class SectionsView(generics.ListCreateAPIView):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
@@ -32,7 +34,10 @@ class SectionsView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user, updated_by=self.request.user)
-    
+
+
+
+##### SECTION DETAIL VIEW #####
 class SectionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
@@ -50,6 +55,9 @@ class SectionDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user)
 
+
+
+##### SURVEYS VIEW #####
 class SurveysView(generics.ListCreateAPIView):
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
@@ -71,6 +79,9 @@ class SurveysView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user, updated_by=self.request.user)
 
+
+
+##### SURVEY DETAIL VIEW #####
 class SurveyDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Survey.objects.all()
     serializer_class = SurveySerializer
@@ -88,6 +99,9 @@ class SurveyDetailView(generics.RetrieveUpdateDestroyAPIView):
     def perform_update(self, serializer):
         serializer.save(updated_by=self.request.user)
 
+
+
+##### CHOICE DETAIL VIEW #####
 class ChoiceDetailView(generics.DestroyAPIView):
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
@@ -100,6 +114,9 @@ class ChoiceDetailView(generics.DestroyAPIView):
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]
 
+
+
+##### QUESTIONS VIEW #####
 class QuestionsView(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
@@ -118,6 +135,9 @@ class QuestionsView(generics.ListCreateAPIView):
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]
 
+
+
+##### QUESTION DETAIL VIEW #####
 class QuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
@@ -132,15 +152,16 @@ class QuestionDetailView(generics.RetrieveUpdateDestroyAPIView):
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]
 
-class SurveyAssignmentView(generics.ListCreateAPIView):
+
+
+##### SURVEY ASSIGNMENTS VIEW #####
+class SurveyAssignmentsView(generics.ListCreateAPIView):
     queryset = SurveyAssignment.objects.all().order_by('-created_at')
     serializer_class = SurveyAssignmentSerializer
     authentication_classes = [JWTAuthentication]
 
     pagination_class = StandardResultsSetPagination
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
-    # search_fields = ['name'] # case sensitive search
-    # filterset_fields = ['id'] # for exact match filter
 
     def get_permissions(self):
         permissions_map = {
@@ -153,7 +174,10 @@ class SurveyAssignmentView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user, updated_by=self.request.user)
 
-class SurveyAssignmentDetailView(generics.DestroyAPIView):
+
+
+##### SURVEY ASSIGNMENT DETAIL VIEW #####
+class SurveyAssignmentDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = SurveyAssignment.objects.all()
     serializer_class = SurveyAssignmentSerializer
     authentication_classes = [JWTAuthentication]
@@ -166,11 +190,17 @@ class SurveyAssignmentDetailView(generics.DestroyAPIView):
         }
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]
-    
-class ResponsesView(generics.ListCreateAPIView):
-    queryset = Response.objects.all().order_by('-created_at')
-    serializer_class = ResponseSerializer
+
+
+
+##### SURVEY ASSIGNMENTS WITH SURVEY VIEW #####
+class SurveyAssignmentsWithSurveyView(generics.ListCreateAPIView):
+    queryset = SurveyAssignment.objects.all().order_by('-created_at')
+    serializer_class = SurveyAssignmentWithSurveySerializer
     authentication_classes = [JWTAuthentication]
+
+    pagination_class = StandardResultsSetPagination
+    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
 
     def get_permissions(self):
         permissions_map = {
@@ -181,4 +211,107 @@ class ResponsesView(generics.ListCreateAPIView):
         return [permission() for permission in permission_classes]
     
     def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user, updated_by=self.request.user)
+
+
+
+##### SURVEY ASSIGNMENT WITH SURVEY DETAIL VIEW #####
+class SurveyAssignmentWithSurveyDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = SurveyAssignment.objects.all()
+    serializer_class = SurveyAssignmentWithSurveySerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        permission_map  = {
+            'GET': [IsAuthenticated],
+            'PUT': [IsAuthenticated, IsTeacherOrAdmin],
+            'DELETE': [IsAuthenticated, IsAdmin]
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+
+
+
+##### RESPONSES VIEW #####
+class ResponsesView(generics.ListCreateAPIView):
+    queryset = Response.objects.all().order_by('-created_at')
+    serializer_class = ResponseSerializer
+    authentication_classes = [JWTAuthentication]    
+
+    def get_permissions(self):
+        permissions_map = {
+            'GET': [IsAuthenticated],
+            'POST': [IsAuthenticated],
+        }
+        permission_classes = permissions_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+    
+    def perform_create(self, serializer):
         serializer.save(respondent=self.request.user)
+
+
+
+##### RESPONSE DETAIL VIEW #####
+class ResponseDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Response.objects.all().order_by('-created_at')
+    serializer_class = ResponseSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        permission_map = {
+            'GET': [IsAuthenticated],
+            'PUT': [IsAuthenticated],
+            'DELETE': [IsAuthenticated, IsTeacherOrAdmin]
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+
+
+##### RESPONSES WITH ANSWERS VIEW #####
+class ResponsesWithAnswerView(generics.ListCreateAPIView):
+    queryset = Response.objects.all().order_by('-created_at')
+    serializer_class = ResponseWithAnswerSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        permissions_map = {
+            'GET': [IsAuthenticated],
+            'POST': [IsAuthenticated],
+        }
+        permission_classes = permissions_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+    
+    def perform_create(self, serializer):
+        serializer.save(respondent=self.request.user)
+
+
+
+##### RESPONSE WITH ANSWERS DETAIL VIEW #####
+class ResponseWithAnswerDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Response.objects.all().order_by('-created_at')
+    serializer_class = ResponseWithAnswerSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        permission_map = {
+            'GET': [IsAuthenticated],
+            'PUT': [IsAuthenticated],
+            'DELETE': [IsAuthenticated, IsTeacherOrAdmin]
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+
+
+
+##### SECTION SURVEY DETAIL VIEW #####
+class SectionSurveyDetailView(generics.RetrieveAPIView):
+    queryset = Section.objects.all()
+    serializer_class = SectionSurveySerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        permission_map  = {
+            'GET': [AllowAny],
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]

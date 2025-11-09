@@ -1,28 +1,36 @@
 ### GET SURVEY ASSIGNMENTS
 GET http://127.0.0.1:8000/api/core/survey-assignments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTYzOTM4LCJpYXQiOjE3NjI1NjAzMzgsImp0aSI6IjBlNzg4OGNiOTU0ZjQ1ODM5ODMzNjI5YTE1ZTBlMDY1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.noS2ixEr9P2VznKtYlSaNKmS3wQS4fUgp_B40yWKtT4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjYyOTI3LCJpYXQiOjE3NjI2NTkzMjcsImp0aSI6IjQyZTZlN2U2ZWUyMTQwNjdhODdlYTQ0M2Q2ODAzMWFlIiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.V8WYEepAL1ma1LWbfhH-d1urHy1X-6ERYqs172pt5TI
 
-### CREATE SURVEY ASSIGNMENTS
-POST http://127.0.0.1:8000/api/core/survey-assignments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTEyOTMyLCJpYXQiOjE3NjI1MTI2MzIsImp0aSI6IjlhM2QxYjcwN2QyNTRiNGJiNjRmMDI3OTc1YzA2YTQyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.e3QrsDx3xr_dq1J4-5lSn-OwuYFQhgIIcmqUpiEbwI0
+### GET SURVEY ASSIGNMENT
+GET http://127.0.0.1:8000/api/core/survey-assignments/17/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU5NTcwLCJpYXQiOjE3NjI2NTU5NzAsImp0aSI6IjNmN2JhNmRjNDBhOTQ0MzBiN2M2OGNlMTJlMWYzODRjIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.0Ri4EyQQ-TKf7HCfcE4Z70wTiwENB1WLNOtMsI6RSOY
+
+
+### GET SURVEY ASSIGNMENTS WITH SURVEY
+GET http://127.0.0.1:8000/api/core/survey-assignment-surveys/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjUyMjU5LCJpYXQiOjE3NjI2NDg2NTksImp0aSI6Ijk4ZjFiMDRlZmJjZjQ0NzM5MDllMjYwMTg4NzE5NWVlIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.WcnHLr4XBMqquOt-COEguP5qu3GOKfz5S_b5jVxxqxQ 
+
+### CREATE SURVEY ASSIGNMENTS WITH SURVEY
+POST http://127.0.0.1:8000/api/core/survey-assignment-surveys/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjIxNzk1LCJpYXQiOjE3NjI2MTgxOTUsImp0aSI6ImUwNTdkNjY4ZWE4NDQzOGJiNmE5NjM1ZDNiZTY5NDcwIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.-A3AZ3YsveuBDX2ZAN59drGnwC3GQkiNT7aaJaxLXiI
 Content-Type: application/json
 
 {
-    "survey": 12,
+    "survey": 16,
     "sections": [1,2]
 }
 
-### GET SURVEY ASSIGNMENT
-GET http://127.0.0.1:8000/api/core/survey-assignments/10/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTYzOTM4LCJpYXQiOjE3NjI1NjAzMzgsImp0aSI6IjBlNzg4OGNiOTU0ZjQ1ODM5ODMzNjI5YTE1ZTBlMDY1IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.noS2ixEr9P2VznKtYlSaNKmS3wQS4fUgp_B40yWKtT4
+### GET SURVEY ASSIGNMENT WITH SURVEY
+GET http://127.0.0.1:8000/api/core/survey-assignment-surveys/16/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjUyOTM0LCJpYXQiOjE3NjI2NDkzMzQsImp0aSI6IjMyMTFkMTQwODgyODQzYWU5MmVjYTU1NjJmODQxYTAyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.Ja2UZSInGp9boobyRxMrRzn4XqJe0ZTMEiGuoZZlqg8
 
-
-### UPDATE SURVEY_ASSIGNMENTS
-PUT http://127.0.0.1:8000/api/core/survey-assignments/10/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTEyOTMyLCJpYXQiOjE3NjI1MTI2MzIsImp0aSI6IjlhM2QxYjcwN2QyNTRiNGJiNjRmMDI3OTc1YzA2YTQyIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.e3QrsDx3xr_dq1J4-5lSn-OwuYFQhgIIcmqUpiEbwI0
+### UPDATE SURVEY_ASSIGNMENTS WITH SURVEY
+PUT http://127.0.0.1:8000/api/core/survey-assignment-surveys/13/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjEzNjQxLCJpYXQiOjE3NjI2MTAwNDEsImp0aSI6ImFlNWJiY2E3ZjQ5NTQ0OGNhYzI3MWVjNDIxMjA2Yjg0IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.23e6F3ibhJ4ZE86koN294pjOybLCYb_dhCa-59ZKKoI
 Content-Type: application/json
 
 {
-    "survey": 12,
-    "sections": [1]
+    "survey": 13,
+    "sections": [2]
 }

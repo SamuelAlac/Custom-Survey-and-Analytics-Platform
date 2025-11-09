@@ -1,15 +1,28 @@
-### GET RESPONSE
-GET http://127.0.0.1:8000/api/core/survey-response/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTczNTM2LCJpYXQiOjE3NjI1Njk5MzYsImp0aSI6IjQ4ZDYwOGVlODdjOTQzMzFhZTFkMjBjNjRmMjgzY2I5IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.O73iy-HESmfaOkCHSNnv0bXRXcedmoB_j84fzOBmy8I
+### GET RESPONSES
+GET http://127.0.0.1:8000/api/core/survey-responses/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjYyOTI3LCJpYXQiOjE3NjI2NTkzMjcsImp0aSI6IjQyZTZlN2U2ZWUyMTQwNjdhODdlYTQ0M2Q2ODAzMWFlIiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.V8WYEepAL1ma1LWbfhH-d1urHy1X-6ERYqs172pt5TI
 
-### CREATE RESPONSE
-POST http://127.0.0.1:8000/api/core/survey-response/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNTczNTM2LCJpYXQiOjE3NjI1Njk5MzYsImp0aSI6IjQ4ZDYwOGVlODdjOTQzMzFhZTFkMjBjNjRmMjgzY2I5IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.O73iy-HESmfaOkCHSNnv0bXRXcedmoB_j84fzOBmy8I
+### GET RESPONSE
+GET http://127.0.0.1:8000/api/core/survey-responses/11/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjYyOTI3LCJpYXQiOjE3NjI2NTkzMjcsImp0aSI6IjQyZTZlN2U2ZWUyMTQwNjdhODdlYTQ0M2Q2ODAzMWFlIiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.V8WYEepAL1ma1LWbfhH-d1urHy1X-6ERYqs172pt5TI
+
+
+### GET RESPONSES WITH ANSWERS
+GET http://127.0.0.1:8000/api/core/survey-response-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjYyOTI3LCJpYXQiOjE3NjI2NTkzMjcsImp0aSI6IjQyZTZlN2U2ZWUyMTQwNjdhODdlYTQ0M2Q2ODAzMWFlIiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.V8WYEepAL1ma1LWbfhH-d1urHy1X-6ERYqs172pt5TI
+
+### CREATE RESPONSE WITH ANSWERS
+POST http://127.0.0.1:8000/api/core/survey-response-answers/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjIwNjkwLCJpYXQiOjE3NjI2MTcwOTAsImp0aSI6ImEwYjBmNTAwYmU3YzQ2NGRiNjIxNGQ4NWVkNTBkY2VkIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ.wLxxIDrh7MLjOeza1kQh_3pbduJDbzA7M7uN1Z2X0JY
 Content-Type: application/json
 
 {
+  "survey_assignment": 17,
   "response_answer": [
-    {"question": 34, "answer": "My short answer"},
-    {"question": 35, "answer": "Option A"}
+    {"question": 37, "answer": "Java"}
   ]
 }
+
+### GET RESPONSE WITH ANSWERS
+GET http://127.0.0.1:8000/api/core/survey-response-answers/10/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjYyOTI3LCJpYXQiOjE3NjI2NTkzMjcsImp0aSI6IjQyZTZlN2U2ZWUyMTQwNjdhODdlYTQ0M2Q2ODAzMWFlIiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.V8WYEepAL1ma1LWbfhH-d1urHy1X-6ERYqs172pt5TI

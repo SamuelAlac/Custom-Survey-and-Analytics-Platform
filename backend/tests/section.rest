@@ -3,8 +3,8 @@ POST http://127.0.0.1:8000/api/auth/token/
 Content-Type: application/json
 
 {
-    "email": "samuelalac21@gmail.com",
-    "password": "1234"
+    "email": "samuelalac04@gmail.com",
+    "password": "Samuel@061303"
 }
 
 ### GET SECTIONS
@@ -12,7 +12,7 @@ GET http://127.0.0.1:8000/api/core/sections/
 
 ### CREATE SECTION
 POST http://127.0.0.1:8000/api/core/sections/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyMzk1NTQwLCJpYXQiOjE3NjIzOTUyNDAsImp0aSI6ImU3OTc3MzdkZmE0YzQxMTk4MTQ0Y2Q2NTdkZDc1MGIzIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.WO9VOwKqloEIhAQvGEjz_-QLFPpbaxY9O0jw-dSMBlY
+Authorization: Bearer 
 Content-Type: application/json
 
 {
@@ -31,3 +31,6 @@ Content-Type: application/json
 ### DELETE SECTION
 DELETE http://127.0.0.1:8000/api/core/sections/1/
 Authorization: Bearer
+
+### GET SECTION SURVEY
+GET http://127.0.0.1:8000/api/core/section-survey/1/

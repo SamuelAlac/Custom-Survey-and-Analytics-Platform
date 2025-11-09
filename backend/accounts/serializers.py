@@ -5,12 +5,11 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.core.mail import send_mail
 from django.urls import reverse
 import uuid
-from core.models import Section
-from students.models import Student, StudentProfile
+from core.models import *
 from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import timedelta
 from .models import User
-from core.serializers import SectionSerializer
+from core.serializers import *
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -48,12 +47,9 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = ['id', 'email', 'first_name', 'last_name', 'password1', 'password2', 'section', 'section_name', 'terms_and_condition',]
 
     def get_section_name(self, obj):
-        try:
-            return obj.studentprofile.section.name
-        except StudentProfile.DoesNotExist:
-            return None
-        except AttributeError:
-            return None
+        if obj.section:
+            return obj.section.name
+        return None
 
     def validate_password1(self, value):
         validate_password(value)
@@ -87,21 +83,13 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         
         if role:
             user.role = role
-        user.set_password((password)) # hashes the password
+        if section_instance:
+            user.section = section_instance
+        user.set_password(password)
         user.is_active = False
         # FOR VERTIFICATION THRU EMAIL BEFORE
         # user.verification_token = str(uuid.uuid4())
         user.save()
-
-        profile, created = StudentProfile.objects.get_or_create(
-            student=user,
-            defaults={'section': section_instance}
-        )
-        if not created and section_instance:
-            profile.section = section_instance
-            profile.save(update_fields=['section'])
-
-        user.section_name = profile.section.name if profile.section else None
 
         # FOR VERTIFICATION THRU EMAIL BEFORE
         # request = self.context.get('request')
@@ -133,15 +121,26 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return user
 
 class AccountSerializer(serializers.ModelSerializer):
-    section = serializers.SerializerMethodField()
+    section_name = serializers.SerializerMethodField()
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'section', 'section_name']
+
+    def get_section_name(self, obj):
+        if obj.section:
+            return obj.section.name
+        return None
+    
+class UserSurveySerializer(serializers.ModelSerializer):
+    section = SectionSurveySerializer(read_only=True)
 
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'section']
 
-    def get_section(self, obj):
-        if obj.role ==  User.ROLES.STUDENT and hasattr(obj, 'studentprofile'):
-            section = obj.studentprofile.section
-            if section:
-                return SectionSerializer(section).data
-        return None
+class UserResponseSerializer(serializers.ModelSerializer):
+    survey_respondent = ResponseSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = fields = ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'section', 'survey_respondent']

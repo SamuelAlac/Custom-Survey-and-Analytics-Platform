@@ -61,8 +61,8 @@ class Choice(models.Model):
     text = models.CharField(max_length=255)
 
     def clean(self):
-        # Prevent adding choices to short-answer questions
-        if self.question.question_type == Question.Types.TEXT:
+        # Prevent adding choices to short-answer or likert questions
+        if self.question.question_type in [Question.Types.TEXT, Question.Types.LIKERT]:
             raise ValidationError("Short answer questions cannot have choices.")
 
     def save(self, *args, **kwargs):
@@ -72,6 +72,7 @@ class Choice(models.Model):
 
 class Response(models.Model):
     respondent = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='survey_respondent', on_delete=models.SET_NULL, null=True, blank=True)
+    survey_assignment = models.ForeignKey(SurveyAssignment, on_delete=models.CASCADE, related_name='survey_assignment')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -1,14 +1,15 @@
 import axios from '../../libs/axios'
+import { jwtDecode } from 'jwt-decode'
 
 export const loginUser = async({ email, password, rememberMe} : { email: string; password: string, rememberMe: boolean }) =>{
-    try {
-        const res = await axios.post('/auth/token/', { email, password, remember_me: rememberMe })
-        return res.data
-    } catch (error: any) {
-      if(error.response?.data){
-        throw error.response?.data
-      }
+  try {
+      const res = await axios.post('/auth/token/', { email, password, remember_me: rememberMe })
+      return res.data
+  } catch (error: any) {
+    if(error.response?.data){
+      throw error.response?.data
     }
+  }
 }
 
 export const registerUser = async ({ fname, lname, email, password1, password2, section, tac }: 
@@ -50,22 +51,30 @@ export const reVerifyUser = async ({email}: { email: string }) =>{
 }
 
 export const getMyAccount = async() =>{
-    try {
-        const token = localStorage.getItem('access')
-        const res = await axios.get('/auth/my-account/',{
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        return res.data
-    } catch (error: any) {
-        console.log(`Failed to get your account: ${error}`)
-    }
+  try {
+      const token = localStorage.getItem('access')
+      if (!token) throw new Error('No access token found')
+
+      const res = await axios.get('/auth/my-account/',{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return res.data
+  } catch (error: any) {
+      console.log(`Failed to get your account: ${error}`)
+  }
 }
 
 export const logoutUser = async () => {
   try {
-    const res = await axios.post('/auth/logout/');
+
+    const token = localStorage.getItem('access')
+    const res = await axios.post('/auth/logout/',{
+      headers: {
+            Authorization: `Bearer ${token}`
+      }
+    });
     return res.data
   } catch (error: any) {
     console.log(`Failed to logout user: ${error}`)

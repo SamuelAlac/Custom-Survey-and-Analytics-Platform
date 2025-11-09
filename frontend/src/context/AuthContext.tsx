@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext } from 'react';
 import { useQueryClient } from '@tanstack/react-query'
 import { useUser } from '../features/auth/hooks'
 import { getMyAccount, loginUser, logoutUser } from '../features/auth/api';

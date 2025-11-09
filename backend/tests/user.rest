@@ -3,10 +3,23 @@ POST http://127.0.0.1:8000/api/auth/token/
 Content-Type: application/json
 
 {
-    "email": "samuelalac04@gmail.com",
+    "email": "samuelalac06@gmail.com",
     "password": "Samuel@061303"
 }
 
+### LOGOUT
+POST http://127.0.0.1:8000/api/auth/logout/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU3ODcxLCJpYXQiOjE3NjI2NTQyNzEsImp0aSI6ImJmNmYwMzUyMWE3MDRjMTdiMDQwZWVlNmU3ZTZjODY5IiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.964Gc2SiPUffTpqGZ5nV_x2A1droxpwXgJX36VemJWE
+
+
 ### GET USER ACCOUNT
 GET http://127.0.0.1:8000/api/auth/my-account/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjA1MzI1LCJpYXQiOjE3NjI2MDE3MjUsImp0aSI6ImYxZmQwNTA0ZjljMTQ4YzE4MTgxNDNjZTE2YTEyOGUyIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ.TzVWUrWdrZrc-knTCtu_mQ2YfEsAMcmMcwfTxh3_Auw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjU3ODcxLCJpYXQiOjE3NjI2NTQyNzEsImp0aSI6ImJmNmYwMzUyMWE3MDRjMTdiMDQwZWVlNmU3ZTZjODY5IiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.964Gc2SiPUffTpqGZ5nV_x2A1droxpwXgJX36VemJWE
+
+### GET USER WITH SECTION SURVEYS
+GET http://127.0.0.1:8000/api/auth/user-surveys/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjY0OTcxLCJpYXQiOjE3NjI2NjEzNzEsImp0aSI6Ijk0Yzk4MjVkZTY2MjQ4YWZhNDg4ZDBiNzk3MzlkOTFiIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ._FkXdaS6w5H3ZAlIGwKh_ed1tZXPaw0fZMNqoTbHoD8
+
+### GET USER WITH RESPONSES
+GET http://127.0.0.1:8000/api/auth/user-responses/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjY0OTcxLCJpYXQiOjE3NjI2NjEzNzEsImp0aSI6Ijk0Yzk4MjVkZTY2MjQ4YWZhNDg4ZDBiNzk3MzlkOTFiIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ._FkXdaS6w5H3ZAlIGwKh_ed1tZXPaw0fZMNqoTbHoD8
