@@ -17,9 +17,9 @@ const StudentDashboard = () => {
     const completedSurveyIDs = responses?.map((response: any) => response.survey_assignment.id)
     console.log(completedSurveyIDs)
     
-    const completedSurveys = surveys?.filter((survey: any) => completedSurveyIDs.includes(survey.id))
+    const completedSurveys = surveys?.filter((survey: any) => completedSurveyIDs?.includes(survey.id))
 
-    const pendingSurveys = surveys?.filter((survey: any) => !completedSurveyIDs.includes(survey.id))
+    const pendingSurveys = surveys?.filter((survey: any) => !completedSurveyIDs?.includes(survey.id))
 
     console.log("Completed Surveys:", completedSurveys);
     console.log("Pending Surveys:", pendingSurveys);

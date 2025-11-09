@@ -6,7 +6,8 @@ const NewSurvey = () => {
 
     const { data } = useSurveyAssignments()
     const surveys = data?.results
-    console.log(surveys)
+    console.log('test',surveys)
+    console.log(surveys?.sections)
 
   return (
     <section className='space-y-8 max-h-full'>
@@ -45,10 +46,10 @@ const NewSurvey = () => {
                 </div>
 
                 {surveys?.map((survey: any, index: number) =>(
-                    <div className="card w-80 h-50 bg-base-100 card-md shadow-lg shadow-black/20">
+                    <div key={index} className="card w-80 h-50 bg-base-100 card-md shadow-lg shadow-black/20">
                         <div className="card-body">
-                            <h2 className="card-title">{survey?.survey_details.title}</h2>
-                            <p>{survey?.survey_details.description}</p>
+                            <h2 className="card-title">{survey?.survey_name}</h2>
+                            <p>{survey?.survey_description}</p>
                             <div className="justify-end card-actions">
                             <button className="btn btn-primary">View</button>
                             </div>
