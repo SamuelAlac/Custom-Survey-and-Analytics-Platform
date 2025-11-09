@@ -23,7 +23,6 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
-// Define question types
 interface QuestionItem {
   id: string
   type: 'header' | 'multiple-choice' | 'likert-scale' | 'short-text'
@@ -32,7 +31,7 @@ interface QuestionItem {
   content?: any
 }
 
-// Draggable item component
+
 const DraggableItem = ({ item, isOverlay = false }: { item: QuestionItem; isOverlay?: boolean }) => {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: item.id,
@@ -62,7 +61,7 @@ const DraggableItem = ({ item, isOverlay = false }: { item: QuestionItem; isOver
   )
 }
 
-// Sortable item component for dropped items  
+ 
 const SortableItem = ({ 
   item, 
   onDelete, 
@@ -129,7 +128,7 @@ const SortableItem = ({
         </div>
       </div>
       
-      {/* Content based on question type */}
+      
       {item.type === 'header' && (
         <div className="space-y-2" onClick={(e) => e.stopPropagation()}>
           <input
@@ -295,7 +294,7 @@ const SortableItem = ({
   )
 }
 
-// Drop zone component
+
 const DropZone = ({ children }: { children: React.ReactNode }) => {
   const { isOver, setNodeRef } = useDroppable({
     id: 'survey-drop-zone',
@@ -317,17 +316,17 @@ const CreateSurvey = () => {
   const [droppedItems, setDroppedItems] = useState<QuestionItem[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
   
-  // Form state
+
   const [surveyTitle, setSurveyTitle] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [assignedSection, setAssignedSection] = useState('')
 
   
-  // Validation state
+  
   const [errors, setErrors] = useState<{[key: string]: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // Available elements to drag
+  
   const availableElements: QuestionItem[] = [
     {
       id: 'header-template',
@@ -372,18 +371,18 @@ const CreateSurvey = () => {
 
     if (!over) return
 
-    // Check if we're dropping a template item (creating new question)
+    
     const draggedElement = availableElements.find(el => el.id === active.id)
     
     if (draggedElement && (over.id === 'survey-drop-zone' || droppedItems.find(item => item.id === over.id))) {
-      // Create a new item with unique ID
+      
       const newItem: QuestionItem = {
         ...draggedElement,
         id: `${draggedElement.type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         content: getDefaultContent(draggedElement.type)
       }
       
-      // If dropping over an existing item, insert at that position
+      
       if (over.id !== 'survey-drop-zone') {
         const overIndex = droppedItems.findIndex(item => item.id === over.id)
         setDroppedItems(prev => {
@@ -392,13 +391,13 @@ const CreateSurvey = () => {
           return newItems
         })
       } else {
-        // Add to end
+        
         setDroppedItems(prev => [...prev, newItem])
       }
       return
     }
 
-    // Handle reordering of existing items
+    
     if (active.id !== over.id && droppedItems.find(item => item.id === active.id)) {
       setDroppedItems((items) => {
         const oldIndex = items.findIndex(item => item.id === active.id)
@@ -519,7 +518,7 @@ const CreateSurvey = () => {
 
   const activeItem = availableElements.find(item => item.id === activeId)
 
-  // Validation function
+  
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {}
 
@@ -546,7 +545,7 @@ const CreateSurvey = () => {
       newErrors.questions = 'At least one question is required'
     }
 
-    // Validate question content
+    
     for (const item of droppedItems) {
       if (item.type === 'header' && !item.content?.text?.trim()) {
         newErrors.questions = 'All heading elements must have text'
@@ -570,7 +569,7 @@ const CreateSurvey = () => {
     return Object.keys(newErrors).length === 0
   }
 
-  // Save as draft
+  
   const handleSaveDraft = async () => {
     setIsSubmitting(true)
     try {
@@ -583,10 +582,10 @@ const CreateSurvey = () => {
         createdAt: new Date().toISOString()
       }
       
-      // Here you would typically make an API call to save the draft
+      
       console.log('Saving draft:', surveyData)
       
-      // Simulate API call
+      
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       alert('Survey saved as draft!')
@@ -598,7 +597,7 @@ const CreateSurvey = () => {
     }
   }
 
-  // Publish survey
+  
   const handlePublish = async () => {
     if (!validateForm()) {
       return
@@ -615,16 +614,15 @@ const CreateSurvey = () => {
         createdAt: new Date().toISOString()
       }
       
-      // Here you would typically make an API call to publish the survey
+      
       console.log('Publishing survey:', surveyData)
       
-      // Simulate API call
+      
       await new Promise(resolve => setTimeout(resolve, 1000))
       
       alert('Survey published successfully!')
       
-      // Redirect or clear form
-      // navigate('/teacher/surveys')
+      
     } catch (error) {
       console.error('Error publishing survey:', error)
       alert('Error publishing survey. Please try again.')
@@ -646,7 +644,7 @@ const CreateSurvey = () => {
         </div>
 
         <div className='bg-[#FBA02C] p-4 rounded-2xl'>
-          <div className='w-full flex items-center justify-between text-white'>
+          <div className='w-full flex items-center justify-center text-white gap-x-40'>
             <div className='font-semibold text-sm sm:text-base md:text-lg'>Questions</div>
             <div className='font-semibold text-sm sm:text-base md:text-lg'>Responses</div>
             <div className='font-semibold text-sm sm:text-base md:text-lg'>Settings</div>
@@ -654,7 +652,7 @@ const CreateSurvey = () => {
         </div>
 
         <div className="flex flex-col md:flex-row items-start gap-4">
-          {/* Elements Panel */}
+          
           <div className="bg-white p-2 sm:p-3 md:p-4 rounded-3xl overflow-hidden shadow-md shadow-black/20 w-full sm:max-w-[16rem] md:max-w-xs ml-0 sm:ml-0 h-auto">
             <div className="text-black font-bold text-sm sm:text-base md:text-lg mb-2">
               <h1>Elements</h1>
@@ -677,7 +675,7 @@ const CreateSurvey = () => {
             </div>
           </div>
 
-          {/* Survey Builder Panel - Adjusted Right */}
+          
           <div className="bg-white p-4 rounded-2xl shadow-md shadow-black/20 w-full md:w-1/2 lg:w-2/5 h-auto md:ml-15 max-w-2xl">
             <h2 className="text-black font-bold text-lg mb-4">Survey Title</h2>
             <div className={`bg-transparent border-2 rounded-lg p-3 ${errors.title ? 'border-red-500' : 'border-gray-300'}`}>
@@ -696,7 +694,7 @@ const CreateSurvey = () => {
             </div>
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
 
-            {/* Two fields: stacked on mobile, inline (2 columns) on md+ */}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
                 <h2 className="text-black font-bold text-lg mb-2">Due Date</h2>
@@ -761,7 +759,7 @@ const CreateSurvey = () => {
                         isEditing={false}
                       />
                     ))}
-                    {/* Empty space at bottom for additional drops */}
+                    
                     <div className="min-h-[50px] flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-transparent hover:border-gray-300 rounded-lg transition-colors">
                       Drop here to add more questions
                     </div>
@@ -770,14 +768,14 @@ const CreateSurvey = () => {
               </SortableContext>
             </DropZone>
 
-            {/* Validation Errors */}
+           
             {errors.questions && (
               <div className="mt-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
                 {errors.questions}
               </div>
             )}
 
-            {/* Action Buttons */}
+            
             <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-4 border-t border-gray-200">
               <button
                 onClick={handleSaveDraft}
