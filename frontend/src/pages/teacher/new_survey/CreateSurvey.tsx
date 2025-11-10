@@ -353,7 +353,7 @@ const CreateSurvey = () => {
     >
       <section className='space-y-8 max-h-full'>
         <div className='h-10 md:h-15 flex items-center justify-between'>
-          <h1 className="text-[#050505] text-xl md:text-2xl text-center lg:text-start lg:text-4xl font-bold">Create New Survey</h1>
+          <h1 className="text-[#050505] text-xl md:text-2xl text-center lg:text-start lg:text-4xl font-semibold">Create New Survey</h1>
           <Link to='Dashboard' className='text-[#F37611]'>Back to Dashboard</Link>
         </div>
 

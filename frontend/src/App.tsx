@@ -13,11 +13,16 @@ import VerifyAccount from './pages/auth/Student/VerifyAccount'
 import { ProtectedRoute } from './routes/ProtectedRoute'
 import CreateSurvey from './pages/teacher/new_survey/CreateSurvey'
 import NewSurvey from './pages/teacher/new_survey/NewSurvey'
+import TakeSurvey from './pages/student/take_survey/TakeSurvey'
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Index/>
+  },
+  {
+    path: '*',
+    element: <><h1>This page does not exist</h1></>
   },
   {
     path: '/Auth',
@@ -37,6 +42,7 @@ const router = createBrowserRouter([
         element: <StudentLayout/>,
         children: [
           { path: "Dashboard", element: <StudentDashboard /> },
+          { path: "Dashboard/Take-Survey/:id", element: <TakeSurvey /> },
           { path: "MyResponses", element: <StudentResponses /> },
         ]
       }
@@ -56,18 +62,6 @@ const router = createBrowserRouter([
         ],
       },
     ]
-    // path: '/Teacher',
-    // element: <TeacherLayout/>,
-    // children: [
-    //   {
-    //     path: 'Dashboard',
-    //     element: <TeacherDashboard/>,
-    //   },
-    //   {
-    //     path: 'NewSurvey',
-    //     element: <NewSurvey/>
-    //   }
-    // ]
   }
 ])
 

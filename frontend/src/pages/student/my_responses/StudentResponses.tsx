@@ -1,4 +1,7 @@
+import { ResponseList } from "./components/ResponseList"
+
 const StudentResponses = () => {
+
   return (
     <section>
       <div className="flex items-center justify-between h-10 md:h-15">
@@ -16,22 +19,7 @@ const StudentResponses = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr className='hover:bg-black/5'>
-                    <th className='text-[#050505] font-semibold text-sm sm:text-base md:text-lg'>Survey Title 1</th>
-                    <td className='text-[#595959] font-semibold text-sm sm:text-base md:text-lg'>October 23, 2025</td>
-                    <td>
-                        <div className='bg-[#DDF8D5] px-3 py-2 rounded-lg inline-flex items-center justify-center gap-2'>
-                            <img src='/completed_survey_icon.svg' alt="Completed Survey Icon"/>
-                            <span className='text-[#2C8C09] font-semibold text-sm md:text-md'>Completed</span>
-                        </div>
-                    </td>
-                    <td>
-                        <div className='bg-[#FBE4C9] px-3 py-2 rounded-lg cursor-pointer hover:bg-[#f9b56f] transition inline-flex justify-center items-center'>
-                            <img src='/view_icon.svg' alt="View icon"/>
-                            <span className='text-[#F37611] font-semibold text-sm sm:text-base md:text-lg'>View</span>
-                        </div>
-                    </td>
-                </tr>
+                <ResponseList/>
             </tbody>
         </table>
     </section>

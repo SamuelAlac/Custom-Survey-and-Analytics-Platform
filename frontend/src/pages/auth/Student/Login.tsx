@@ -1,20 +1,5 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useForm, type SubmitHandler } from 'react-hook-form'
-import { useAuth } from '../../../context/AuthContext'
-import { useState } from 'react';
+import { Link } from 'react-router-dom'
 import LoginForm from './components/LoginForm';
-
-type FormFields = {
-    email: string;
-    password: string;
-    rememberMe: boolean;
-}
-
-type Toast = {
-    type: 'info' | 'success' | 'error' | 'warning' | null;
-    message: string;
-    duration?: number;
-};
 
 const StudentLogin = () => {
   return (
@@ -27,9 +12,11 @@ const StudentLogin = () => {
             </div>
 
             <LoginForm/>
-            <p className='text-[#ACA6A7] text-center text-sm md:text-md'>Don't have an account?
+            <div className='mt-5'>
+              <p className='text-[#ACA6A7] text-center text-sm md:text-md'>Don't have an account?
                 <Link to='/Auth/Student-Register' className='text-[#F37611] font-semibold'> Sign Up</Link>
-            </p>
+              </p>
+            </div>
         </div>
     </section>
   )

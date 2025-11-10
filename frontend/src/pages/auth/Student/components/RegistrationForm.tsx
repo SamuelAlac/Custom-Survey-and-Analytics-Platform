@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { registerUser } from '../../../../features/auth/api';
 import { useSections } from '../../../../features/section/hooks';
+import toast from 'react-hot-toast';
 
 type FormFields = {
     fname: string;
@@ -14,12 +14,6 @@ type FormFields = {
     tac: boolean
 }
 
-type Toast = {
-    type: 'info' | 'success' | 'error' | 'warning' | null;
-    message: string;
-    duration?: number;
-};
-
 const RegistrationForm = () => {
 
     const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({})
@@ -27,27 +21,17 @@ const RegistrationForm = () => {
 
     const { data } = useSections()
     const sections = data?.results
-
-    const [toast, setToast] = useState<Toast | null>(null);
-    
-    const showToast = (type: Toast['type'], message: string, duration = 3000) => {
-    setToast({ type, message, duration });
-
-    setTimeout(() => {
-        setToast(null);
-    }, duration);
-    }
     
     const onSubmit: SubmitHandler<FormFields> = async (formData) =>{
         try {
             const { fname, lname, email, password1, password2, section, tac } = formData
             const res = await registerUser({ fname, lname, email, password1, password2, section, tac })
-            showToast('success', res.message)
+            toast.success(res?.message)
             setTimeout(() => navigate(`/Auth/Student-Register/${res.user.id}?email=${encodeURIComponent(email)}`,{
                 state: { email }
             }), 1500);
         } catch (error: any) {
-            console.log(error)
+            toast.error('Something went wrong. Please try again.')
             if (error?.email) {
             setError("email", { type: "server", message: error.email[0] });
             }
@@ -68,18 +52,6 @@ const RegistrationForm = () => {
 
   return (
     <>
-    {toast && (
-        <div className='toast toast-top toast-center z-50'>
-            <div className={`alert ${
-            toast.type === 'success' ? 'alert-success' :
-            toast.type === 'error' ? 'alert-error' :
-            toast.type === 'warning' ? 'alert-warning' : 'alert-info'
-            }`}>
-            <span>{toast.message}</span>
-            </div>
-        </div>
-    )}
-
     <form onSubmit={handleSubmit(onSubmit)} className='text-black w-60 md:w-110 h-125 text-start mt-5 flex flex-col space-y-3 md:space-y-3'>
         <div className='grid grid-cols-2 gap-5'>
             <div className='flex flex-col space-y-2'>

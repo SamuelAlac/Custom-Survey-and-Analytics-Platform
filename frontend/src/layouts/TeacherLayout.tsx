@@ -20,7 +20,6 @@ export const TeacherLayout = () => {
 
   const logoutUser = async () =>{
         await logout()
-        alert('Logout successful')
         navigate('/')
     }
 

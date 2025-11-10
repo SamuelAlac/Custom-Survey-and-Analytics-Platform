@@ -2,76 +2,77 @@ import { Link } from "react-router-dom"
 import { useUserResponses, useUserSurveys } from "../../../features/user/hooks"
 import { CompletedSurveyList } from "./components/CompletedSurveyList"
 import { PendingSurveyList } from "./components/PendingSurveyList"
+import { useState } from "react"
+import { SurveyListSkeleton } from "./components/SurveyListSkeleton"
 
 const StudentDashboard = () => {
-
-    const { data:survey_data } = useUserSurveys()
+    const [view, setView] = useState<'all' | 'pending' | 'completed'>('all')
+    const { data:survey_data, isLoading: isSurveyLoading } = useUserSurveys()
     const surveys = survey_data?.section.section_assignments
-    console.log('all survey',surveys)
-
-    const { data:response_data } = useUserResponses()
+    const { data:response_data, isLoading:isResponseLoading } = useUserResponses()
     const responses = response_data?.survey_respondent
-    console.log('survey with user responses',responses)
+
+    const isLoading = isSurveyLoading || isResponseLoading
 
     // List of completed survey assignments in response
     const completedSurveyIDs = responses?.map((response: any) => response.survey_assignment.id)
-    console.log(completedSurveyIDs)
     
     const completedSurveys = surveys?.filter((survey: any) => completedSurveyIDs?.includes(survey.id))
-
     const pendingSurveys = surveys?.filter((survey: any) => !completedSurveyIDs?.includes(survey.id))
-
     console.log("Completed Surveys:", completedSurveys);
     console.log("Pending Surveys:", pendingSurveys);
 
+    const getSurveyLists = () =>{
+        if (isLoading) {
+        return (<>{Array.from({ length: 3 }).map((_, index) =>(
+        <SurveyListSkeleton key={index}/>
+        ))}</>)}
+
+        switch(view){
+            case 'pending':
+                if (pendingSurveys?.length === 0) return (<p className="text-4xl text-center text-gray-500 font-semibold py-10">You have no pending surveys yet.</p>)
+                return pendingSurveys?.map((survey: any) =>(<PendingSurveyList key={survey?.id} survey={survey}/>))
+            case 'completed':
+                if (completedSurveys?.length === 0) return (<p className="text-4xl text-center text-gray-500 font-semibold py-10">You have no completed surveys yet.</p>)
+                return completedSurveys?.map((survey: any) =>(<CompletedSurveyList key={survey?.id} survey={survey}/>))
+            default:
+                return (
+                    <>
+                    {completedSurveys?.map((survey: any) =>(<CompletedSurveyList key={survey?.id} survey={survey}/>))}
+                    {pendingSurveys?.map((survey: any) =>(<PendingSurveyList key={survey?.id} survey={survey}/>))}
+                    </>
+                )
+        }
+    }
+
   return (
     <section>
-      <div className='border-b-2 border-b-[#D5D5D5] h-10 md:h-15 flex items-center'>
-          <h1 className="text-[#050505] text-xl md:text-2xl text-center lg:text-start lg:text-4xl font-bold">Assigned Surveys</h1>
-      </div>
+        <div className='border-b-2 border-b-[#D5D5D5] h-10 md:h-15 flex items-center'>
+            <h1 className="text-[#050505] text-xl md:text-2xl text-center lg:text-start lg:text-4xl font-bold">Assigned Surveys</h1>
+        </div>
 
-          <div className='min-h-20 flex justify-center md:justify-end items-center'>
-              <div className='flex gap-3'>
-                  <div className='text-white text-[12px] md:text-lg bg-[#FBA02C] p-2 lg:px-3 lg:py-2 indicator
-                  rounded-2xl font-bold shadow-lg shadow-orange-950/50'>
-                      <a href='{% url "students:dashboard" %}?browse=Pending'>Pending 3</a>
-                  </div>
+        <div className='min-h-20 flex justify-center md:justify-end items-center'>
+            <div className='flex gap-3'>
+                <div className='text-white text-[12px] md:text-lg bg-[#FBA02C] p-2 lg:px-3 lg:py-2 indicator
+                rounded-2xl font-bold shadow-lg shadow-orange-950/50'>
+                    {view === 'pending' && 
+                    (<button onClick={() => setView('all')} className="indicator-item badge badge-neutral">x</button>)}
+                    <button onClick={() => setView(view === 'pending' ? 'all' : 'pending')}>Pending {pendingSurveys?.length}</button>
+                </div>
 
-                  <a href='{% url "students:dashboard" %}?browse=Completed' className='text-[#2C8C09] text-[12px] md:text-lg bg-[#B6FF9F] p-2 lg:px-3 lg:py-2 rounded-2xl 
-                  font-bold shadow-lg shadow-green-950/50'>Completed 2</a>
-              </div>
-          </div>
-
-          <div className='md:mt-5 space-y-5 w-full'>
-            <div className='h-30 bg-white shadow-lg shadow-black/30 rounded-2xl'>
-                <div className='md:px-7 md:py-8 text-center md:text-start'>
-                    <h3 className='text-black text-lg font-bold'>Survey Title 1</h3>
-                    <div className='relative'>
-                        <div className='md:mt-2 mb-3 md:mb-0 flex flex-col md:flex-row items-center md:space-x-7'>
-                            <div className='flex items-center gap-2'>
-                                <img src="/due_survey_icon.svg" alt="Due Survey Icon" />
-                                <p className='text-[#595959] text-sm'>Due: 2025-30-10</p>
-                            </div>
-
-                            <div className='flex items-center gap-2'>
-                                <img src="/completed_survey_icon.svg" alt="Completed Survey" />
-                                <p className='text-[#2C8C09] text-sm'>Completed</p>
-                            </div>
-                        </div>
-
-                        <Link to="/" className='md:absolute text-center font-bold p-1 w-50 lg:px-3 lg:py-3 rounded-lg md:right-1 md:bottom-1
-                        text-[#85898E] bg-[#D5D5D5] shadow-lg shadow-neutral-950/50'>Completed</Link>
-                    </div>
+                <div className='text-[#2C8C09] text-[12px] md:text-lg bg-[#B6FF9F] p-2 lg:px-3 lg:py-2 rounded-2xl 
+                font-bold shadow-lg shadow-green-950/50 indicator'>
+                    {view === 'completed' && 
+                    (<button onClick={() => setView('all')} className="indicator-item badge badge-neutral">x</button>)}
+                    <button onClick={() => setView(view === 'completed' ? 'all' : 'completed')}>Completed {completedSurveys?.length}</button>
                 </div>
             </div>
-            {completedSurveys?.map((survey: any) =>(
-                <CompletedSurveyList key={survey?.id} survey={survey}/>
-            ))}
-            {pendingSurveys?.map((survey: any) =>(
-                <PendingSurveyList key={survey?.id} survey={survey}/>
-            ))}
-          </div>
-        </section>
+        </div>
+
+        <div className='md:mt-5 space-y-5 w-full'>
+            {getSurveyLists()}
+        </div>
+    </section>
   )
 }
 

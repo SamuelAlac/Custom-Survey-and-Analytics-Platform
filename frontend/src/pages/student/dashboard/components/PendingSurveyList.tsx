@@ -19,8 +19,8 @@ export const PendingSurveyList = ({ survey }: { survey: any }) => {
                     </div>
                 </div>
 
-                <Link to="/" className='md:absolute text-center font-bold p-1 w-50 lg:px-3 lg:py-3 rounded-lg md:right-1 md:bottom-1
-                text-[#85898E] bg-[#D5D5D5] shadow-lg shadow-neutral-950/50'>Completed</Link>
+                <Link to={`Take-Survey/${survey.id}`} className='md:absolute text-center font-bold p-1 w-50 lg:px-3 lg:py-3 rounded-lg md:right-1 md:bottom-1
+                text-white bg-[#F37611] shadow-lg shadow-neutral-950/30'>Take Survey</Link>
             </div>
         </div>
     </div>

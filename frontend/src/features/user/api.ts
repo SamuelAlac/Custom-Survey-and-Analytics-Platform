@@ -19,6 +19,22 @@ export const getUserSurveys = async () =>{
     }
 }
 
+export const createResponse = async (responseData: any) =>{
+    try {
+        const token = localStorage.getItem('access')
+        if (!token) throw new Error('No access token found')
+        
+        const res = await axios.post('/core/survey-response-answers/', responseData,{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (error: any) {
+        throw error.response?.data
+    }
+}
+
 export const getUserResponses = async () =>{
     try {
         const token = localStorage.getItem('access')
