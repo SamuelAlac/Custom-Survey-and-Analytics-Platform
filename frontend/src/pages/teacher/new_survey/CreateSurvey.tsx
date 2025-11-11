@@ -18,6 +18,7 @@ import {
 } from '@dnd-kit/sortable'
 import { DraggableItem, DropZone, SortableItem } from "./components/DragNDrop"
 import { useSections } from "../../../features/section/hooks"
+import { publishSurvey } from "../../../features/survey/api"
 
 interface QuestionItem {
   id: string
@@ -254,7 +255,7 @@ const CreateSurvey = () => {
       }
     }
 
-    if (!assignedSection.trim()) {
+    if (!assignedSection || assignedSection === '') {
       newErrors.section = 'Section assignment is required'
     }
 
@@ -322,27 +323,57 @@ const CreateSurvey = () => {
 
     setIsSubmitting(true)
     try {
-      const surveyData = {
+      // Include all questions (headers will be converted to text questions)
+      const questionsToPublish = droppedItems.map(item => {
+        // Ensure all questions have some text content
+        if (!item.content) {
+          item.content = getDefaultContent(item.type)
+        }
+        return item
+      })
+      
+      const result = await publishSurvey({
         title: surveyTitle,
-        dueDate,
-        assignedSection,
-        questions: droppedItems,
-        status: 'published',
-        createdAt: new Date().toISOString()
+        description: `Survey created on ${new Date().toLocaleDateString()}`,
+        questions: questionsToPublish,
+        sections: [parseInt(assignedSection)],
+        dueDate
+      })
+      
+      console.log('Survey published successfully:', result)
+      alert(`Survey "${surveyTitle}" published successfully!`)
+      
+      // Reset form after successful submission
+      setSurveyTitle('')
+      setDueDate('')
+      setAssignedSection('')
+      setDroppedItems([])
+      setErrors({})
+      
+    } catch (error: any) {
+      console.error('Error publishing survey:', error)
+      let errorMessage = 'Error publishing survey. Please try again.'
+      
+      if (error?.response?.data) {
+        const errorData = error.response.data
+        if (typeof errorData === 'string') {
+          errorMessage = errorData
+        } else if (errorData.detail) {
+          errorMessage = errorData.detail
+        } else if (errorData.message) {
+          errorMessage = errorData.message
+        } else {
+          // Handle field-specific errors
+          const fieldErrors = Object.values(errorData).flat().join(', ')
+          if (fieldErrors) {
+            errorMessage = `Validation errors: ${fieldErrors}`
+          }
+        }
+      } else if (error?.message) {
+        errorMessage = error.message
       }
       
-      
-      console.log('Publishing survey:', surveyData)
-      
-      
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      alert('Survey published successfully!')
-      
-      
-    } catch (error) {
-      console.error('Error publishing survey:', error)
-      alert('Error publishing survey. Please try again.')
+      alert(errorMessage)
     } finally {
       setIsSubmitting(false)
     }
@@ -455,9 +486,9 @@ const CreateSurvey = () => {
                         setErrors(prev => ({ ...prev, section: '' }))
                       }
                     }}>
-                      <option selected>Yr/Section/Group</option>
-                      {sections?.map((section: any, index: any) =>(
-                          <option key={index}>{section.name}</option>
+                      <option value="">Yr/Section/Group</option>
+                      {sections?.map((section: any) =>(
+                          <option key={section.id} value={section.id}>{section.name}</option>
                       ))}
                   </select>
                 {errors.section && <p className="text-red-500 text-sm mt-1">{errors.section}</p>}
@@ -519,9 +550,9 @@ const CreateSurvey = () => {
               
               <button
                 onClick={handlePublish}
-                disabled={isSubmitting || !surveyTitle.trim() || !dueDate || !assignedSection.trim() || droppedItems.length === 0}
+                disabled={isSubmitting || !surveyTitle.trim() || !dueDate || !assignedSection || droppedItems.length === 0}
                 className={`flex-1 px-4 py-2 bg-[#F37611] text-white rounded-lg hover:bg-[#E66600] transition-colors ${
-                  isSubmitting || !surveyTitle.trim() || !dueDate || !assignedSection.trim() || droppedItems.length === 0
+                  isSubmitting || !surveyTitle.trim() || !dueDate || !assignedSection || droppedItems.length === 0
                     ? 'opacity-50 cursor-not-allowed' 
                     : ''
                 }`}
