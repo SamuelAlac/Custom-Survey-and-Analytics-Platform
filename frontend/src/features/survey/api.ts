@@ -1,5 +1,4 @@
 import axios from '../../libs/axios'
-import { jwtDecode } from 'jwt-decode'
 
 
 export const createSurvey = async (surveyData: any) =>{
