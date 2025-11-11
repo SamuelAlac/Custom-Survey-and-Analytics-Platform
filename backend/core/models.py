@@ -62,7 +62,7 @@ class Choice(models.Model):
 
     def clean(self):
         # Prevent adding choices to short-answer or likert questions
-        if self.question.question_type in [Question.Types.TEXT, Question.Types.LIKERT]:
+        if self.question.question_type in [Question.Types.TEXT]:
             raise ValidationError("Short answer questions cannot have choices.")
 
     def save(self, *args, **kwargs):

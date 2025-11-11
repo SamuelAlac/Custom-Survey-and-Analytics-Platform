@@ -4,18 +4,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### CREATE QUESTION
 POST http://127.0.0.1:8000/api/core/questions/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjIxNzk1LCJpYXQiOjE3NjI2MTgxOTUsImp0aSI6ImUwNTdkNjY4ZWE4NDQzOGJiNmE5NjM1ZDNiZTY5NDcwIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.-A3AZ3YsveuBDX2ZAN59drGnwC3GQkiNT7aaJaxLXiI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyODMwMzI5LCJpYXQiOjE3NjI4MjY3MjksImp0aSI6ImU1Y2U3MDUyYWViOTQ5M2JiNjk4NDAwYzFjNjNhYTdkIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.XSPEWl0D4-AR_TifmtS_-519dAmLjpIpqN_r7K3S6JU
 Content-Type: application/json
 
 {
-  "survey": 16,
-  "text": "What is preferred food?",
-  "question_type": "mcq",
-  "order": 1,
+  "survey": 18,
+  "text": "Test question",
+  "question_type": "likert",
+  "order": 2,
   "question_choices": [
-    {"text": "Fries"},
-    {"text": "Fries"},
-    {"text": "Fries"}
+    {"text": "Strongly Disagree"},
+    {"text": "Disagree"},
+    {"text": "Neutral"},
+    { "text": "Agree" },
+    { "text": "Strongly Agree" }
   ]
 }
 

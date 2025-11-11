@@ -1,20 +1,20 @@
 ### GET SURVEYS
 GET http://127.0.0.1:8000/api/core/surveys/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjUyMjU5LCJpYXQiOjE3NjI2NDg2NTksImp0aSI6Ijk4ZjFiMDRlZmJjZjQ0NzM5MDllMjYwMTg4NzE5NWVlIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.WcnHLr4XBMqquOt-COEguP5qu3GOKfz5S_b5jVxxqxQ 
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyODMwMzI5LCJpYXQiOjE3NjI4MjY3MjksImp0aSI6ImU1Y2U3MDUyYWViOTQ5M2JiNjk4NDAwYzFjNjNhYTdkIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.XSPEWl0D4-AR_TifmtS_-519dAmLjpIpqN_r7K3S6JU
 
 ### CREATE SURVEY
 POST http://127.0.0.1:8000/api/core/surveys/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjIxNzk1LCJpYXQiOjE3NjI2MTgxOTUsImp0aSI6ImUwNTdkNjY4ZWE4NDQzOGJiNmE5NjM1ZDNiZTY5NDcwIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.-A3AZ3YsveuBDX2ZAN59drGnwC3GQkiNT7aaJaxLXiI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyODMwMzI5LCJpYXQiOjE3NjI4MjY3MjksImp0aSI6ImU1Y2U3MDUyYWViOTQ5M2JiNjk4NDAwYzFjNjNhYTdkIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.XSPEWl0D4-AR_TifmtS_-519dAmLjpIpqN_r7K3S6JU
 Content-Type: application/json
 
 {
-    "title": "Am i not gonna die",
+    "title": "This is a test survey",
     "description": "testing survey"
 }
 
 ### GET SURVEY
-GET http://127.0.0.1:8000/api/core/surveys/12/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjEzMzg4LCJpYXQiOjE3NjI2MDk3ODgsImp0aSI6IjU0NWQ0MDZjODYxMTQyYzE5ZjQ0ZjEwYTM5MTczNDU5IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.21ZK5FTZHDeayCFv4O0hS4GFRqADtbw7_u7ySfJCTeg
+GET http://127.0.0.1:8000/api/core/surveys/17/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyODMwMzI5LCJpYXQiOjE3NjI4MjY3MjksImp0aSI6ImU1Y2U3MDUyYWViOTQ5M2JiNjk4NDAwYzFjNjNhYTdkIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.XSPEWl0D4-AR_TifmtS_-519dAmLjpIpqN_r7K3S6JU
 
 ### UPDATE SURVEY
 PUT http://127.0.0.1:8000/api/core/surveys/12/

@@ -3,7 +3,7 @@ POST http://127.0.0.1:8000/api/auth/token/
 Content-Type: application/json
 
 {
-    "email": "samuelalac06@gmail.com",
+    "email": "samuelalac04@gmail.com",
     "password": "Samuel@061303"
 }
 
@@ -18,8 +18,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### GET USER WITH SECTION SURVEYS
 GET http://127.0.0.1:8000/api/auth/user-surveys/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjY0OTcxLCJpYXQiOjE3NjI2NjEzNzEsImp0aSI6Ijk0Yzk4MjVkZTY2MjQ4YWZhNDg4ZDBiNzk3MzlkOTFiIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ._FkXdaS6w5H3ZAlIGwKh_ed1tZXPaw0fZMNqoTbHoD8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzgyODIyLCJpYXQiOjE3NjI3NzkyMjIsImp0aSI6IjZlODAwYjkzMjc1NzQ4Y2NhNTk2NDE1ZWMzZWMwYjk5IiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.NIlPAb_2fuCrMAK3rH_I1-VBeSf8RDruzp4bCZoHRf8
 
 ### GET USER WITH RESPONSES
 GET http://127.0.0.1:8000/api/auth/user-responses/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjY0OTcxLCJpYXQiOjE3NjI2NjEzNzEsImp0aSI6Ijk0Yzk4MjVkZTY2MjQ4YWZhNDg4ZDBiNzk3MzlkOTFiIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ._FkXdaS6w5H3ZAlIGwKh_ed1tZXPaw0fZMNqoTbHoD8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzgyODIyLCJpYXQiOjE3NjI3NzkyMjIsImp0aSI6IjZlODAwYjkzMjc1NzQ4Y2NhNTk2NDE1ZWMzZWMwYjk5IiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.NIlPAb_2fuCrMAK3rH_I1-VBeSf8RDruzp4bCZoHRf8
