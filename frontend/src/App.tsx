@@ -14,6 +14,7 @@ import { ProtectedRoute } from './routes/ProtectedRoute'
 import CreateSurvey from './pages/teacher/new_survey/CreateSurvey'
 import NewSurvey from './pages/teacher/new_survey/NewSurvey'
 import TakeSurvey from './pages/student/take_survey/TakeSurvey'
+import StudentResponse from './pages/student/my_responses/view/StudentResponse'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
           { path: "Dashboard", element: <StudentDashboard /> },
           { path: "Dashboard/Take-Survey/:id", element: <TakeSurvey /> },
           { path: "MyResponses", element: <StudentResponses /> },
+          { path: "MyResponses/:id", element: <StudentResponse/> },
         ]
       }
     ]
@@ -58,7 +60,6 @@ const router = createBrowserRouter([
           { path: "Dashboard", element: <TeacherDashboard /> },
           { path: "NewSurvey", element: <NewSurvey /> },
           { path: "NewSurvey/Create-Survey", element: <CreateSurvey /> },
-
         ],
       },
     ]

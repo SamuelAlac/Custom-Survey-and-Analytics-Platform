@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { getUserResponses, getUserSurveys } from "./api"
+import { getUserResponse, getUserResponses, getUserSurveys } from "./api"
 
 export const useUserSurveys = () =>{
     return useQuery({
@@ -12,5 +12,12 @@ export const useUserResponses = () =>{
     return useQuery({
         queryKey: ['userresponses'],
         queryFn: getUserResponses,
+    })
+}
+
+export const useUserResponse = ({ id }: { id: string }) =>{
+    return useQuery({
+        queryKey: ['userresponse', id],
+        queryFn: () => getUserResponse({ id }),
     })
 }

@@ -3,7 +3,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useAuth } from '../../../../context/AuthContext'
 import toast from 'react-hot-toast';
 
-type FormFields = {
+interface FormFields {
     email: string;
     password: string;
     rememberMe: boolean;

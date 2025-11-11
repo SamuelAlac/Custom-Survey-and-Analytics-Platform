@@ -9,7 +9,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 
 ### GET RESPONSES WITH ANSWERS
 GET http://127.0.0.1:8000/api/core/survey-response-answers/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjYyOTI3LCJpYXQiOjE3NjI2NTkzMjcsImp0aSI6IjQyZTZlN2U2ZWUyMTQwNjdhODdlYTQ0M2Q2ODAzMWFlIiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.V8WYEepAL1ma1LWbfhH-d1urHy1X-6ERYqs172pt5TI
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyODU3OTg0LCJpYXQiOjE3NjI4NTQzODQsImp0aSI6ImE5Y2RmYjlmNTg0MjRkNmJiYjhkMWYyZmQ1ZThjMTMxIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ.6lQ_mYoYKw6FJAD9CH6jZSNVqk-Fu_iga5o7jzLCtFk
 
 ### CREATE RESPONSE WITH ANSWERS
 POST http://127.0.0.1:8000/api/core/survey-response-answers/
@@ -17,12 +17,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 Content-Type: application/json
 
 {
-  "survey_assignment": "",
+  "survey_assignment": 17,
   "response_answer": [
-    {"question": "", "answer": ""}
+    {"question": 37, "answer": "Java"}
   ]
 }
 
 ### GET RESPONSE WITH ANSWERS
-GET http://127.0.0.1:8000/api/core/survey-response-answers/10/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjYyOTI3LCJpYXQiOjE3NjI2NTkzMjcsImp0aSI6IjQyZTZlN2U2ZWUyMTQwNjdhODdlYTQ0M2Q2ODAzMWFlIiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.V8WYEepAL1ma1LWbfhH-d1urHy1X-6ERYqs172pt5TI
+GET http://127.0.0.1:8000/api/core/survey-response-answers/12/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyODU3OTg0LCJpYXQiOjE3NjI4NTQzODQsImp0aSI6ImE5Y2RmYjlmNTg0MjRkNmJiYjhkMWYyZmQ1ZThjMTMxIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ.6lQ_mYoYKw6FJAD9CH6jZSNVqk-Fu_iga5o7jzLCtFk

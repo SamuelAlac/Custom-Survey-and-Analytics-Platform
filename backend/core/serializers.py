@@ -102,6 +102,7 @@ class SurveyAssignmentWithSurveySerializer(serializers.ModelSerializer):
 class AnswerSerializer(serializers.ModelSerializer):
     question = serializers.PrimaryKeyRelatedField(queryset=Question.objects.all())
     question_text = serializers.SerializerMethodField()
+    question_type = serializers.SerializerMethodField()
 
     class Meta:
         model = Answer
@@ -111,6 +112,11 @@ class AnswerSerializer(serializers.ModelSerializer):
     def get_question_text(self, obj):
         if obj.question:
             return obj.question.text
+        return None
+    
+    def get_question_type(self, obj):
+        if obj.question:
+            return obj.question.question_type
         return None
 
 

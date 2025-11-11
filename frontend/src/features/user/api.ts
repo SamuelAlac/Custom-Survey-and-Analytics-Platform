@@ -50,3 +50,19 @@ export const getUserResponses = async () =>{
         throw error.response?.data
     }
 }
+
+export const getUserResponse = async ({ id }: { id: string }) =>{
+    try {
+        const token = localStorage.getItem('access')
+        if (!token) throw new Error('No access token found')
+        
+        const res = await axios.get(`/core/survey-response-answers/${id}/`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (error: any) {
+        throw error.response?.data
+    }
+}

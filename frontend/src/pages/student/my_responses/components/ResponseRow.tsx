@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import { formatDate } from "../../../../libs/formatDate"
 
 export const ResponseRow = ({ response }: { response: any }) => {
@@ -12,10 +13,10 @@ export const ResponseRow = ({ response }: { response: any }) => {
             </div>
         </td>
         <td>
-            <div className='bg-[#FBE4C9] px-3 py-2 rounded-lg cursor-pointer hover:bg-[#f9b56f] transition inline-flex justify-center items-center gap-2'>
+            <Link to={`${response?.id}`} className='bg-[#FBE4C9] px-3 py-2 rounded-lg cursor-pointer hover:bg-[#f9b56f] transition inline-flex justify-center items-center gap-2'>
                 <img src='/view_icon.svg' alt="View icon"/>
                 <span className='text-[#F37611] font-semibold text-sm md:text-md'>View</span>
-            </div>
+            </Link>
         </td>
     </tr>
   )

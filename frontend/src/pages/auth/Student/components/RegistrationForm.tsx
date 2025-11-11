@@ -4,7 +4,7 @@ import { registerUser } from '../../../../features/auth/api';
 import { useSections } from '../../../../features/section/hooks';
 import toast from 'react-hot-toast';
 
-type FormFields = {
+interface FormFields {
     fname: string;
     lname: string
     email: string;
