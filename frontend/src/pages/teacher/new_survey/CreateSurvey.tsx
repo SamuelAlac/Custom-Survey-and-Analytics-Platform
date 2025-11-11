@@ -17,6 +17,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
 import { DraggableItem, DropZone, SortableItem } from "./components/DragNDrop"
+import { useSections } from "../../../features/section/hooks"
 
 interface QuestionItem {
   id: string
@@ -27,6 +28,7 @@ interface QuestionItem {
 }
 
 const CreateSurvey = () => {
+  
   const [droppedItems, setDroppedItems] = useState<QuestionItem[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
   
@@ -35,7 +37,8 @@ const CreateSurvey = () => {
   const [dueDate, setDueDate] = useState('')
   const [assignedSection, setAssignedSection] = useState('')
 
-  
+  const { data } = useSections()
+  const sections = data?.results
   
   const [errors, setErrors] = useState<{[key: string]: string}>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -430,7 +433,7 @@ const CreateSurvey = () => {
 
               <div>
                 <h2 className="text-black font-bold text-lg mb-2">Assign to Section</h2>
-                <div className={`bg-transparent border-2 rounded-lg p-3 ${errors.section ? 'border-red-500' : 'border-gray-300'}`}>
+                {/* <div className={`bg-transparent border-2 rounded-lg p-3 ${errors.section ? 'border-red-500' : 'border-gray-300'}`}>
                   <input 
                     type="text" 
                     placeholder="Yr/Section/Group" 
@@ -443,7 +446,20 @@ const CreateSurvey = () => {
                       }
                     }}
                   />
-                </div>
+                </div> */}
+                  <select className="select w-full h-12.5 border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]"
+                  value={assignedSection}
+                    onChange={(e) => {
+                      setAssignedSection(e.target.value)
+                      if (errors.section) {
+                        setErrors(prev => ({ ...prev, section: '' }))
+                      }
+                    }}>
+                      <option selected>Yr/Section/Group</option>
+                      {sections?.map((section: any, index: any) =>(
+                          <option key={index}>{section.name}</option>
+                      ))}
+                  </select>
                 {errors.section && <p className="text-red-500 text-sm mt-1">{errors.section}</p>}
               </div>
             </div>
