@@ -9,7 +9,7 @@ const TeacherDashboard = () => {
             
             <div className='bg-[#F37611] text-xl p-2 rounded-md flex items-center shadow-lg shadow-black/30 text-white'>
                 <img src='/add_icon.svg' alt="" className='w-5 mx-2'/>
-                <Link to="/" className='font-bold'>Create New Surveys</Link>
+                <Link to="/Teacher/NewSurvey/Create-Survey" className='font-bold'>Create New Surveys</Link>
             </div>
         </div>
 

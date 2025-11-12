@@ -1,13 +1,7 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-import { useSurveyAssignments } from '../../../features/survey_assignment/hooks'
+import { SurveyCards } from './components/SurveyCards'
 
 const NewSurvey = () => {
-
-    const { data } = useSurveyAssignments()
-    const surveys = data?.results
-    console.log('test',surveys)
-    console.log(surveys?.sections)
 
   return (
     <section className='space-y-8 max-h-full'>
@@ -24,49 +18,7 @@ const NewSurvey = () => {
                         <img src="/add_survey.svg" alt="Add Survey" className='w-20' />
                     </Link>
                 </div>
-
-                <div className="card w-80 h-50 bg-base-100 card-md shadow-lg shadow-black/20">
-                    <div className="card-body">
-                        <h2 className="card-title">Large Card</h2>
-                        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-                        <div className="justify-end card-actions">
-                        <button className="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="card w-80 h-50 bg-base-100 card-md shadow-lg shadow-black/20">
-                    <div className="card-body">
-                        <h2 className="card-title">Large Card</h2>
-                        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-                        <div className="justify-end card-actions">
-                        <button className="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-
-                {surveys?.map((survey: any, index: number) =>(
-                    <div key={index} className="card w-80 h-50 bg-base-100 card-md shadow-lg shadow-black/20">
-                        <div className="card-body">
-                            <h2 className="card-title">{survey?.survey_name}</h2>
-                            <p>{survey?.survey_description}</p>
-                            <div className="justify-end card-actions">
-                            <button className="btn btn-primary">View</button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-
-                <div className="card w-80 h-50 bg-base-100 card-md shadow-lg shadow-black/20">
-                    <div className="card-body">
-                        <h2 className="card-title">Large Card</h2>
-                        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-                        <div className="justify-end card-actions">
-                        <button className="btn btn-primary">Buy Now</button>
-                        </div>
-                    </div>
-                </div>
-                
+                <SurveyCards/>               
             </div>
         </div>
     </section>

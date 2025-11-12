@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom"
 import { useUserResponse } from "../../../../features/user/hooks"
 import { formatWordDate } from "../../../../libs/formatDate"
+import { LikertResponse, McqResponse, TextResponse } from "../components/ResponseFields"
 
 const StudentResponse = () => {
   
@@ -32,14 +33,24 @@ const StudentResponse = () => {
                 <p className='text-[#2C8C09] text-sm'>Completed</p>
               </div>
             </div>
-            <hr className="border border-[#D9D9D9]"/>
+            <hr className="border border-[#D9D9D9] mb-10"/>
+            <div className="space-y-10">
+              {answers?.map((ans: any, index: number) =>(
+                <div key={ans?.id}>
+                  {ans?.question_type === 'mcq' && (
+                    <McqResponse ans={ans} index={index}/>
+                  )}
 
-            {/* RESPONSE ANSWERS */}
-            {/* <div>
-              {answers?.map((answer: any, index: number) =>(
-                
+                  {ans?.question_type === 'likert' && (
+                    <LikertResponse ans={ans} index={index}/>
+                  )}
+
+                  {ans?.question_type === 'text' && (
+                    <TextResponse ans={ans} index={index}/>
+                  )}
+                </div>
               ))}
-            </div> */}
+            </div>
           </div>
       </div>
     </section>

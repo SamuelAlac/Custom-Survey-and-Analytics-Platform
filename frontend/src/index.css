@@ -13,3 +13,15 @@
     cursor: pointer;
   }
 }
+
+@layer components{
+  .nav-link{
+    @apply text-white;
+    @apply bg-[#FBA02C];
+  }
+
+  .nav-link-active{
+    @apply text-[#F37611];
+    @apply bg-white;
+  }
+}

@@ -24,9 +24,9 @@ export const ResponseForm = ({ survey_questions, id }: ResponseFormProps) => {
   const onSubmit = async (formData: FormValues) =>{
     try {
       const response_answer = survey_questions
-      ?.slice().sort((a: any, b: any) => a.order - b.order).map((q: any) => ({
-        question: q.id,
-        answer: formData[`q${q.order}`] || "",
+      ?.slice()?.sort((a: any, b: any) => a?.order - b?.order)?.map((q: any) => ({
+        question: q?.id,
+        answer: formData[`q${q?.order}`] || "",
       }));
 
       const response = { survey_assignment: Number(id), response_answer }
@@ -46,7 +46,7 @@ export const ResponseForm = ({ survey_questions, id }: ResponseFormProps) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className='p-10'>
       <div className="space-y-15">
-        {survey_questions?.slice().sort((a: any, b: any ) => a.order - b.order).map((question: any) =>(
+        {survey_questions?.slice().sort((a: any, b: any ) => a?.order - b?.order)?.map((question: any) =>(
             <div key={question?.id}>
             {question?.question_type === 'mcq' && (
               <McqField question={question} register={register} setValue={setValue}/>

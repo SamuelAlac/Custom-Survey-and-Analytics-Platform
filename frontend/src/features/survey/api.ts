@@ -185,3 +185,78 @@ const getQuestionType = (type: string) => {
             return 'text'
     }
 }
+
+export const updateSurvey = async (id: any, surveyData: any) =>{
+    try {
+        const token = localStorage.getItem('access')
+        if (!token) throw new Error('No access token found')
+        
+        const res = await axios.put(`/core/surveys/${id}`, surveyData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (error: any) {
+        throw error.response?.data
+    }
+}
+
+// Survey Update Format
+// {
+//     "title": "Updated Survey",
+//     "description": "Collecting"
+// }
+
+export const updateQuestion = async (id: any, questionData: any) =>{
+    try {
+        const token = localStorage.getItem('access')
+        if (!token) throw new Error('No access token found')
+        
+        const res = await axios.put(`/core/questions/${id}`, questionData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (error: any) {
+        throw error.response?.data
+    }
+}
+
+// Question Update Formats:
+
+// Multiple Choice Question:
+// {
+//   "survey": 19,
+//   "text": "Test question",
+//   "question_type": "mcq",
+//   "order": 1,
+//   "question_choices": [
+//     {"text": "Choice A"},
+//     {"text": "Choice B"},
+//   ]
+// }
+
+// Likert Scale Question:
+// {
+//   "survey": 19,
+//   "text": "Test question",
+//   "question_type": "likert",
+//   "order": 2,
+//   "question_choices": [
+//     {"text": "Strongly Disagree"},
+//     {"text": "Disagree"},
+//     {"text": "Maybe"},
+//     {"text": "Agree"},
+//     {"text": "Strongly Agree"}
+//   ]
+// }
+
+// Short Text Question:
+// {
+//   "survey": 19,
+//   "text": "Test question",
+//   "question_type": "text",
+//   "order": 3
+// }

@@ -33,16 +33,18 @@ export const TeacherLayout = () => {
           </div>
           
           <div className='flex-4 mt-2.5 border-b-2 border-b-white'>
-            <div className='group flex justify-center h-20 pt-2 hover:bg-white'>
+            <div className='group flex justify-center h-20 pt-2 hover:bg-white/30'>
                 <figure className='flex flex-col items-center gap-2 text-center'>
                     <img src='/user_icon.svg' className='w-10' alt="User Profile Icon"/>
-                    <Link to="/" className='font-bold text-[10px] md:text-[12px]'>
+                    <Link to="/Profile" className='font-bold text-[10px] md:text-[12px]'>
                     Profile
                     </Link>
                 </figure>
             </div>
-
-            <div className="group flex justify-center h-20 pt-2 hover:bg-white">
+            {/* {teachernavlist.map((nav:any, index: number) =>(
+                <TeacherNav key={index} nav={nav}/>
+            ))} */}
+            <div className="group flex justify-center h-20 pt-2 hover:bg-white/30">
                 <figure className='flex flex-col items-center gap-2 text-center'>
                     <Link to='Dashboard'>
                         <img src='/dashboard_nav_icon.svg' alt="Dashboard Icon"/>
@@ -53,7 +55,7 @@ export const TeacherLayout = () => {
                 </figure>
             </div>
 
-            <div className="group flex justify-center h-20 pt-2 hover:bg-white">
+            <div className="group flex justify-center h-20 pt-2 hover:bg-white/30">
                 <figure className='flex flex-col items-center gap-2 text-center'>
                     <Link to='NewSurvey'>
                         <img src='/new_survey_nav_icon.svg' alt="New Survey Icon"/>
@@ -66,7 +68,7 @@ export const TeacherLayout = () => {
           </div>
 
           <div>
-            <div className='flex items-center justify-center h-20 space-x-2.5 space-y-1'>
+            <div className='flex items-center justify-center h-20 space-x-2.5 space-y-1 hover:bg-white/30'>
               <button onClick={logoutUser}>
                   <img src='/logout_icon.svg' alt="Dashboard Icon"/>
               </button>

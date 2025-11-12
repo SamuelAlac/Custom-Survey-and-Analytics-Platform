@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import { useState } from "react"
 import {
   DndContext,
@@ -19,6 +18,7 @@ import {
 import { DraggableItem, DropZone, SortableItem } from "./components/DragNDrop"
 import { useSections } from "../../../features/section/hooks"
 import { publishSurvey } from "../../../features/survey/api"
+import toast from "react-hot-toast"
 
 interface QuestionItem {
   id: string
@@ -36,7 +36,7 @@ const CreateSurvey = () => {
 
   const [surveyTitle, setSurveyTitle] = useState('')
   const [dueDate, setDueDate] = useState('')
-  const [assignedSection, setAssignedSection] = useState('')
+  const [assignedSection, setAssignedSection] = useState<string[]>([])
 
   const { data } = useSections()
   const sections = data?.results
@@ -255,7 +255,7 @@ const CreateSurvey = () => {
       }
     }
 
-    if (!assignedSection || assignedSection === '') {
+    if (!assignedSection || assignedSection.length === 0) {
       newErrors.section = 'Section assignment is required'
     }
 
@@ -336,17 +336,17 @@ const CreateSurvey = () => {
         title: surveyTitle,
         description: `Survey created on ${new Date().toLocaleDateString()}`,
         questions: questionsToPublish,
-        sections: [parseInt(assignedSection)],
+        sections: assignedSection.map(id => parseInt(id)),
         dueDate
       })
       
       console.log('Survey published successfully:', result)
-      alert(`Survey "${surveyTitle}" published successfully!`)
+      toast.success(`Survey "${surveyTitle}" pulished successfully!`)
       
       // Reset form after successful submission
       setSurveyTitle('')
       setDueDate('')
-      setAssignedSection('')
+      setAssignedSection([])
       setDroppedItems([])
       setErrors({})
       
@@ -388,7 +388,19 @@ const CreateSurvey = () => {
       <section className='space-y-8 max-h-full'>
         <div className='h-10 md:h-15 flex items-center justify-between'>
           <h1 className="text-[#050505] text-xl md:text-2xl text-center lg:text-start lg:text-4xl font-semibold">Create New Survey</h1>
-          <Link to='Dashboard' className='text-[#F37611]'>Back to Dashboard</Link>
+          <div>
+            <button
+                onClick={handlePublish}
+                disabled={isSubmitting || !surveyTitle.trim() || !dueDate || !assignedSection || droppedItems.length === 0}
+                className={`flex-1 shadow-lg shadow-black/30 px-4 py-2 bg-[#F37611] text-white rounded-lg hover:bg-[#F37611] transition-colors ${
+                  isSubmitting || !surveyTitle.trim() || !dueDate || !assignedSection || droppedItems.length === 0
+                    ? 'opacity-50 cursor-not-allowed' 
+                    : ''
+                }`}
+              >
+                {isSubmitting ? 'Publishing...' : 'Publish'}
+              </button>
+          </div>
         </div>
 
         <div className='bg-[#FBA02C] p-4 rounded-2xl'>
@@ -464,33 +476,46 @@ const CreateSurvey = () => {
 
               <div>
                 <h2 className="text-black font-bold text-lg mb-2">Assign to Section</h2>
-                {/* <div className={`bg-transparent border-2 rounded-lg p-3 ${errors.section ? 'border-red-500' : 'border-gray-300'}`}>
-                  <input 
-                    type="text" 
-                    placeholder="Yr/Section/Group" 
-                    className="w-full bg-transparent outline-none text-gray-800" 
-                    value={assignedSection}
-                    onChange={(e) => {
-                      setAssignedSection(e.target.value)
-                      if (errors.section) {
-                        setErrors(prev => ({ ...prev, section: '' }))
-                      }
-                    }}
-                  />
-                </div> */}
-                  <select className="select w-full h-12.5 border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]"
-                  value={assignedSection}
-                    onChange={(e) => {
-                      setAssignedSection(e.target.value)
-                      if (errors.section) {
-                        setErrors(prev => ({ ...prev, section: '' }))
-                      }
-                    }}>
-                      <option value="">Yr/Section/Group</option>
-                      {sections?.map((section: any) =>(
-                          <option key={section.id} value={section.id}>{section.name}</option>
-                      ))}
-                  </select>
+                  <div className="dropdown w-full">
+                    <label tabIndex={0} className="btn h-13 w-full justify-between border border-[#ACA6A7] bg-white text-black">
+                      {assignedSection.length > 0
+                        ? `Selected (${assignedSection.length})`
+                        : "Select Year/Section/Group"}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 ml-2"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </label>
+                    <ul tabIndex={0}
+                      className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-full max-h-60 overflow-auto border border-gray-300">
+                        {sections?.map((section: any) => (
+                          <li key={section.id}>
+                            <label className="label cursor-pointer justify-start gap-2">
+                              <input
+                                type="checkbox"
+                                checked={assignedSection.includes(section.id.toString())}
+                                onChange={(e) => {
+                                  const value = section.id.toString()
+                                  if (e.target.checked) {
+                                    setAssignedSection((prev) => [...prev, value])
+                                  } else {
+                                    setAssignedSection((prev) => prev.filter((id) => id !== value))
+                                  }
+                                  if (errors.section) setErrors((prev) => ({ ...prev, section: '' }))
+                                }}
+                                className="checkbox checkbox-sm"
+                              />
+                              <span className="label-text">{section.name}</span>
+                            </label>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
                 {errors.section && <p className="text-red-500 text-sm mt-1">{errors.section}</p>}
               </div>
             </div>
@@ -537,7 +562,7 @@ const CreateSurvey = () => {
             )}
 
             
-            <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-4 border-t border-gray-200">
+            {/* <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-4 border-t border-gray-200">
               <button
                 onClick={handleSaveDraft}
                 disabled={isSubmitting}
@@ -559,7 +584,7 @@ const CreateSurvey = () => {
               >
                 {isSubmitting ? 'Publishing...' : 'Publish Survey'}
               </button>
-            </div>
+            </div> */}
 
           </div>
         </div>
