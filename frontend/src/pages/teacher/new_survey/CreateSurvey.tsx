@@ -183,11 +183,25 @@ const CreateSurvey = () => {
       if (item.id === id && item.type === 'multiple-choice') {
         const currentOptions = item.content?.options || []
         if (currentOptions.length > 2) { // Keep at least 2 options
+          const filteredOptions = currentOptions.filter((_: any, index: number) => index !== optionIndex)
+          
+          // Renumber options that are still using default numbering
+          const renumberedOptions = filteredOptions.map((option: string, newIndex: number) => {
+            // Check if the option is using default numbering pattern (empty or "Option X")
+            const isEmpty = !option.trim()
+            const isDefaultOption = /^Option \d+$/.test(option.trim())
+            
+            if (isEmpty || isDefaultOption) {
+              return `Option ${newIndex + 1}`
+            }
+            return option
+          })
+          
           return {
             ...item,
             content: {
               ...item.content,
-              options: currentOptions.filter((_: any, index: number) => index !== optionIndex)
+              options: renumberedOptions
             }
           }
         }
@@ -576,7 +590,7 @@ const CreateSurvey = () => {
               <button
                 onClick={handlePublish}
                 disabled={isSubmitting || !surveyTitle.trim() || !dueDate || !assignedSection || droppedItems.length === 0}
-                className={`flex-1 px-4 py-2 bg-[#F37611] text-white rounded-lg hover:bg-[#E66600] transition-colors ${
+                className={`flex-1 px-4 py-2 bg-[#F37611] text-white rounded-lg hover:bg-[#E68900] transition-colors ${
                   isSubmitting || !surveyTitle.trim() || !dueDate || !assignedSection || droppedItems.length === 0
                     ? 'opacity-50 cursor-not-allowed' 
                     : ''
