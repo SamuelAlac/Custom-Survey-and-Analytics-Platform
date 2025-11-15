@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom"
 import { useSurveyAssignmentWithSurvey } from "../../../features/survey_assignment/hooks"
 import { ResponseForm } from "./components/ResponseForm"
+import { ResponseFormSkeleton } from "./components/ResponseFormSkeleton"
 
 const TakeSurvey = () => {
   const { id } = useParams<{ id: string }>()
@@ -11,6 +12,8 @@ const TakeSurvey = () => {
   console.log(survey)
   const survey_questions = survey?.survey_questions
   console.log(survey_questions)
+
+  if (isLoading) return <ResponseFormSkeleton/>
 
   return (
     <section>

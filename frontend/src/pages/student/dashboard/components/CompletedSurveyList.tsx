@@ -19,8 +19,8 @@ export const CompletedSurveyList = ({ survey }: { survey: any }) => {
                     </div>
                 </div>
 
-                <Link to="/" className='md:absolute text-center font-bold p-1 w-50 lg:px-3 lg:py-3 rounded-lg md:right-1 md:bottom-1
-                text-[#85898E] bg-[#D5D5D5] shadow-lg shadow-neutral-950/30'>Completed</Link>
+                <Link to="/Student/Dashboard" className='md:absolute text-center font-bold p-1 w-50 lg:px-3 lg:py-3 rounded-lg md:right-1 md:bottom-1
+                text-[#85898E] bg-[#D5D5D5] shadow-lg shadow-neutral-950/30 cursor-not-allowed'>Completed</Link>
             </div>
         </div>
     </div>

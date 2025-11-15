@@ -9,8 +9,8 @@ class SurveyAdmin(admin.ModelAdmin):
 admin.site.register(Survey, SurveyAdmin)
 
 class SurveyAssignmentAdmin(admin.ModelAdmin):
-    list_display = ['survey', 'created_by', 'due_date', 'completed', 'created_at']
-    list_filter = ['completed', 'due_date']
+    list_display = ['survey', 'created_by', 'due_date', 'status', 'created_at']
+    list_filter = ['status', 'due_date']
     search_fields = ['survey__title', 'sections__name', 'created_by__email']
     filter_horizontal = ['sections']
 

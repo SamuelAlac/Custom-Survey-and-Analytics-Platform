@@ -27,6 +27,10 @@ class Section(models.Model):
 
 
 class SurveyAssignment(models.Model):
+    class Types(models.TextChoices):
+        ACTIVE = 'active', 'Active'
+        INACTIVE = 'inactive', 'Inactive'
+    
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='assignment_surveys')
     sections = models.ManyToManyField(Section, related_name='section_assignments')
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='survey_assignment_created', on_delete=models.SET_NULL, null=True, blank=True)
@@ -34,12 +38,8 @@ class SurveyAssignment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     due_date = models.DateTimeField(null=True, blank=True)
-    completed = models.BooleanField(default=False)
-
-    # def is_overdue(self):
-    #     if self.due_date and not self.completed:
-    #         return timezone.now > self.due_date
-    #     return False
+    #completed = models.BooleanField(default=False)
+    status = models.CharField(max_length=20, choices=Types.choices, default=Types.ACTIVE)
 
     def __str__(self):
         section_names = ', '.join(self.sections.values_list('name', flat=True))

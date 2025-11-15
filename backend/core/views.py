@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from accounts.permissions import *
 from config.pagination import StandardResultsSetPagination
+from django.utils import timezone
 
 # Create your views here.
 
@@ -174,6 +175,17 @@ class SurveyAssignmentsView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user, updated_by=self.request.user)
 
+    def get_queryset(self):
+        now = timezone.now()
+        expired = SurveyAssignment.objects.filter(
+            due_date__lt=now,
+            status=SurveyAssignment.Types.ACTIVE
+        )
+
+        if expired.exists():
+            expired.update(status=SurveyAssignment.Types.INACTIVE)
+
+        return super().get_queryset()
 
 
 ##### SURVEY ASSIGNMENT DETAIL VIEW #####

@@ -15,6 +15,7 @@ import CreateSurvey from './pages/teacher/new_survey/CreateSurvey'
 import NewSurvey from './pages/teacher/new_survey/NewSurvey'
 import TakeSurvey from './pages/student/take_survey/TakeSurvey'
 import StudentResponse from './pages/student/my_responses/view/StudentResponse'
+import ViewSurvey from './pages/teacher/new_survey/view/ViewSurvey'
 
 const router = createBrowserRouter([
   {
@@ -59,6 +60,7 @@ const router = createBrowserRouter([
         children: [
           { path: "Dashboard", element: <TeacherDashboard /> },
           { path: "NewSurvey", element: <NewSurvey /> },
+          { path: 'NewSurvey/:id', element: <ViewSurvey/> },
           { path: "NewSurvey/Create-Survey", element: <CreateSurvey /> },
         ],
       },

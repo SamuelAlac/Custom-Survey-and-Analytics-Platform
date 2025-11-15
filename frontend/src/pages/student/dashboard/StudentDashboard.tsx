@@ -4,6 +4,7 @@ import { CompletedSurveyList } from "./components/CompletedSurveyList"
 import { PendingSurveyList } from "./components/PendingSurveyList"
 import { useState } from "react"
 import { SurveyListSkeleton } from "./components/SurveyListSkeleton"
+import CountUp from "react-countup"
 
 const StudentDashboard = () => {
     const [view, setView] = useState<'all' | 'pending' | 'completed'>('all')
@@ -19,8 +20,6 @@ const StudentDashboard = () => {
     
     const completedSurveys = surveys?.filter((survey: any) => completedSurveyIDs?.includes(survey.id))
     const pendingSurveys = surveys?.filter((survey: any) => !completedSurveyIDs?.includes(survey.id))
-    console.log("Completed Surveys:", completedSurveys);
-    console.log("Pending Surveys:", pendingSurveys);
 
     const getSurveyLists = () =>{
         if (isLoading) {
@@ -57,14 +56,18 @@ const StudentDashboard = () => {
                 rounded-2xl font-bold shadow-lg shadow-orange-950/50'>
                     {view === 'pending' && 
                     (<button onClick={() => setView('all')} className="indicator-item badge badge-neutral">x</button>)}
-                    <button onClick={() => setView(view === 'pending' ? 'all' : 'pending')}>Pending {pendingSurveys?.length}</button>
+                    <button onClick={() => setView(view === 'pending' ? 'all' : 'pending')}>Pending
+                        <CountUp className="ms-1" start={0} end={pendingSurveys?.length || 0} duration={1} separator=","/>
+                    </button>
                 </div>
 
                 <div className='text-[#2C8C09] text-[12px] md:text-lg bg-[#B6FF9F] p-2 lg:px-3 lg:py-2 rounded-2xl 
                 font-bold shadow-lg shadow-green-950/50 indicator'>
                     {view === 'completed' && 
                     (<button onClick={() => setView('all')} className="indicator-item badge badge-neutral">x</button>)}
-                    <button onClick={() => setView(view === 'completed' ? 'all' : 'completed')}>Completed {completedSurveys?.length}</button>
+                    <button onClick={() => setView(view === 'completed' ? 'all' : 'completed')}>Completed
+                        <CountUp className="ms-1" start={0} end={completedSurveys?.length || 0} duration={1} separator=","/>
+                    </button>
                 </div>
             </div>
         </div>

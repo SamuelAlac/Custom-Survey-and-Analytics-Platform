@@ -186,6 +186,30 @@ const getQuestionType = (type: string) => {
     }
 }
 
+export const updateSurveyAssignment = async (id: any, surveyAssignmentData: any) =>{
+    try {
+        const token = localStorage.getItem('access')
+        if (!token) throw new Error('No access token found')
+        
+        const res = await axios.put(`/core/survey-assignment-surveys/${id}`, surveyAssignmentData, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (error: any) {
+        throw error.response?.data
+    }
+}
+
+// Survey Assignment Update Format
+// {
+//     "survey": 17,
+//     "sections": [2],
+//     "status": "inactive" // status can be inactive or active
+//     "due_date": "2025-11-08T16:49:00.976996Z"
+// }
+
 export const updateSurvey = async (id: any, surveyData: any) =>{
     try {
         const token = localStorage.getItem('access')

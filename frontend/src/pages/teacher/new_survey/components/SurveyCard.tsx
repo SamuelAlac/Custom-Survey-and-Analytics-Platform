@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 interface SurveyCardProps {
     survey: any;
@@ -12,7 +13,7 @@ export const SurveyCard = ({ survey, index }: SurveyCardProps) => {
             <h2 className="card-title">{survey?.survey_name}</h2>
             <p>{survey?.survey_description}</p>
             <div className="justify-end card-actions">
-            <button className="btn btn-primary">View</button>
+            <Link to={`${survey?.id}`} className="btn btn-primary">View</Link>
             </div>
         </div>
     </div>
