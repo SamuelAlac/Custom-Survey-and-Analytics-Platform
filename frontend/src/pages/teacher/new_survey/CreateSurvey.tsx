@@ -356,7 +356,9 @@ const CreateSurvey = () => {
         description: surveyDescription.trim() || `Survey created on ${new Date().toLocaleDateString()}`,
         questions: questionsToPublish,
         sections: assignedSection.map(id => parseInt(id)),
-        dueDate
+        dueDate,
+        surveyStatus,
+        responseEditing
       })
       
       console.log('Survey published successfully:', result)

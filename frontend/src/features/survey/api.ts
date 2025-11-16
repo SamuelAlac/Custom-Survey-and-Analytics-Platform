@@ -71,9 +71,9 @@ export const createSurveyAssignment = async (surveyAssignmentData: any) =>{
 // {
 //     "survey": 19,
 //     "sections": [1],
-//     "due_date": "2025-11-08T16:49:00.976996Z"
-//     "status": "inactive", // status can be inactive or active
-//     "editable": true
+//     "due_date": "2025-11-08T16:49:00.976996Z",
+//     "status": "active", // "active" or "inactive"
+//     "editable": true // true or false for response editing
 // }
 
 // survey publishing function
@@ -82,7 +82,9 @@ export const publishSurvey = async (surveyData: {
     description?: string,
     questions: any[],
     sections: number[],
-    dueDate: string
+    dueDate: string,
+    surveyStatus?: 'active' | 'inactive',
+    responseEditing?: boolean
 }) => {
     try {
         //Create the survey
@@ -122,7 +124,9 @@ export const publishSurvey = async (surveyData: {
         const assignment = await createSurveyAssignment({
             survey: surveyId,
             sections: surveyData.sections,
-            due_date: new Date(surveyData.dueDate).toISOString()
+            due_date: new Date(surveyData.dueDate).toISOString(),
+            status: surveyData.surveyStatus || 'active',
+            editable: surveyData.responseEditing !== undefined ? surveyData.responseEditing : true
         })
 
         return {
