@@ -107,6 +107,8 @@ export const createSurveyAssignment = async (surveyAssignmentData: any) =>{
 //     "survey": 19,
 //     "sections": [1],
 //     "due_date": "2025-11-08T16:49:00.976996Z"
+//     "status": "inactive", // status can be inactive or active
+//     "editable": true
 // }
 
 // survey publishing function

@@ -59,7 +59,6 @@ Content-Type: application/json
 
 {
   "title": "Test Survey",
-  "description": "Collecting customer satisfaction levels",
   "survey_questions": [
     { "text": "How satisfied are you with our service?", "question_type": "likert", "order": 1 },
     { "text": "What can we improve?", "question_type": "text", "order": 2 }
