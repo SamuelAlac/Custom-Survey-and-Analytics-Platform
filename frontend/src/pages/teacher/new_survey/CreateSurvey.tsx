@@ -417,14 +417,6 @@ const CreateSurvey = () => {
           </div>
         </div>
 
-        <div className='bg-[#FBA02C] p-4 rounded-2xl'>
-          <div className='w-full flex items-center justify-center text-white gap-x-40'>
-            <div className='font-semibold text-sm sm:text-base md:text-lg'>Questions</div>
-            <div className='font-semibold text-sm sm:text-base md:text-lg'>Responses</div>
-            <div className='font-semibold text-sm sm:text-base md:text-lg'>Settings</div>
-          </div>
-        </div>
-
         <div className="flex flex-col md:flex-row items-start gap-4">
           
           <div className="bg-white p-2 sm:p-3 md:p-4 rounded-3xl overflow-hidden shadow-md shadow-black/20 w-full sm:max-w-[16rem] md:max-w-xs ml-0 sm:ml-0 h-auto">
