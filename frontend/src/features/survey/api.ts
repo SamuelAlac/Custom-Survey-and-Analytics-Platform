@@ -46,44 +46,9 @@ export const createQuestion = async (questionData: any) =>{
     }
 }
 
-// Question Creation Formats:
 
-// Multiple Choice Question:
-// {
-//   "survey": 19,
-//   "text": "Test question",
-//   "question_type": "mcq",
-//   "order": 1,
-//   "question_choices": [
-//     {"text": "Choice A"},
-//     {"text": "Choice B"},
-//     {"text": "Choice C"},
-//     {"text": "Choice D"}
-//   ]
-// }
 
-// Likert Scale Question:
-// {
-//   "survey": 19,
-//   "text": "Test question",
-//   "question_type": "likert",
-//   "order": 2,
-//   "question_choices": [
-//     {"text": "Strongly Disagree"},
-//     {"text": "Disagree"},
-//     {"text": "Neutral"},
-//     {"text": "Agree"},
-//     {"text": "Strongly Agree"}
-//   ]
-// }
 
-// Short Text Question:
-// {
-//   "survey": 19,
-//   "text": "Test question",
-//   "question_type": "text",
-//   "order": 3
-// }
 
 
 export const createSurveyAssignment = async (surveyAssignmentData: any) =>{
