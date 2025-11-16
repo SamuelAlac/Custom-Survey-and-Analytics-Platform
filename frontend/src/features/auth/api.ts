@@ -1,5 +1,4 @@
 import axios from '../../libs/axios'
-import { jwtDecode } from 'jwt-decode'
 
 export const loginUser = async({ email, password, rememberMe} : { email: string; password: string, rememberMe: boolean }) =>{
   try {

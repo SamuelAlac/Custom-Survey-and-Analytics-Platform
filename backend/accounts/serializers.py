@@ -144,3 +144,13 @@ class UserResponseSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = fields = ['id', 'username', 'email', 'first_name', 'last_name', 'role', 'section', 'survey_respondent']
+
+class SectionStudentSerializer(serializers.ModelSerializer):
+    created_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    updated_by = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    user = AccountSerializer(source='students', many=True, read_only=True)
+
+    class Meta:
+        model = Section
+        fields = '__all__'
+        read_only_fields = ['created_at', 'updated_at']

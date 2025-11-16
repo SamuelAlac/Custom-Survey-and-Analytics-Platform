@@ -1,4 +1,4 @@
-export const SurveyCardSkeleton = () => {
+export const RecentSurveyCardSkeleton = () => {
   return (
     <div className='border border-[#ACA6A7] rounded-xl card w-60 h-55 card-md flex'>
         <div className='flex items-center justify-center flex-1'>

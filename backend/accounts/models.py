@@ -14,7 +14,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=10, choices=ROLES.choices)
     #verification_token = models.CharField(max_length=36, blank=True, null=True)
-    section = models.ForeignKey('core.Section', on_delete=models.SET_NULL, blank=True, null=True)
+    section = models.ForeignKey('core.Section', on_delete=models.SET_NULL, blank=True, null=True, related_name='students')
     verification_code = models.CharField(max_length=6, blank=True, null=True)
     code_expiration = models.DateTimeField(blank=True, null=True)
     is_verified = models.BooleanField(default=False)

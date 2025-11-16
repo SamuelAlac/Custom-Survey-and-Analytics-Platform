@@ -12,6 +12,10 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  dialog {
+    margin: auto;
+  }
 }
 
 @layer components{
@@ -23,5 +27,18 @@
   .nav-link-active{
     @apply text-[#F37611];
     @apply bg-white;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-2;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-neutral-800;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-neutral-50;
+    @apply rounded-4xl
   }
 }

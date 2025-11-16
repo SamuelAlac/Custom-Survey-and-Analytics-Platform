@@ -1,11 +1,10 @@
 ### GET SURVEY ASSIGNMENTS
 GET http://127.0.0.1:8000/api/core/survey-assignments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyODMwMzI5LCJpYXQiOjE3NjI4MjY3MjksImp0aSI6ImU1Y2U3MDUyYWViOTQ5M2JiNjk4NDAwYzFjNjNhYTdkIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.XSPEWl0D4-AR_TifmtS_-519dAmLjpIpqN_r7K3S6JU
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMTk1NDA1LCJpYXQiOjE3NjMxOTE4MDUsImp0aSI6IjExODllMmE5YTc0ZDRiZmY5MzBjYjc2MjRmZjY4NWVmIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.zwEKvhHRbY3bR8oLZuhvofDyIr1kl1E9qGtr1HzEHQM
 
 ### GET SURVEY ASSIGNMENT
 GET http://127.0.0.1:8000/api/core/survey-assignments/17/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzA2NzE2LCJpYXQiOjE3NjI3MDMxMTYsImp0aSI6ImFjNjQ3NWQ0N2RiNjQ0N2NhNDFlMDhjNmRjMjYwMjRjIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ.CBe6ePx6bClk9sP_utBVk8E_WcMtBQ2vnN3fAsZNEow
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMTk1NDA1LCJpYXQiOjE3NjMxOTE4MDUsImp0aSI6IjExODllMmE5YTc0ZDRiZmY5MzBjYjc2MjRmZjY4NWVmIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.zwEKvhHRbY3bR8oLZuhvofDyIr1kl1E9qGtr1HzEHQM
 
 ### GET SURVEY ASSIGNMENTS WITH SURVEY
 GET http://127.0.0.1:8000/api/core/survey-assignment-surveys/
@@ -22,8 +21,9 @@ Content-Type: application/json
 }
 
 ### GET SURVEY ASSIGNMENT WITH SURVEY
-GET http://127.0.0.1:8000/api/core/survey-assignment-surveys/18/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzA2NzE2LCJpYXQiOjE3NjI3MDMxMTYsImp0aSI6ImFjNjQ3NWQ0N2RiNjQ0N2NhNDFlMDhjNmRjMjYwMjRjIiwidXNlcl9pZCI6IjEzIiwidXNlcm5hbWUiOiJTYW11ZWxBbGFjIiwicm9sZSI6IlNUVURFTlQifQ.CBe6ePx6bClk9sP_utBVk8E_WcMtBQ2vnN3fAsZNEow
+GET http://127.0.0.1:8000/api/core/survey-assignment-surveys/30/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMTk1NDA1LCJpYXQiOjE3NjMxOTE4MDUsImp0aSI6IjExODllMmE5YTc0ZDRiZmY5MzBjYjc2MjRmZjY4NWVmIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.zwEKvhHRbY3bR8oLZuhvofDyIr1kl1E9qGtr1HzEHQM
+
 ### UPDATE SURVEY_ASSIGNMENTS WITH SURVEY
 PUT http://127.0.0.1:8000/api/core/survey-assignment-surveys/18/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNzgyNDQ5LCJpYXQiOjE3NjI3Nzg4NDksImp0aSI6IjVhOThiNzVlYjRlYjRlNDNhNzEyNzE1NjZmZjhkN2QxIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.CPAH15HGh0gbhWdj86gmRy0MXN5x-eXJyG9Pt-TbAi0
@@ -33,3 +33,6 @@ Content-Type: application/json
     "survey": 17,
     "sections": [2]
 }
+
+### GET SURVEY ASSIGNMENT WITH RESPONSES
+GET http://127.0.0.1:8000/api/core/survey-assignment-responses/30/

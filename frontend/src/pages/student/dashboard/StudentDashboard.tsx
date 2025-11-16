@@ -5,13 +5,17 @@ import { PendingSurveyList } from "./components/PendingSurveyList"
 import { useState } from "react"
 import { SurveyListSkeleton } from "./components/SurveyListSkeleton"
 import CountUp from "react-countup"
+import { PastDueSurveyList } from "./components/PastDueSurveyList"
 
 const StudentDashboard = () => {
-    const [view, setView] = useState<'all' | 'pending' | 'completed'>('all')
+    const [view, setView] = useState<'all' | 'pending' | 'completed' | 'past due'>('all')
     const { data:survey_data, isLoading: isSurveyLoading } = useUserSurveys()
-    const surveys = survey_data?.section.section_assignments
+    const surveys = survey_data?.section.section_assignments?.filter((survey: any) => survey?.status === 'active')
+
+    console.log('surveys',surveys)
     const { data:response_data, isLoading:isResponseLoading } = useUserResponses()
     const responses = response_data?.survey_respondent
+    console.log('response',responses)
 
     const isLoading = isSurveyLoading || isResponseLoading
 
@@ -21,24 +25,37 @@ const StudentDashboard = () => {
     const completedSurveys = surveys?.filter((survey: any) => completedSurveyIDs?.includes(survey.id))
     const pendingSurveys = surveys?.filter((survey: any) => !completedSurveyIDs?.includes(survey.id))
 
+    const now = new Date();
+    const pastDueSurveys = pendingSurveys?.filter((survey: any) => {
+        return new Date(survey?.due_date) < now;
+    });
+
+    const activePendingSurveys = pendingSurveys?.filter((survey: any) => {
+        return new Date(survey?.due_date) >= now;
+    });
+
     const getSurveyLists = () =>{
         if (isLoading) {
-        return (<>{Array.from({ length: 3 }).map((_, index) =>(
+        return (<>{Array.from({ length: 5 }).map((_, index) =>(
         <SurveyListSkeleton key={index}/>
         ))}</>)}
 
         switch(view){
             case 'pending':
-                if (pendingSurveys?.length === 0) return (<p className="text-4xl text-center text-gray-500 font-semibold py-10">You have no pending surveys yet.</p>)
-                return pendingSurveys?.map((survey: any) =>(<PendingSurveyList key={survey?.id} survey={survey}/>))
+                if (activePendingSurveys?.length === 0) return (<p className="text-4xl text-center text-gray-500 font-semibold py-10">You have no pending surveys yet.</p>)
+                return activePendingSurveys?.map((survey: any) =>(<PendingSurveyList key={survey?.id} survey={survey}/>))
             case 'completed':
                 if (completedSurveys?.length === 0) return (<p className="text-4xl text-center text-gray-500 font-semibold py-10">You have no completed surveys yet.</p>)
                 return completedSurveys?.map((survey: any) =>(<CompletedSurveyList key={survey?.id} survey={survey}/>))
+            case 'past due':
+                if (pastDueSurveys?.length === 0) return (<p className="text-4xl text-center text-gray-500 font-semibold py-10">You have no past due surveys. Great job!</p>);
+                return pastDueSurveys?.map((survey: any) => (<PastDueSurveyList key={survey?.id} survey={survey} />));
             default:
                 return (
                     <>
+                    {pastDueSurveys?.map((survey: any) => (<PastDueSurveyList key={survey?.id} survey={survey} />))}
                     {completedSurveys?.map((survey: any) =>(<CompletedSurveyList key={survey?.id} survey={survey}/>))}
-                    {pendingSurveys?.map((survey: any) =>(<PendingSurveyList key={survey?.id} survey={survey}/>))}
+                    {activePendingSurveys?.map((survey: any) =>(<PendingSurveyList key={survey?.id} survey={survey}/>))}
                     </>
                 )
         }
@@ -57,7 +74,7 @@ const StudentDashboard = () => {
                     {view === 'pending' && 
                     (<button onClick={() => setView('all')} className="indicator-item badge badge-neutral">x</button>)}
                     <button onClick={() => setView(view === 'pending' ? 'all' : 'pending')}>Pending
-                        <CountUp className="ms-1" start={0} end={pendingSurveys?.length || 0} duration={1} separator=","/>
+                        <CountUp className="ms-1" start={0} end={activePendingSurveys?.length || 0} duration={1} separator=","/>
                     </button>
                 </div>
 
@@ -67,6 +84,15 @@ const StudentDashboard = () => {
                     (<button onClick={() => setView('all')} className="indicator-item badge badge-neutral">x</button>)}
                     <button onClick={() => setView(view === 'completed' ? 'all' : 'completed')}>Completed
                         <CountUp className="ms-1" start={0} end={completedSurveys?.length || 0} duration={1} separator=","/>
+                    </button>
+                </div>
+
+                <div className='text-white text-[12px] md:text-lg bg-[#E11518] p-2 lg:px-3 lg:py-2 rounded-2xl 
+                font-bold shadow-lg shadow-green-950/50 indicator'>
+                    {view === 'past due' && 
+                    (<button onClick={() => setView('all')} className="indicator-item badge badge-neutral">x</button>)}
+                    <button onClick={() => setView(view === 'past due' ? 'all' : 'past due')}>Past Due
+                        <CountUp className="ms-1" start={0} end={pastDueSurveys?.length || 0} duration={1} separator=","/>
                     </button>
                 </div>
             </div>

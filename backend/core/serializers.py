@@ -18,7 +18,6 @@ class ChoiceSerializer(serializers.ModelSerializer):
         model = Choice
         fields = ['id', 'text']
 
-
 ##### QUESTION SERIALIZER #####
 class QuestionSerializer(serializers.ModelSerializer):
     question_choices = ChoiceSerializer(many=True, required=False)
@@ -159,6 +158,7 @@ class ResponseWithAnswerSerializer(serializers.ModelSerializer):
         return response
 
 
+
 ##### SECTION SURVEYS SERIALIZER #####
 class SectionSurveySerializer(serializers.ModelSerializer):
     section_assignments = SurveyAssignmentSerializer(many=True, read_only=True)
@@ -167,6 +167,16 @@ class SectionSurveySerializer(serializers.ModelSerializer):
     class Meta:
         model = Section
         fields = ['id', 'name', 'section_assignments']
+
+
+
+##### SURVEY ASSIGNMENT WITH RESPONSES SERIALIZER #####
+class SurveyAssignmentWithResponsesSerializer(serializers.ModelSerializer):
+    survey_assignment_response = ResponseSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = SurveyAssignment
+        fields = '__all__'
 
 
 ### FOR LATER USE (IMPORTANT)

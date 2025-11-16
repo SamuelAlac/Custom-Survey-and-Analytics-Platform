@@ -18,9 +18,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) =>{
 
     const login = async ({ email, password, rememberMe }: { email: string, password: string, rememberMe: boolean }) => {
         const res = await loginUser({ email, password, rememberMe });
-
         if(res?.access) localStorage.setItem('access', res.access);
-
         if (res?.refresh) localStorage.setItem('refresh', res.refresh);
 
         await queryClient.invalidateQueries({ queryKey: ['myaccount'] });

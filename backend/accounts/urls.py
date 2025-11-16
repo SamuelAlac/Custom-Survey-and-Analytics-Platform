@@ -14,4 +14,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('user-surveys/', UserSurveyDetailView.as_view(), name='user-surveys-detail'),
     path('user-responses/', UserResponseDetailView.as_view(), name='user-responses-detail'),
+    path('section-students/', SectionStudentsView.as_view(), name='section-students'),
 ]

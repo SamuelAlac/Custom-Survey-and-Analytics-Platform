@@ -30,6 +30,7 @@ class SurveyAssignment(models.Model):
     class Types(models.TextChoices):
         ACTIVE = 'active', 'Active'
         INACTIVE = 'inactive', 'Inactive'
+        PAST_DUE = 'past_due', 'Past_Due'
     
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='assignment_surveys')
     sections = models.ManyToManyField(Section, related_name='section_assignments')
@@ -40,6 +41,7 @@ class SurveyAssignment(models.Model):
     due_date = models.DateTimeField(null=True, blank=True)
     #completed = models.BooleanField(default=False)
     status = models.CharField(max_length=20, choices=Types.choices, default=Types.ACTIVE)
+    editable = models.BooleanField(default=False)
 
     def __str__(self):
         section_names = ', '.join(self.sections.values_list('name', flat=True))
@@ -72,7 +74,7 @@ class Choice(models.Model):
 
 class Response(models.Model):
     respondent = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='survey_respondent', on_delete=models.SET_NULL, null=True, blank=True)
-    survey_assignment = models.ForeignKey(SurveyAssignment, on_delete=models.CASCADE, related_name='survey_assignment')
+    survey_assignment = models.ForeignKey(SurveyAssignment, on_delete=models.CASCADE, related_name='survey_assignment_response')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

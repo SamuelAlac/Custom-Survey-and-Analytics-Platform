@@ -3,6 +3,7 @@ import { Outlet, Link, useNavigate } from 'react-router-dom'
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
+import { FaUserCircle } from "react-icons/fa";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -35,7 +36,7 @@ export const TeacherLayout = () => {
           <div className='flex-4 mt-2.5 border-b-2 border-b-white'>
             <div className='group flex justify-center h-20 pt-2 hover:bg-white/30'>
                 <figure className='flex flex-col items-center gap-2 text-center'>
-                    <img src='/user_icon.svg' className='w-10' alt="User Profile Icon"/>
+                    <FaUserCircle className='text-4xl'/>
                     <Link to="/Profile" className='font-bold text-[10px] md:text-[12px]'>
                     Profile
                     </Link>

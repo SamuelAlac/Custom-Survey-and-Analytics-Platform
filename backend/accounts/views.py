@@ -5,6 +5,8 @@ from django.contrib.auth import login, authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from datetime import timedelta
 from .serializers import *
+from core.serializers import *
+from core.models import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth import get_user_model
@@ -222,6 +224,21 @@ class UserResponseDetailView(generics.RetrieveAPIView):
     def get_permissions(self):
         permission_map  = {
             'GET': [IsAuthenticated],
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+    
+class SectionStudentsView(generics.ListAPIView):
+    queryset = Section.objects.all()
+    serializer_class = SectionStudentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+    def get_permissions(self):
+        permission_map  = {
+            'GET': [AllowAny],
         }
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]

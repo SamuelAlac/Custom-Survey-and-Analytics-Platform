@@ -1,13 +1,16 @@
 import { useResponses } from "../../../../features/response/hooks"
 import { useSurveyAssignments } from "../../../../features/survey_assignment/hooks"
 import CountUp from 'react-countup'
+import { DashboardCardSkeleton } from "./DashboardCardSkeleton"
 
 export const DashboardCards = () => {
 
-    const { data: surveyData } = useSurveyAssignments()
+    const { data: surveyData, isLoading: assignmentLoading } = useSurveyAssignments()
     const activeSurveyCount = surveyData?.results?.filter((survey: any) => survey?.status === 'active')
-    const { data: responsesData } = useResponses()
-    console.log(responsesData)
+    const { data: responsesData, isLoading: responseLoading } = useResponses()
+    const isLoading = responseLoading || assignmentLoading
+
+    if (isLoading) return <DashboardCardSkeleton/>
 
   return (
     <>

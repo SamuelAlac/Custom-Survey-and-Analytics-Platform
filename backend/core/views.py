@@ -183,7 +183,7 @@ class SurveyAssignmentsView(generics.ListCreateAPIView):
         )
 
         if expired.exists():
-            expired.update(status=SurveyAssignment.Types.INACTIVE)
+            expired.update(status=SurveyAssignment.Types.PAST_DUE)
 
         return super().get_queryset()
 
@@ -323,7 +323,22 @@ class SectionSurveyDetailView(generics.RetrieveAPIView):
 
     def get_permissions(self):
         permission_map  = {
-            'GET': [AllowAny],
+            'GET': [IsAuthenticated],
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+    
+
+
+##### SURVEY ASSIGNMENT WITH RESPONSES DETAIL VIEW #####
+class SurveyAssignmentWithResponsesDetailView(generics.RetrieveAPIView):
+    queryset = SurveyAssignment.objects.all()
+    serializer_class = SurveyAssignmentWithResponsesSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        permission_map  = {
+            'GET': [IsAuthenticated],
         }
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]

@@ -63,7 +63,7 @@ export const ResponseForm = ({ survey_questions, id }: ResponseFormProps) => {
         ))}
         </div>
         <button className="bg-[#F37611] p-5 w-full rounded-xl text-white font-semibold mt-5">Submit Survey</button>
-        <button onClick={() => reset()}>Clear Form</button>
+        <button onClick={() => reset()} className="w-full text-red-800 mt-5 text-end">Clear Form</button>
     </form>
   )
 }

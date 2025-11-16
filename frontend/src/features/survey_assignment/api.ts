@@ -16,12 +16,28 @@ export const getSurveyAssignments = async () =>{
     }
 }
 
-export const getSurveyAssignmentWithSurvey = async ({id}: {id: string}) =>{
+export const getSurveyAssignmentWithSurvey = async ({ id }: { id: string }) =>{
     try {
         const token = localStorage.getItem('access')
         if (!token) throw new Error('No access token found')
 
         const res = await axios.get(`/core/survey-assignment-surveys/${id}/`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return res.data
+    } catch (error: any) {
+        throw error.response?.data
+    }
+}
+
+export const getSurveyAssignmentWithResponses = async ({ id }: { id: string }) =>{
+    try {
+        const token = localStorage.getItem('access')
+        if (!token) throw new Error('No access token found')
+
+        const res = await axios.get(`/core/survey-assignment-responses/${id}/`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

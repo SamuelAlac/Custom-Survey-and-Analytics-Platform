@@ -14,15 +14,15 @@ const Index = () => {
             <h2 className='text-black text-xl md:text-2xl font-bold'>Welcome to Survey Corps</h2>
             <div className='text-justify w-52 md:w-71'>
                 <p className='text-[#ACA6A7]'>
-                  Making every voice heard in education. Log in to participate
+                  Making every voice heard in education. Log in to participate in
                   surveys or create meaningful feedback opportunities.
                 </p>
             </div>
             <p className='text-black text-lg md:text-xl font-bold mt-5'>Log in as</p>
             
-            <div className='text-[#F37611] text-center md:mt-5 flex flex-col items-center space-y-5 text-black'>
-                  <Link to='Auth/Student-Login' className='bg-[#FBA02C] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20 font-semibold'>As Student</Link>
-                <Link to='Auth/Teacher-Login' className='bg-[#FBA02C] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20 font-semibold'>As Teacher</Link>
+            <div className='text-center md:mt-5 flex flex-col items-center space-y-5 text-black'>
+                  <Link to='Auth/Student-Login' className='bg-[#FBA02C] hover:bg-[#f3951a] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20 font-semibold'>As Student</Link>
+                <Link to='Auth/Teacher-Login' className='bg-[#FBA02C] hover:bg-[#f3951a] w-50 md:w-75 py-2 md:py-5 rounded-4xl shadow-lg shadow-black/20 font-semibold'>As Teacher</Link>
             </div>
         </div>
         </div>

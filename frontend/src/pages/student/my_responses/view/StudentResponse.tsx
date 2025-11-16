@@ -3,8 +3,8 @@ import { ResponseNote } from "../components/ResponseNote"
 
 const StudentResponse = () => {
   
-    const { id } = useParams<{ id: string }>()
-    if (!id) return <p>Survey ID is missing</p>
+  const { id } = useParams<{ id: string }>()
+  if (!id) return <p>Survey ID is missing</p>
   
   return (
     <section>

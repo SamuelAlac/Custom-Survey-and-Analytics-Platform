@@ -45,3 +45,26 @@ export const teachernavlist = [
         navSelectedIcon: '/analytics_nav_selected_icon.svg'
     }
 ]
+
+export const surveyTemplates = [
+    {
+        path: 'Create-Survey',
+        img: '/add_survey.svg',
+        name: 'Blank Form',
+    },
+    {
+        path: 'Create-Survey',
+        img: '/add_survey.svg',
+        name: 'Template 1',
+    },
+    {
+        path: 'Create-Survey',
+        img: '/add_survey.svg',
+        name: 'Template 2',
+    },
+    {
+        path: 'Create-Survey',
+        img: '/add_survey.svg',
+        name: 'Template 3',
+    }
+]

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { formatDate } from "../../../../libs/formatDate"
 
-export const CompletedSurveyList = ({ survey }: { survey: any }) => {
+export const PastDueSurveyList = ({ survey }: { survey: any }) => {
   return (
     <div key={survey?.id} className='h-30 bg-white shadow-lg shadow-black/30 rounded-2xl hover:bg-black/5'>
         <div className='md:px-7 md:py-8 text-center md:text-start'>
@@ -14,13 +14,13 @@ export const CompletedSurveyList = ({ survey }: { survey: any }) => {
                     </div>
 
                     <div className='flex items-center gap-2'>
-                        <img src="/completed_survey_icon.svg" alt="Completed Survey" />
-                        <p className='text-[#2C8C09] text-sm'>Completed</p>
+                        <img src="/past_due_icon.svg" alt="Completed Survey" />
+                        <p className='text-[#E11518] text-sm'>Past Due</p>
                     </div>
                 </div>
 
                 <Link to="/Student/Dashboard" className='md:absolute text-center font-bold p-1 w-50 lg:px-3 lg:py-3 rounded-lg md:right-1 md:bottom-1
-                text-[#85898E] bg-[#D5D5D5] shadow-lg shadow-neutral-950/30 cursor-not-allowed'>Completed</Link>
+                text-white bg-[#E11518] shadow-lg shadow-neutral-950/30 cursor-not-allowed'>Past Due</Link>
             </div>
         </div>
     </div>
