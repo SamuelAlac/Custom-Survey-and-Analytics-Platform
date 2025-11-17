@@ -76,39 +76,27 @@ export const ResponseForm = ({ survey_questions, id }: ResponseFormProps) => {
             </div>
         ))}
         </div>
-        <button className="bg-[#F37611] p-5 w-full rounded-xl text-white font-semibold mt-5">Submit Survey</button>
-        
-        <div className="w-full mt-5 space-y-2">
-          <div className="flex flex-col items-end">
+        <div className="w-full flex justify-between">
+          <div className="flex justify-end mt-5 space-y-2">
+          <div>
             <p className="font-semibold">Page {page} of {totalPages}</p>
             <progress className="progress progress-warning w-56" value={page} max={totalPages}></progress>
           </div>
-        </div>
-        {/* {page > 1 && (
-          <button
-            type="button"
-            onClick={() => setPage((prev) => prev - 1)}
-            className="px-5 py-2 rounded-xl bg-gray-300 text-black"
-          >
-            Previous
-          </button>
-        )}
+          </div>
 
-        {page < totalPages ? (
-          <button
-            type="submit"
-            className="bg-[#F37611] p-5 rounded-xl text-white font-semibold"
-          >
-            Next
-          </button>
-        ) : (
-          <button
-            type="submit"
-            className="bg-[#F37611] p-5 rounded-xl text-white font-semibold"
-          >
-            Submit Survey
-          </button>
-        )} */}
+          <div className="flex justify-end gap-x-5">
+            {page > 1 &&(
+            <button type="button" onClick={() => setPage((prev) => prev - 1)}
+            className="bg-[#F37611] py-2 px-5 rounded-xl text-white font-semibold mt-5">Previous</button>
+          )}
+          {page < totalPages ? (
+            <button type="submit" className="bg-[#F37611] py-2 px-7 rounded-xl text-white font-semibold mt-5">Next</button>
+          ) : (
+            <button type="submit" className="bg-[#F37611] py-2 px-4 rounded-xl text-white font-semibold mt-5">Submit Survey</button>
+          )}
+          </div>
+        </div>
+        <button type="button" onClick={() => {reset(); setPage(1)}} className="w-full text-red-800 mt-5 text-end">Clear Form</button>
     </form>
   )
 }
