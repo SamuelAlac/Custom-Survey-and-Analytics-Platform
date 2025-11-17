@@ -4,7 +4,7 @@ import { useAuth } from '../../../../context/AuthContext'
 import toast from 'react-hot-toast';
 
 interface FormFields {
-    email: string;
+    id: string;
     password: string;
     rememberMe: boolean;
 }
@@ -17,8 +17,8 @@ const LoginForm = () => {
 
     const onSubmit: SubmitHandler<FormFields> = async (formData) =>{
         try {
-            const { email, password, rememberMe } = formData
-            const res = await login({ email, password, rememberMe })
+            const { id, password, rememberMe } = formData
+            const res = await login({ id, password, rememberMe })
             if (res.user){
                 console.log(res.user)
                 if (res.user.role == 'STUDENT'){
@@ -30,9 +30,9 @@ const LoginForm = () => {
                 }
             }
         } catch (error: any) {
-                toast.error('Invalid email or password. Please try again.')
-                if (error?.email) {
-                setError("email", { type: "server", message: error.email[0] });
+                toast.error('Invalid student number or password. Please try again.')
+                if (error?.id) {
+                setError("id", { type: "server", message: error.id[0] });
                 }
                 if (error?.password) {
                 setError("password", { type: "server", message: error.password[0] });
@@ -44,10 +44,10 @@ const LoginForm = () => {
     <>
     <form onSubmit={handleSubmit(onSubmit)} className='text-black w-60 md:w-110 h-75 text-start mt-5 flex flex-col space-y-3 md:space-y-5'>
         <div className='flex flex-col'>
-            <label htmlFor="email" className='text-md md:text-2xl font-bold text-start'>Email</label>
-            <input { ...register('email') } type="email" name='email' placeholder='Email'
+            <label htmlFor="id" className='text-md md:text-2xl font-bold text-start'>Student No.</label>
+            <input { ...register('id') } type="text" name='id' placeholder='Student No.'
             className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]'/>
-            {errors.email && <div className="text-red-900">{errors.email.message}</div>}
+            {errors.id && <div className="text-red-900">{errors.id.message}</div>}
         </div>
 
         <div className='flex flex-col'>

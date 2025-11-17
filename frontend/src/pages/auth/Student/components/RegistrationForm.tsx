@@ -5,6 +5,7 @@ import { useSections } from '../../../../features/section/hooks';
 import toast from 'react-hot-toast';
 
 interface FormFields {
+    id: string;
     fname: string;
     lname: string
     email: string;
@@ -24,14 +25,18 @@ const RegistrationForm = () => {
     
     const onSubmit: SubmitHandler<FormFields> = async (formData) =>{
         try {
-            const { fname, lname, email, password1, password2, section, tac } = formData
-            const res = await registerUser({ fname, lname, email, password1, password2, section, tac })
+            const { id, fname, lname, email, password1, password2, section, tac } = formData
+            const res = await registerUser({ id, fname, lname, email, password1, password2, section, tac })
             toast.success(res?.message)
             setTimeout(() => navigate(`/Auth/Student-Register/${res.user.id}?email=${encodeURIComponent(email)}`,{
                 state: { email }
             }), 1500);
         } catch (error: any) {
             toast.error('Something went wrong. Please try again.')
+            if (error?.id) {
+            setError("id", { type: "server", message: error.id[0] });
+            }
+
             if (error?.email) {
             setError("email", { type: "server", message: error.email[0] });
             }
@@ -52,17 +57,23 @@ const RegistrationForm = () => {
 
   return (
     <>
-    <form onSubmit={handleSubmit(onSubmit)} className='text-black w-60 md:w-110 h-125 text-start mt-5 flex flex-col space-y-3 md:space-y-3'>
+    <form onSubmit={handleSubmit(onSubmit)} className='text-black w-60 md:w-110 h-150 text-start mt-2 flex flex-col space-y-3 md:space-y-2'>
         <div className='grid grid-cols-2 gap-5'>
-            <div className='flex flex-col space-y-2'>
+            <div className='flex flex-col space-y-1.5'>
                 <label htmlFor="first_name" className='text-md md:text-2xl font-bold text-start'>First Name</label>
                 <input { ...register('fname') } required type="text" placeholder='First Name' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
             </div>
 
-            <div className='flex flex-col space-y-2'>
+            <div className='flex flex-col space-y-1.5'>
                 <label htmlFor="last_name" className='text-md md:text-2xl font-bold text-start'>Last Name</label>
                 <input { ...register('lname') } required type="text" placeholder='Last Name' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
             </div>
+        </div>
+
+        <div className='flex flex-col'>
+            <label htmlFor="id" className='text-md md:text-2xl font-bold text-start'>Student No.</label>
+            <input { ...register('id') } type="text" placeholder='Student No.' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
+            {errors.id && <div className="text-red-900">{errors.id.message}</div>}
         </div>
 
         <div className='flex flex-col'>

@@ -11,6 +11,7 @@ class User(AbstractUser):
         STUDENT = 'STUDENT', 'Student'
         TEACHER = 'TEACHER', 'Teacher'
 
+    id = models.CharField(max_length=15, primary_key=True)
     email = models.EmailField(unique=True)
     role = models.CharField(max_length=10, choices=ROLES.choices)
     #verification_token = models.CharField(max_length=36, blank=True, null=True)
@@ -21,7 +22,7 @@ class User(AbstractUser):
     terms_and_condition = models.BooleanField(default=False)
 
     # comment lng to pag gagawa superuser nababalew kase
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = 'id'
     REQUIRED_FIELDS = []
 
     def generate_verification_code(self):

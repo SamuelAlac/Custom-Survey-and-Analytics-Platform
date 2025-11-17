@@ -6,10 +6,13 @@ const ViewSurvey = () => {
   const { id } = useParams<{ id: string }>()
   if (!id) return <p>Survey ID is missing</p>
   const { data } = useSurveyAssignmentWithSurvey({ id })
-  console.log(data)
+  const survey = data?.survey_details
+  console.log(survey)
 
   return (
-    <div>ViewSurvey</div>
+    <section className="space-y-8">
+      
+    </section>
   )
 }
 

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { DeleteModal } from "./DeleteModal";
+import { formatDate } from "../../../../libs/formatDate";
 
 export const RecentSurveyCard = ({ survey, onDelete}: { survey: any, onDelete: () => void }) => {
   
@@ -15,8 +16,8 @@ export const RecentSurveyCard = ({ survey, onDelete}: { survey: any, onDelete: (
         </div>
         <div className='border rounded-b-xl border-[#ACA6A7] h-18 flex justify-between items-center py-1 px-3'>
         <div>
-            <p>Description</p>
-            <p className="text-sm">Date</p>
+            <p className="text-[12px]">{survey?.survey_description}</p>
+            <p className="text-[10px]">{formatDate(survey?.created_at)}</p>
         </div>
 
         <div className='flex flex-col items-center gap-1.5'>

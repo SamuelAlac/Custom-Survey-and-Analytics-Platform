@@ -1,8 +1,8 @@
 import axios from '../../libs/axios'
 
-export const loginUser = async({ email, password, rememberMe} : { email: string; password: string, rememberMe: boolean }) =>{
+export const loginUser = async({ id, password, rememberMe} : { id: string; password: string, rememberMe: boolean }) =>{
   try {
-      const res = await axios.post('/auth/token/', { email, password, remember_me: rememberMe })
+      const res = await axios.post('/auth/token/', { id, password, remember_me: rememberMe })
       return res.data
   } catch (error: any) {
     if(error.response?.data){
@@ -11,10 +11,11 @@ export const loginUser = async({ email, password, rememberMe} : { email: string;
   }
 }
 
-export const registerUser = async ({ fname, lname, email, password1, password2, section, tac }: 
-{ fname: string, lname: string, email: string, password1: string, password2: string, section: string, tac: boolean }) =>{
+export const registerUser = async ({ id, fname, lname, email, password1, password2, section, tac }: 
+{ id: string, fname: string, lname: string, email: string, password1: string, password2: string, section: string, tac: boolean }) =>{
   try {
     const res = await axios.post('/auth/register/', {
+      id,
       first_name: fname,
       last_name: lname,
       email,

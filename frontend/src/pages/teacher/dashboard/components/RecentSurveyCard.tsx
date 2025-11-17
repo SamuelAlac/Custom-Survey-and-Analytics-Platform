@@ -24,7 +24,8 @@ export const RecentSurveyCard = ({ survey }: { survey:any }) => {
                 <p className='text-[#595959] text-sm me-5'>Due: {formatDate(survey?.due_date)}</p>
                 <p 
                 className={`${survey?.status === 'active' ? 'bg-[#DDF8D5] text-[#2C8C09]' 
-                    : isCompleted ? 'bg-[#D5D5D5] text-[#595959]' : 'bg-[#FBE4C9] text-[#F37611]' }
+                    : isCompleted ? 'bg-[#D5D5D5] text-[#595959]' 
+                    : survey?.status === 'inactive' ? 'bg-[#FBE4C9] text-[#F37611]' : 'bg-[#E11518] text-white'}
                 px-4 rounded-lg`}>
                     {/* {survey?.status} */}
                     {survey?.status === 'active' || survey?.status === 'inactive' 
@@ -42,7 +43,7 @@ export const RecentSurveyCard = ({ survey }: { survey:any }) => {
                     <CountUp start={0} end={totalStudents || 0} duration={1} separator="," />
                 </p>
             </div>
-            <Link to={`/Teacher/NewSurvey/${survey?.id}`} className='bg-[#BFD3FF] flex px-3 py-2 gap-2 rounded-lg'>
+            <Link to={`/Teacher/NewSurvey/Update-Survey/${survey?.id}`} className='bg-[#BFD3FF] flex px-3 py-2 gap-2 rounded-lg'>
                 <img src='/edit_icon.svg' alt="" className='w-4'/>
                 <p className='text-[#0A57FF] font-semibold'>Edit</p>
             </Link>
