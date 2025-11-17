@@ -21,8 +21,10 @@ export const SurveyCard = ({ survey, onDelete}: { survey: any, onDelete: () => v
           </div>
   
           <div className='flex flex-col items-center gap-1.5'>
-            <p className={`w-3 h-3 rounded-full 
-            ${survey?.status === 'active' ? 'bg-green-400' : survey?.status === 'inactive' ? 'bg-orange-400' : 'bg-red-600'}`}></p>
+            <div className="tooltip" data-tip={survey?.status}>
+              <p className={`w-3 h-3 rounded-full ${survey?.status === 'active' ? 'bg-green-400' :
+              survey?.status === 'inactive' ? 'bg-orange-400' : 'bg-red-600'}`}></p>
+            </div>
             <RiDeleteBin6Line role="button" className='text-xl text-[#DC0202]'
             onClick={() => setIsOpen(true)}/>
             <DeleteModal isOpen={isOpen} survey_name={survey?.survey_name} 

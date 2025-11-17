@@ -14,6 +14,7 @@ urlpatterns = [
     path('survey-assignment-surveys/', SurveyAssignmentsWithSurveyView.as_view(), name='survey-assignment-survey'),
     path('survey-assignment-surveys/<int:pk>/', SurveyAssignmentWithSurveyDetailView.as_view(), name='survey-assignment-survey-details'),
     path('survey-assignment-responses/<int:pk>/', SurveyAssignmentWithResponsesDetailView.as_view(), name='survey-assignment-responses-detail'),
+    path('survey-assignment-qa/<int:pk>/', SurveyAssignmentWithQuestionAndResponseeDetailView.as_view(), name='survey-assignment-qa-detail'),
     path('survey-responses/', ResponsesView.as_view(), name='survey-responses'),
     path('survey-responses/<int:pk>/', ResponseDetailView.as_view(), name='survey-response-detail'),
     path('survey-response-answers/', ResponsesWithAnswerView.as_view(), name='survey-response-answers'),

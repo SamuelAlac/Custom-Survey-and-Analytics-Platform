@@ -1,6 +1,6 @@
 ### GET SURVEY ASSIGNMENTS
-GET http://127.0.0.1:8000/api/core/survey-assignments/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMTk1NDA1LCJpYXQiOjE3NjMxOTE4MDUsImp0aSI6IjExODllMmE5YTc0ZDRiZmY5MzBjYjc2MjRmZjY4NWVmIiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.zwEKvhHRbY3bR8oLZuhvofDyIr1kl1E9qGtr1HzEHQM
+GET http://127.0.0.1:8000/api/core/survey-assignments/?search=last
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzMzg4OTQwLCJpYXQiOjE3NjMzODUzNDAsImp0aSI6ImYzODNmYmUwYmU2YTQ2YjU5NDQ1OTNmNmE4ZTFjMGE4IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.VKtSQpEnMiUMIGSI8Zs8wbQ0iwIRvDqroGD7RmBmm3k
 
 ### GET SURVEY ASSIGNMENT
 GET http://127.0.0.1:8000/api/core/survey-assignments/17/
@@ -36,3 +36,7 @@ Content-Type: application/json
 
 ### GET SURVEY ASSIGNMENT WITH RESPONSES
 GET http://127.0.0.1:8000/api/core/survey-assignment-responses/30/
+
+
+### GET SURVEY ASSIGNMENT WITH QUESTION AND RESPONSES
+GET http://127.0.0.1:8000/api/core/survey-assignment-qa/30/

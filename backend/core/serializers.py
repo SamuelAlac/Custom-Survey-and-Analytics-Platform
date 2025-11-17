@@ -67,6 +67,7 @@ class SurveyAssignmentSerializer(serializers.ModelSerializer):
     updated_by = serializers.StringRelatedField(read_only=True)
     survey_name = serializers.SerializerMethodField()
     survey_description = serializers.SerializerMethodField()
+    
 
     class Meta:
         model = SurveyAssignment
@@ -177,6 +178,57 @@ class SurveyAssignmentWithResponsesSerializer(serializers.ModelSerializer):
     class Meta:
         model = SurveyAssignment
         fields = '__all__'
+
+
+
+##### ANSWER WITH RESPONDENT SERIALIZER #####
+class AnswerWithRespondentSerializer(serializers.ModelSerializer):
+    respondent = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Answer
+        fields = '__all__'
+
+    def get_respondent(self, obj):
+        if obj.response and obj.response.respondent:
+            return str(obj.response.respondent.email)
+        return None
+
+
+
+##### SURVEY ASSIGNMENT WITH QUESTION RESPONSES SERIALIZER #####
+class QuestionWithResponseSerializer(serializers.ModelSerializer):
+    choices = ChoiceSerializer(many=True, read_only=True)
+    answers = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Question
+        fields = '__all__'
+
+    def get_answers(self, question):
+        # Fetch all answers for this question
+        answers = Answer.objects.filter(question=question)
+        return AnswerWithRespondentSerializer(answers, many=True).data
+
+
+##### SURVEY WITH QUESTION RESPONSES SERIALIZER #####
+class SurveyWithQuestionAndResponseSerializer(serializers.ModelSerializer):
+    questions = QuestionWithResponseSerializer(many=True, source='survey_questions', read_only=True)
+
+    class Meta:
+        model = Survey
+        fields = ['id', 'title', 'description', 'questions']
+
+
+
+##### SURVEY ASSIGNMENT WITH QUESTION RESPONSES SERIALIZER #####
+class SurveyAssignmentWithQuestionResponsesSerializer(serializers.ModelSerializer):
+    survey = SurveyWithQuestionAndResponseSerializer(read_only=True)
+    sections = serializers.StringRelatedField(many=True)  # optional
+
+    class Meta:
+        model = SurveyAssignment
+        fields = ['id', 'survey', 'sections', 'status', 'due_date']
 
 
 ### FOR LATER USE (IMPORTANT)

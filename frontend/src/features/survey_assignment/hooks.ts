@@ -1,10 +1,17 @@
 import { useQuery } from "@tanstack/react-query"
-import { getSurveyAssignments, getSurveyAssignmentWithResponses, getSurveyAssignmentWithSurvey } from "./api"
+import { getRecentSurveyAssignments, getSurveyAssignments, getSurveyAssignmentWithResponses, getSurveyAssignmentWithSurvey } from "./api"
 
-export const useSurveyAssignments = () =>{
+export const useRecentSurveyAssignments = () =>{
     return useQuery({
-        queryKey: ['surveyassignments'],
-        queryFn: getSurveyAssignments,
+        queryKey: ['recentsurveyassignments'],
+        queryFn: getRecentSurveyAssignments,
+    })
+}
+
+export const useSurveyAssignments = (page: number, search: string) =>{
+    return useQuery({
+        queryKey: ['surveyassignments', page, search],
+        queryFn: () => getSurveyAssignments(page, search),
     })
 }
 

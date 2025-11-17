@@ -163,6 +163,8 @@ class SurveyAssignmentsView(generics.ListCreateAPIView):
 
     pagination_class = StandardResultsSetPagination
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
+    search_fields = ['survey__title', 'survey__description']
+    #filterset_fields = ['status', 'created_by']
 
     def get_permissions(self):
         permissions_map = {
@@ -338,7 +340,22 @@ class SurveyAssignmentWithResponsesDetailView(generics.RetrieveAPIView):
 
     def get_permissions(self):
         permission_map  = {
-            'GET': [IsAuthenticated],
+            'GET': [AllowAny],
+        }
+        permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
+        return [permission() for permission in permission_classes]
+    
+
+
+##### SURVEY ASSIGNMENT WITH QUESTION AND RESPONSES DETAIL VIEW #####
+class SurveyAssignmentWithQuestionAndResponseeDetailView(generics.RetrieveAPIView):
+    queryset = SurveyAssignment.objects.all()
+    serializer_class = SurveyAssignmentWithQuestionResponsesSerializer
+    authentication_classes = [JWTAuthentication]
+
+    def get_permissions(self):
+        permission_map  = {
+            'GET': [AllowAny],
         }
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]
