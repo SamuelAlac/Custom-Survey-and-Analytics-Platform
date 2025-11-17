@@ -35,8 +35,13 @@ const CreateSurvey = () => {
   
 
   const [surveyTitle, setSurveyTitle] = useState('')
+  const [surveyDescription, setSurveyDescription] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [assignedSection, setAssignedSection] = useState<string[]>([])
+  
+  // Survey settings
+  const [surveyStatus, setSurveyStatus] = useState<'active' | 'inactive'>('active')
+  const [responseEditing, setResponseEditing] = useState<boolean>(true)
 
   const { data } = useSections()
   const sections = data?.results
@@ -348,10 +353,12 @@ const CreateSurvey = () => {
       
       const result = await publishSurvey({
         title: surveyTitle,
-        description: `Survey created on ${new Date().toLocaleDateString()}`,
+        description: surveyDescription.trim() || `Survey created on ${new Date().toLocaleDateString()}`,
         questions: questionsToPublish,
         sections: assignedSection.map(id => parseInt(id)),
-        dueDate
+        dueDate,
+        surveyStatus,
+        responseEditing
       })
       
       console.log('Survey published successfully:', result)
@@ -359,9 +366,12 @@ const CreateSurvey = () => {
       
       // Reset form after successful submission
       setSurveyTitle('')
+      setSurveyDescription('')
       setDueDate('')
       setAssignedSection([])
       setDroppedItems([])
+      setSurveyStatus('active')
+      setResponseEditing(true)
       setErrors({})
       
     } catch (error: any) {
@@ -417,8 +427,16 @@ const CreateSurvey = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-start gap-4">
-          
+        <div className='bg-[#FBA02C] p-4 rounded-2xl'>
+          <div className='w-full flex items-center justify-center text-white gap-x-40'>
+            <div className='font-semibold text-sm sm:text-base md:text-lg'>Questions</div>
+            <div className='font-semibold text-sm sm:text-base md:text-lg'>Responses</div>
+            <div className='font-semibold text-sm sm:text-base md:text-lg'>Settings</div>
+          </div>
+        </div>
+
+        <div className="flex flex-col lg:flex-row items-start gap-4">
+          {/* Left Panel - Elements */}
           <div className="bg-white p-2 sm:p-3 md:p-4 rounded-3xl overflow-hidden shadow-md shadow-black/20 w-full sm:max-w-[16rem] md:max-w-xs ml-0 sm:ml-0 h-auto">
             <div className="text-black font-bold text-sm sm:text-base md:text-lg mb-2">
               <h1>Elements</h1>
@@ -441,8 +459,8 @@ const CreateSurvey = () => {
             </div>
           </div>
 
-          
-          <div className="bg-white p-4 rounded-2xl shadow-md shadow-black/20 w-full md:w-1/2 lg:w-2/5 h-auto md:ml-15 max-w-2xl">
+          {/* Center Panel - Survey Form */}
+          <div className="bg-white p-4 rounded-2xl shadow-md shadow-black/20 w-full lg:flex-1 h-auto max-w-2xl">
             <h2 className="text-black font-bold text-lg mb-4">Survey Title</h2>
             <div className={`bg-transparent border-2 rounded-lg p-3 ${errors.title ? 'border-red-500' : 'border-gray-300'}`}>
               <input 
@@ -459,6 +477,24 @@ const CreateSurvey = () => {
               />
             </div>
             {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title}</p>}
+
+             {/* For Description */}
+            <h2 className="text-black font-bold text-lg mb-4">Survey Description</h2>
+            <div className={`bg-transparent border-2 rounded-lg p-3 ${errors.description ? 'border-red-500' : 'border-gray-300'}`}>
+              <textarea 
+                placeholder="Enter survey description..." 
+                className="w-full bg-transparent outline-none text-gray-800 resize-none" 
+                value={surveyDescription}
+                rows={4}
+                onChange={(e) => {
+                  setSurveyDescription(e.target.value)
+                  if (errors.description) {
+                    setErrors(prev => ({ ...prev, description: '' }))
+                  }
+                }}
+              />
+            </div>
+            {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
 
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
@@ -567,6 +603,9 @@ const CreateSurvey = () => {
               </div>
             )}
 
+
+            
+
             
             {/* <div className="flex flex-col sm:flex-row gap-3 mt-6 pt-4 border-t border-gray-200">
               <button
@@ -592,6 +631,67 @@ const CreateSurvey = () => {
               </button>
             </div> */}
 
+          </div>
+
+          {/* Settings*/}
+          <div className="bg-white p-2 sm:p-3 md:p-4 rounded-3xl overflow-hidden shadow-md shadow-black/20 w-full sm:max-w-[16rem] md:max-w-xs ml-0 sm:ml-0 h-auto">
+            <div className="text-black font-bold text-sm sm:text-base md:text-lg mb-2">
+              <h1>Settings</h1>
+            </div>
+            <div className="flex flex-col gap-4">
+              {/* Survey Status Selection */}
+              <div className="text-black font-normal text-sm">
+                <div className="flex items-center gap-3 mb-2">
+                  <h2 className="text-sm font-medium">Survey Status</h2>
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => setSurveyStatus('active')}
+                      className={`px-3 py-1 text-xs rounded-md transition-colors ${
+                        surveyStatus === 'active'
+                          ? 'bg-[#F37611] text-white font-medium'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      Active
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSurveyStatus('inactive')}
+                      className={`px-3 py-1 text-xs rounded-md transition-colors ${
+                        surveyStatus === 'inactive'
+                          ? 'bg-[#F37611] text-white font-medium'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      Inactive
+                    </button>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500">
+                  {surveyStatus === 'active' ? 'Survey is visible and accepting responses' : 'Survey is hidden and not accepting responses'}
+                </p>
+              </div>
+
+              {/* Response Editing Toggle */}
+              <div className="text-black font-normal text-sm">
+                <div className="flex items-center gap-3 mb-2">
+                  <h2 className="text-sm font-medium">Response Editing</h2>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      className="sr-only peer"
+                      checked={responseEditing}
+                      onChange={(e) => setResponseEditing(e.target.checked)}
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#F37611]"></div>
+                  </label>
+                </div>
+                <p className="text-xs text-gray-500">
+                  {responseEditing ? 'Students can edit their responses after submission' : 'Responses are final after submission'}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
