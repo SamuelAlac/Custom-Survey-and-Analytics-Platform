@@ -22,7 +22,7 @@ import toast from "react-hot-toast"
 
 interface QuestionItem {
   id: string
-  type: 'header' | 'multiple-choice' | 'likert-scale' | 'short-text'
+  type: 'multiple-choice' | 'likert-scale' | 'short-text'
   title: string
   icon: string
   content?: any
@@ -51,12 +51,6 @@ const CreateSurvey = () => {
 
   
   const availableElements: QuestionItem[] = [
-    {
-      id: 'header-template',
-      type: 'header',
-      title: 'Heading',
-      icon: '/Header.svg'
-    },
     {
       id: 'multiple-choice-template',
       type: 'multiple-choice',
@@ -117,6 +111,15 @@ const CreateSurvey = () => {
         
         setDroppedItems(prev => [...prev, newItem])
       }
+      
+      // Auto-scroll to the newly added item after a short delay
+      setTimeout(() => {
+        const dropZone = document.querySelector('[data-drop-zone="true"]')
+        if (dropZone) {
+          dropZone.scrollIntoView({ behavior: 'smooth', block: 'end' })
+        }
+      }, 100)
+      
       return
     }
 
@@ -136,8 +139,6 @@ const CreateSurvey = () => {
 
   const getDefaultContent = (type: string) => {
     switch (type) {
-      case 'header':
-        return { text: '' }
       case 'multiple-choice':
         return { question: '', options: ['Option 1', 'Option 2'] }
       case 'likert-scale':
@@ -284,10 +285,6 @@ const CreateSurvey = () => {
 
     
     for (const item of droppedItems) {
-      if (item.type === 'header' && !item.content?.text?.trim()) {
-        newErrors.questions = 'All heading elements must have text'
-        break
-      }
       if (item.type === 'multiple-choice' && !item.content?.question?.trim()) {
         newErrors.questions = 'All multiple choice questions must have question text'
         break
@@ -427,13 +424,7 @@ const CreateSurvey = () => {
           </div>
         </div>
 
-        <div className='bg-[#FBA02C] p-4 rounded-2xl'>
-          <div className='w-full flex items-center justify-center text-white gap-x-40'>
-            <div className='font-semibold text-sm sm:text-base md:text-lg'>Questions</div>
-            <div className='font-semibold text-sm sm:text-base md:text-lg'>Responses</div>
-            <div className='font-semibold text-sm sm:text-base md:text-lg'>Settings</div>
-          </div>
-        </div>
+       
 
         <div className="flex flex-col lg:flex-row items-start gap-4">
           {/* Left Panel - Elements */}
@@ -444,16 +435,11 @@ const CreateSurvey = () => {
 
             <div className="flex flex-col gap-3">
               <div className="text-black font-normal text-sm sm:text-base md:text-lg mt-2">
-                <h2 className="mb-1">Basic</h2>
-                <DraggableItem item={availableElements[0]} />
-              </div>
-
-              <div className="text-black font-normal text-sm sm:text-base md:text-lg mt-2">
                 <h2 className="mb-1">Questions</h2>
                 <div className="space-y-2">
+                  <DraggableItem item={availableElements[0]} />
                   <DraggableItem item={availableElements[1]} />
                   <DraggableItem item={availableElements[2]} />
-                  <DraggableItem item={availableElements[3]} />
                 </div>
               </div>
             </div>
@@ -565,7 +551,7 @@ const CreateSurvey = () => {
             <hr className="my-4 border-gray-300" />
 
             {/* Drop Zone */}
-            <DropZone>
+            <DropZone data-drop-zone="true">
               <SortableContext items={droppedItems} strategy={verticalListSortingStrategy}>
                 {droppedItems.length === 0 ? (
                   <div className="text-center text-gray-500 min-h-[150px] flex flex-col items-center justify-center">
