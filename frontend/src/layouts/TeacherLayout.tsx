@@ -66,6 +66,28 @@ export const TeacherLayout = () => {
                     </Link>
                 </figure>
             </div>
+
+            <div className="group flex justify-center h-20 pt-2 hover:bg-white/30">
+                <figure className='flex flex-col items-center gap-2 text-center'>
+                    <Link to='Responses'>
+                        <img src='/responses_nav_icon.svg' alt="Responses Icon"/>
+                    </Link>
+                    <Link to='Responses' className="font-bold text-[10px] md:text-[12px]">
+                    Responses
+                    </Link>
+                </figure>
+            </div>
+
+            <div className="group flex justify-center h-20 pt-2 hover:bg-white/30">
+                <figure className='flex flex-col items-center gap-2 text-center'>
+                    <Link to='Analytics'>
+                        <img src='/analytics_nav_icon.svg' alt="Analytics Icon"/>
+                    </Link>
+                    <Link to='Analytics' className="font-bold text-[10px] md:text-[12px]">
+                    Analytics
+                    </Link>
+                </figure>
+            </div>
           </div>
 
           <div>

@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom"
 import { DashboardCards } from "./components/DashboardCards"
 import { RecentSurveyCards } from "./components/RecentSurveyCards"
+import { useResponses } from "../../../features/response/hooks"
+import { ResponseTimeline } from "./components/ResponseTimeline"
 
 const TeacherDashboard = () => {
+  const { data } = useResponses()
 
   return (
-    <section className='space-y-7.5'>
+    <section className='space-y-3.5'>
         <div className='h-10 md:h-15 flex flex-col md:flex-row justify-between items-center'>
             <h1 className="text-[#050505] text-xl md:text-2xl text-center lg:text-start lg:text-4xl font-bold">Survey Management</h1>
             
@@ -17,6 +20,13 @@ const TeacherDashboard = () => {
 
         <div className='flex flex-col md:flex-row justify-between'>
             <DashboardCards/>
+        </div>
+
+        <div className='min-h-100 bg-white mt-7 rounded-xl p-5 space-y-8 shadow-lg shadow-black/30'>
+            <h1 className='md:text-4xl text-black font-bold'>Response Timeline</h1>
+            <div className='space-y-5'>
+                <ResponseTimeline data={data} />
+            </div>
         </div>
         
         <div className='min-h-155 bg-white mt-15 rounded-xl p-5 space-y-8 shadow-lg shadow-black/30'>
