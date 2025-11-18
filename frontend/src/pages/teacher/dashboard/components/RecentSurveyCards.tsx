@@ -1,10 +1,10 @@
-import { useSurveyAssignments } from '../../../../features/survey_assignment/hooks'
+import { useRecentSurveyAssignments } from '../../../../features/survey_assignment/hooks'
 import { RecentSurveyCard } from './RecentSurveyCard'
 import { RecentSurveyCardSkeleton } from './RecentSurveyCardSkeleton'
 
 export const RecentSurveyCards = () => {
 
-  const { data: recentsurveyData, isLoading } = useSurveyAssignments()
+  const { data: recentsurveyData, isLoading } = useRecentSurveyAssignments()
   console.log('aaa',recentsurveyData)
 
   if (isLoading) return Array.from({ length: 5 }).map((_, index) => <RecentSurveyCardSkeleton key={index}/>)

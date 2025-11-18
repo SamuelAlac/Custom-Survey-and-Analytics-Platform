@@ -2,14 +2,17 @@ import { Outlet } from 'react-router-dom'
 
 export const AuthLayout = () => {
   return (
-    <div className='w-full min-h-screen flex flex-row-reverse'>
-        <aside className='hidden bg-[#FBA02C] lg:flex flex-1 justify-center items-center'>
-            <img src='/portal_bg.svg' alt="" className='w-90'/>
-        </aside>
-        
-        <main className='bg-[#F0F6FF] flex-1 [&_section]:w-full [&_section]:min-h-screen [&_section]:p-7'>
-            <Outlet/>
+    <div className='w-full min-h-screen bg-[url(/auth_main_bg.svg)] flex items-center justify-center bg-cover'>
+      <div className="w-[1450px] h-[665px] bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl overflow-hidden flex">
+        <main className="flex-1 bg-white p-10 flex items-center">
+          <section className="w-full max-w-md mx-auto">
+            <Outlet />
+          </section>
         </main>
+
+        <aside className="hidden lg:flex flex-1 bg-[url('/auth_bg.svg')] bg-cover bg-center">
+        </aside>          
+      </div>
     </div>
   )
 }

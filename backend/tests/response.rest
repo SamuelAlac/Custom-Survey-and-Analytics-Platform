@@ -6,6 +6,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 GET http://127.0.0.1:8000/api/core/survey-responses/11/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYyNjYyOTI3LCJpYXQiOjE3NjI2NTkzMjcsImp0aSI6IjQyZTZlN2U2ZWUyMTQwNjdhODdlYTQ0M2Q2ODAzMWFlIiwidXNlcl9pZCI6IjE2IiwidXNlcm5hbWUiOiJLdWlhUmFzdSIsInJvbGUiOiJTVFVERU5UIn0.V8WYEepAL1ma1LWbfhH-d1urHy1X-6ERYqs172pt5TI
 
+### DELETE RESPONSES
+DELETE http://127.0.0.1:8000/api/core/survey-responses/28/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzYzNDU5MjM0LCJpYXQiOjE3NjM0NTU2MzUsImp0aSI6ImIzZjc2NjkzOGMzNDQ5M2I5MTdkMjVjYjBkMjRlYzg4IiwidXNlcl9pZCI6IjEiLCJ1c2VybmFtZSI6IlNhbXVlbCIsInJvbGUiOiJBRE1JTiJ9.FCQiCUV2Mhh5wFr_ASCC8BHYmmh357imZgKzbXlqThk
 
 ### GET RESPONSES WITH ANSWERS
 GET http://127.0.0.1:8000/api/core/survey-response-answers/

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from django.contrib.auth import get_user_model
 
 ##### SECTION SERIALIZER #####
 class SectionSerializer(serializers.ModelSerializer):
@@ -198,7 +199,7 @@ class AnswerWithRespondentSerializer(serializers.ModelSerializer):
 
 ##### SURVEY ASSIGNMENT WITH QUESTION RESPONSES SERIALIZER #####
 class QuestionWithResponseSerializer(serializers.ModelSerializer):
-    choices = ChoiceSerializer(many=True, read_only=True)
+    question_choices = ChoiceSerializer(many=True, read_only=True)
     answers = serializers.SerializerMethodField()
 
     class Meta:
@@ -222,13 +223,47 @@ class SurveyWithQuestionAndResponseSerializer(serializers.ModelSerializer):
 
 
 ##### SURVEY ASSIGNMENT WITH QUESTION RESPONSES SERIALIZER #####
+User = get_user_model()
 class SurveyAssignmentWithQuestionResponsesSerializer(serializers.ModelSerializer):
     survey = SurveyWithQuestionAndResponseSerializer(read_only=True)
     sections = serializers.StringRelatedField(many=True)  # optional
+    respondent_count = serializers.SerializerMethodField()
+    respondents = serializers.SerializerMethodField()
 
     class Meta:
         model = SurveyAssignment
-        fields = ['id', 'survey', 'sections', 'status', 'due_date']
+        fields = ['id', 'survey', 'sections', 'status', 'editable', 'due_date', 'respondent_count', 'respondents']
+
+    def get_respondent_count(self, obj):
+        # Count distinct respondents who submitted answers for this assignment
+        return Answer.objects.filter(response__survey_assignment=obj)\
+                             .values('response__respondent')\
+                             .distinct().count()
+    
+    def get_respondents(self, obj):
+        respondents = User.objects.filter(
+            survey_respondent__survey_assignment=obj
+        ).distinct()
+        
+        result = []
+        for respondent in respondents:
+            # Get all responses for this respondent and assignment
+            responses_qs = Response.objects.filter(
+                survey_assignment=obj,
+                respondent=respondent
+            )
+            responses = [
+                {"id": r.id, "created_at": r.created_at}  # include other fields if needed
+                for r in responses_qs
+            ]
+            
+            result.append({
+                "id": respondent.id,
+                "email": respondent.email,
+                "responses": responses
+            })
+        
+        return result
 
 
 ### FOR LATER USE (IMPORTANT)

@@ -57,52 +57,52 @@ const RegistrationForm = () => {
 
   return (
     <>
-    <form onSubmit={handleSubmit(onSubmit)} className='text-black w-60 md:w-110 h-150 text-start mt-2 flex flex-col space-y-3 md:space-y-2'>
-        <div className='grid grid-cols-2 gap-5'>
+    <form onSubmit={handleSubmit(onSubmit)} className='text-black w-60 md:w-110 min-h-fit text-start mt-2 flex flex-col space-y-3 md:space-y-1'>
+        <div className='grid grid-cols-2 gap-x-5'>
             <div className='flex flex-col space-y-1.5'>
-                <label htmlFor="first_name" className='text-md md:text-2xl font-bold text-start'>First Name</label>
-                <input { ...register('fname') } required type="text" placeholder='First Name' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
+                <label htmlFor="first_name" className='text-md md:text-xl font-bold text-start'>First Name</label>
+                <input { ...register('fname') } required type="text" placeholder='First Name' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
             </div>
 
             <div className='flex flex-col space-y-1.5'>
-                <label htmlFor="last_name" className='text-md md:text-2xl font-bold text-start'>Last Name</label>
-                <input { ...register('lname') } required type="text" placeholder='Last Name' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
+                <label htmlFor="last_name" className='text-md md:text-xl font-bold text-start'>Last Name</label>
+                <input { ...register('lname') } required type="text" placeholder='Last Name' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
             </div>
         </div>
 
         <div className='flex flex-col'>
-            <label htmlFor="id" className='text-md md:text-2xl font-bold text-start'>Student No.</label>
-            <input { ...register('id') } type="text" placeholder='Student No.' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
-            {errors.id && <div className="text-red-900">{errors.id.message}</div>}
+            <label htmlFor="id" className='text-md md:text-xl font-bold text-start'>Student No.</label>
+            <input { ...register('id') } type="text" placeholder='Student No.' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
+            {errors.id && <div className="text-sm text-red-900">{errors.id.message}</div>}
         </div>
 
         <div className='flex flex-col'>
-            <label htmlFor="section" className='text-md md:text-2xl font-bold text-start'>Section</label>
-            <select { ...register('section') } className="select w-full border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]">
+            <label htmlFor="section" className='text-md md:text-xl font-bold text-start'>Section</label>
+            <select { ...register('section') } className="select w-full border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]">
                 <option selected>None</option>
                 {sections?.map((section: any, index: any) =>(
                     <option key={index}>{section.name}</option>
                 ))}
             </select>
-            {errors.section && <div className="text-red-900">{errors.section.message}</div>}
+            {errors.section && <div className="text-sm text-red-900">{errors.section.message}</div>}
         </div>
 
         <div className='flex flex-col'>
-            <label htmlFor="email" className='text-md md:text-2xl font-bold text-start'>Email</label>
-            <input { ...register('email') } type="email" placeholder='Email' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
-            {errors.email && <div className="text-red-900">{errors.email.message}</div>}
+            <label htmlFor="email" className='text-md md:text-xl font-bold text-start'>Email</label>
+            <input { ...register('email') } type="email" placeholder='Email' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
+            {errors.email && <div className="text-sm text-red-900">{errors.email.message}</div>}
         </div>
 
         <div className='flex flex-col'>
-            <label htmlFor="password1" className='text-md md:text-2xl font-bold text-start'>Password</label>
-            <input { ...register('password1') } type="password" placeholder='Password' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
-            {errors.password1 && <div className="text-red-900">{errors.password1.message}</div>}
+            <label htmlFor="password1" className='text-md md:text-xl font-bold text-start'>Password</label>
+            <input { ...register('password1') } type="password" placeholder='Password' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
+            {errors.password1 && <div className="text-sm text-red-900">{errors.password1.message}</div>}
         </div>
 
         <div className='flex flex-col'>
-            <label htmlFor="password2" className='text-md md:text-2xl font-bold text-start'>Confirm Password</label>
-            <input { ...register('password2') } type="password" placeholder='Confirm Password' className='border-[#ACA6A7] p-2 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
-            {errors.password2 && <div className="text-red-900">{errors.password2.message}</div>}
+            <label htmlFor="password2" className='text-md md:text-xl font-bold text-start'>Confirm Password</label>
+            <input { ...register('password2') } type="password" placeholder='Confirm Password' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
+            {errors.password2 && <div className="text-sm text-red-900">{errors.password2.message}</div>}
         </div>
 
         <div className='flex items-center gap-1'>

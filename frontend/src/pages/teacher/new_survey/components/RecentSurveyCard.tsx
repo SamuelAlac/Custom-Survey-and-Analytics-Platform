@@ -12,7 +12,7 @@ export const RecentSurveyCard = ({ survey, onDelete}: { survey: any, onDelete: (
     <div className='border border-[#ACA6A7] rounded-xl card w-60 h-55 card-md flex
     transition duration-200 ease-in-out hover:scale-105 hover:bg-black/10'>
         <div className='flex items-center justify-center flex-1'>
-        <Link to={`${survey?.id}`} className="font-semibold">{survey?.survey_name}</Link>
+        <Link to={`/Teacher/ViewSurvey/${survey?.id}`} className="font-semibold">{survey?.survey_name}</Link>
         </div>
         <div className='border rounded-b-xl border-[#ACA6A7] h-18 flex justify-between items-center py-1 px-3'>
         <div>

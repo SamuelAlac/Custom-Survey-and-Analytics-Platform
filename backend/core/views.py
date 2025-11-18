@@ -340,7 +340,7 @@ class SurveyAssignmentWithResponsesDetailView(generics.RetrieveAPIView):
 
     def get_permissions(self):
         permission_map  = {
-            'GET': [AllowAny],
+            'GET': [IsAuthenticated],
         }
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]
@@ -355,7 +355,7 @@ class SurveyAssignmentWithQuestionAndResponseeDetailView(generics.RetrieveAPIVie
 
     def get_permissions(self):
         permission_map  = {
-            'GET': [AllowAny],
+            'GET': [IsAuthenticated],
         }
         permission_classes = permission_map.get(self.request.method, [IsAuthenticated])
         return [permission() for permission in permission_classes]

@@ -15,8 +15,9 @@ import CreateSurvey from './pages/teacher/new_survey/CreateSurvey'
 import NewSurvey from './pages/teacher/new_survey/NewSurvey'
 import TakeSurvey from './pages/student/take_survey/TakeSurvey'
 import StudentResponse from './pages/student/my_responses/view/StudentResponse'
-import ViewSurvey from './pages/teacher/new_survey/view/ViewSurvey'
 import UpdateSurvey from './pages/teacher/new_survey/update/UpdateSurvey'
+import ViewSurvey from './pages/teacher/view_survey/ViewSurvey'
+import Profile from './pages/student/profile/components/Profile'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
         path: '/Student',
         element: <StudentLayout/>,
         children: [
+          { path: 'Profile', element: <Profile/> },
           { path: "Dashboard", element: <StudentDashboard /> },
           { path: "Dashboard/Take-Survey/:id", element: <TakeSurvey /> },
           { path: "MyResponses", element: <StudentResponses /> },
@@ -61,7 +63,7 @@ const router = createBrowserRouter([
         children: [
           { path: "Dashboard", element: <TeacherDashboard /> },
           { path: "NewSurvey", element: <NewSurvey /> },
-          { path: 'NewSurvey/:id', element: <ViewSurvey/> },
+          { path: 'ViewSurvey/:id', element: <ViewSurvey/> },
           { path: 'NewSurvey/Update-Survey/:id', element: <UpdateSurvey/> },
           { path: "NewSurvey/Create-Survey", element: <CreateSurvey /> },
         ],

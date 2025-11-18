@@ -40,7 +40,7 @@ export const StudentLayout = () => {
             <div className='group flex justify-center h-20 pt-2 hover:bg-white/30'>
                 <figure className='flex flex-col items-center gap-2 text-center'>
                     <FaUserCircle className='text-4xl'/>
-                    <Link to="/Profile" className='font-bold text-[10px] md:text-[12px]'>
+                    <Link to="Profile" className='font-bold text-[10px] md:text-[12px]'>
                     Profile
                     </Link>
                 </figure>
