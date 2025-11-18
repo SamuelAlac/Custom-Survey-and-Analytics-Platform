@@ -34,14 +34,6 @@ export const TeacherLayout = () => {
           </div>
           
           <div className='flex-4 mt-2.5 border-b-2 border-b-white'>
-            <div className='group flex justify-center h-20 pt-2 hover:bg-white/30'>
-                <figure className='flex flex-col items-center gap-2 text-center'>
-                    <FaUserCircle className='text-4xl'/>
-                    <Link to="/Profile" className='font-bold text-[10px] md:text-[12px]'>
-                    Profile
-                    </Link>
-                </figure>
-            </div>
             {/* {teachernavlist.map((nav:any, index: number) =>(
                 <TeacherNav key={index} nav={nav}/>
             ))} */}
@@ -78,7 +70,7 @@ export const TeacherLayout = () => {
                 </figure>
             </div>
 
-            <div className="group flex justify-center h-20 pt-2 hover:bg-white/30">
+            {/* <div className="group flex justify-center h-20 pt-2 hover:bg-white/30">
                 <figure className='flex flex-col items-center gap-2 text-center'>
                     <Link to='Analytics'>
                         <img src='/analytics_nav_icon.svg' alt="Analytics Icon"/>
@@ -87,7 +79,7 @@ export const TeacherLayout = () => {
                     Analytics
                     </Link>
                 </figure>
-            </div>
+            </div> */}
           </div>
 
           <div>

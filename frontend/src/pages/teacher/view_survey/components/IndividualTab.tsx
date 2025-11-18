@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { getResponsesForRespondent } from "../../../../libs/response";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { deleteResponse } from "../../../../features/response/api";
-import { useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 import { DeleteModal } from "./DeleteModal";
+import { useDeleteResponseMutation } from "../../../../features/response/hooks";
 
 export const IndividualTab = ({ data }: { data: any }) => {
   console.log(data)
@@ -12,8 +10,7 @@ export const IndividualTab = ({ data }: { data: any }) => {
   const [respondent, setRespondent] = useState(initialValue)
   const [isModalOpen, setModalOpen] = useState(false)
   const [responseID, setResponseID] = useState<string | null>(null)
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
+  const deleteMutation = useDeleteResponseMutation()
   const respondents = data?.respondents
 
   const individualResponses = getResponsesForRespondent(data, respondent);
@@ -25,12 +22,10 @@ export const IndividualTab = ({ data }: { data: any }) => {
   }
 }, [data]);
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
       console.log(responseID)
-      await deleteResponse(responseID);
-      queryClient.invalidateQueries({ queryKey: ['recentsurveyassignments'] });
+      deleteMutation.mutate(responseID)
       setModalOpen(false);
-      navigate('/Teacher/NewSurvey')
   };
 
   return (
@@ -74,7 +69,7 @@ export const IndividualTab = ({ data }: { data: any }) => {
             <div className="flex flex-col gap-y-5 justify-between mt-5">
               {question?.question_choices?.map((choice: any, index: number) =>(
                 <div key={index} className="flex items-center gap-2 text-[#595959]">
-                  <input defaultChecked={question?.answer === choice?.text} type="radio" 
+                  <input checked={String(question?.answer) === String(choice?.text ?? choice?.id)} type="radio" 
                   className="disabled:bg-current disabled:border-current cursor-not-allowed radio"/>
                   <label htmlFor={choice?.text}>{choice?.text}</label>
                 </div>
@@ -90,7 +85,7 @@ export const IndividualTab = ({ data }: { data: any }) => {
             <div className="flex justify-between mt-5">
               {question?.question_choices?.map((choice: any, index: number) =>(
                 <div key={index} className="flex items-center gap-2 text-[#595959]">
-                  <input defaultChecked={question?.answer === choice?.text} type="radio" 
+                  <input checked={String(question?.answer) === String(choice?.text ?? choice?.id)} type="radio" 
                   className="disabled:bg-current disabled:border-current cursor-not-allowed radio"/>
                   <label htmlFor={choice?.text}>{choice?.text}</label>
                 </div>

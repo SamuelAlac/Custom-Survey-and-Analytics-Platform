@@ -30,7 +30,7 @@ class SurveyAssignment(models.Model):
     class Types(models.TextChoices):
         ACTIVE = 'active', 'Active'
         INACTIVE = 'inactive', 'Inactive'
-        PAST_DUE = 'past_due', 'Past_Due'
+        PAST_DUE = 'past due', 'Past_Due'
     
     survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='assignment_surveys')
     sections = models.ManyToManyField(Section, related_name='section_assignments')

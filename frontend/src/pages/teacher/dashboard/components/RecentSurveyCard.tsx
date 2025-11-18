@@ -4,15 +4,17 @@ import { useSurveyAssignmentWithResponses } from '../../../../features/survey_as
 import { useSectionStudents } from '../../../../features/section/hooks'
 import CountUp from 'react-countup'
 
-export const RecentSurveyCard = ({ survey }: { survey:any }) => {
+export const RecentSurveyCard = ({ survey, sectionData }: { survey:any; sectionData:any }) => {
 
     const { data: responses } = useSurveyAssignmentWithResponses({ id: survey?.id })
-    const {data: sectionData} = useSectionStudents()
-    const sections = sectionData?.map((section: any) => section?.user)
-    const totalStudents = sections?.flat()?.length
-    console.log(totalStudents)
 
-    const isCompleted = responses?.survey_assignment_response?.length === totalStudents
+    const totalStudents = sectionData
+        ?.filter((section: any) => survey?.sections?.includes(section.id))
+        ?.flatMap((section: any) => section.user)
+        ?.length || 0;
+
+    const responsesCount = responses?.survey_assignment_response?.length ?? 0;
+    const isCompleted = responsesCount === totalStudents;
     console.log(isCompleted)
 
   return (
@@ -29,7 +31,7 @@ export const RecentSurveyCard = ({ survey }: { survey:any }) => {
                 px-4 rounded-lg`}>
                     {/* {survey?.status} */}
                     {survey?.status === 'active' || survey?.status === 'inactive' 
-                    || survey?.status === 'past_due' ? survey?.status : 'Completed'}
+                    || survey?.status === 'past due' ? survey?.status : 'Completed'}
                 </p>
             </div>
         </div>
@@ -47,7 +49,7 @@ export const RecentSurveyCard = ({ survey }: { survey:any }) => {
                 <img src='/edit_icon.svg' alt="" className='w-4'/>
                 <p className='text-[#0A57FF] font-semibold'>Edit</p>
             </Link>
-            <Link to={`/Teacher/NewSurvey/${survey?.id}`} className='bg-[#FBE4C9] flex px-3 py-2 gap-2 rounded-lg'>
+            <Link to={`/Teacher/ViewSurvey/${survey?.id}`} className='bg-[#FBE4C9] flex px-3 py-2 gap-2 rounded-lg'>
                 <img src='/view_icon.svg' alt="" className='w-5'/>
                 <p className='text-[#F37611] font-semibold'>View</p>
             </Link>

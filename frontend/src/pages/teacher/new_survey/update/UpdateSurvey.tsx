@@ -80,9 +80,9 @@ const UpdateSurvey = () => {
 
     setIsSubmitting(true)
     try {
-      // // Update survey assignment with new data
-      // const token = localStorage.getItem('access')
-      // if (!token) throw new Error('No access token found')
+      // Update survey assignment with new data
+      const token = localStorage.getItem('access')
+      if (!token) throw new Error('No access token found')
 
       const updateData = {
         due_date: new Date(dueDate).toISOString(),
@@ -91,16 +91,16 @@ const UpdateSurvey = () => {
         editable: responseEditing
       }
 
-      // const response = await fetch(`http://localhost:8000/api/core/survey-assignment-surveys/${id}/`, {
-      //   method: 'PATCH',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'Authorization': `Bearer ${token}`
-      //   },
-      //   body: JSON.stringify(updateData)
-      // })
+      const response = await fetch(`http://localhost:8000/api/core/survey-assignment-surveys/${id}/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(updateData)
+      })
 
-      const response = await updateSurveyAssignment(id, updateData)
+      // const response = await updateSurveyAssignment(id, updateData)
 
       if (!response.ok) {
         const errorData = await response.json()

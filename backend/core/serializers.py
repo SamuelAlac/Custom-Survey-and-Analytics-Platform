@@ -235,7 +235,6 @@ class SurveyAssignmentWithQuestionResponsesSerializer(serializers.ModelSerialize
         fields = ['id', 'survey', 'sections', 'status', 'editable', 'due_date', 'respondent_count', 'respondents']
 
     def get_respondent_count(self, obj):
-        # Count distinct respondents who submitted answers for this assignment
         return Answer.objects.filter(response__survey_assignment=obj)\
                              .values('response__respondent')\
                              .distinct().count()
@@ -247,19 +246,30 @@ class SurveyAssignmentWithQuestionResponsesSerializer(serializers.ModelSerialize
         
         result = []
         for respondent in respondents:
-            # Get all responses for this respondent and assignment
             responses_qs = Response.objects.filter(
                 survey_assignment=obj,
                 respondent=respondent
             )
             responses = [
-                {"id": r.id, "created_at": r.created_at}  # include other fields if needed
+                {"id": r.id, "created_at": r.created_at}
                 for r in responses_qs
             ]
+
+            section_field = getattr(respondent, 'section', None)
+            section_data = None
+            if section_field is not None:
+                if hasattr(section_field, 'all'):
+                    section_data = [
+                        {"id": s.id, "name": str(s)}
+                        for s in section_field.all()
+                    ]
+                else:
+                    section_data = {"id": section_field.id, "name": str(section_field)}
             
             result.append({
                 "id": respondent.id,
                 "email": respondent.email,
+                "section": section_data,
                 "responses": responses
             })
         
