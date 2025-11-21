@@ -5,7 +5,6 @@ import { useSections } from '../../../../features/section/hooks';
 import toast from 'react-hot-toast';
 
 interface FormFields {
-    id: string;
     fname: string;
     lname: string
     email: string;
@@ -25,18 +24,14 @@ const RegistrationForm = () => {
     
     const onSubmit: SubmitHandler<FormFields> = async (formData) =>{
         try {
-            const { id, fname, lname, email, password1, password2, section, tac } = formData
-            const res = await registerUser({ id, fname, lname, email, password1, password2, section, tac })
+            const { fname, lname, email, password1, password2, section, tac } = formData
+            const res = await registerUser({ fname, lname, email, password1, password2, section, tac })
             toast.success(res?.message)
             setTimeout(() => navigate(`/Auth/Student-Register/${res.user.id}?email=${encodeURIComponent(email)}`,{
                 state: { email }
             }), 1500);
         } catch (error: any) {
             toast.error('Something went wrong. Please try again.')
-            if (error?.id) {
-            setError("id", { type: "server", message: error.id[0] });
-            }
-
             if (error?.email) {
             setError("email", { type: "server", message: error.email[0] });
             }
@@ -71,9 +66,9 @@ const RegistrationForm = () => {
         </div>
 
         <div className='flex flex-col'>
-            <label htmlFor="id" className='text-md md:text-xl font-bold text-start'>Student No.</label>
-            <input { ...register('id') } type="text" placeholder='Student No.' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
-            {errors.id && <div className="text-sm text-red-900">{errors.id.message}</div>}
+            <label htmlFor="email" className='text-md md:text-xl font-bold text-start'>Email</label>
+            <input { ...register('email') } type="email" placeholder='Email' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
+            {errors.email && <div className="text-sm text-red-900">{errors.email.message}</div>}
         </div>
 
         <div className='flex flex-col'>
@@ -85,12 +80,6 @@ const RegistrationForm = () => {
                 ))}
             </select>
             {errors.section && <div className="text-sm text-red-900">{errors.section.message}</div>}
-        </div>
-
-        <div className='flex flex-col'>
-            <label htmlFor="email" className='text-md md:text-xl font-bold text-start'>Email</label>
-            <input { ...register('email') } type="email" placeholder='Email' className='border-[#ACA6A7] p-1.5 border rounded-lg outline-0 placeholder-[#ACA6A7]' />
-            {errors.email && <div className="text-sm text-red-900">{errors.email.message}</div>}
         </div>
 
         <div className='flex flex-col'>

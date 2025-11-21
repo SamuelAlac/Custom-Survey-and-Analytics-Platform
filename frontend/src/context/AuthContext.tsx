@@ -5,7 +5,7 @@ import { getMyAccount, loginUser, logoutUser } from '../features/auth/api';
 
 interface AuthContextType {
     user: any,
-    login: ({ id, password, rememberMe }: { id: string, password: string, rememberMe: boolean }) => Promise<{ result: any, user: any }>
+    login: ({ email, password, rememberMe }: { email: string, password: string, rememberMe: boolean }) => Promise<{ result: any, user: any }>
     logout: () => Promise<void>
     loading: boolean
 }
@@ -16,8 +16,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) =>{
     const queryClient = useQueryClient()
     const { data: user, isLoading: loading } = useUser()
 
-    const login = async ({ id, password, rememberMe }: { id: string, password: string, rememberMe: boolean }) => {
-        const res = await loginUser({ id, password, rememberMe });
+    const login = async ({ email, password, rememberMe }: { email: string, password: string, rememberMe: boolean }) => {
+        const res = await loginUser({ email, password, rememberMe });
         if(res?.access) localStorage.setItem('access', res.access);
         if (res?.refresh) localStorage.setItem('refresh', res.refresh);
 
