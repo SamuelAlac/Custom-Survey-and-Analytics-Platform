@@ -17,10 +17,10 @@ const ViewSurvey = () => {
       <div>
         <h1 className="text-center p-6 text-2xl font-semibold bg-white">
         <CountUp start={0} end={data?.respondent_count || 0} duration={1} separator="," /> Responses</h1>
-        <div className="tabs flex justify-around">
+        <div className="tabs tabs-border flex justify-around">
 
-          {/* SUMMARY TAB */}
-          <input type="radio" name="survey_tabs" className="tab bg-[#F37611] flex-1" aria-label="Summary" defaultChecked />
+          {/* SUMMARY TAB  */}
+          <input type="radio" name="survey_tabs" className="tab bg-[#FBA02C] flex-1" aria-label="Summary" defaultChecked />
           <SummaryTab questions={questions}/>
 
           {/* QUESTION TAB */}
