@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom"
 const Index = () => {
   return (
-    <main className="bg-[url(/index_bg.svg)] bg-cover flex justify-center items-center min-h-screen w-full">
+    <main className="bg-[url(/auth_main_bg.svg)] bg-cover flex justify-center items-center min-h-screen w-full">
         <div className="bg-white w-220 h-120 flex justify-between rounded-4xl">
-          <div className="flex-1 flex justify-center items-center m-1.5 bg-[url(/index_hero.svg)] bg-cover rounded-l-4xl">
+          <div className="flex-1 flex justify-center items-center m-1.5 
+          bg-[url(/index_icon.svg)] bg-cover rounded-l-4xl bg-black/10 bg-blend-overlay">
             <figure className="flex flex-col items-center">
               <img src="survey_corps_logo.svg" alt="" />
                 <h1 className="text-white font-bold text-2xl">Custom Survey</h1>
