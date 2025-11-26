@@ -21,8 +21,8 @@ class User(AbstractUser):
     terms_and_condition = models.BooleanField(default=False)
 
     # comment lng to pag gagawa superuser nababalew kase
-    # USERNAME_FIELD = 'email'
-    # REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     def generate_verification_code(self):
         code = str(random.randint(100000, 999999))
