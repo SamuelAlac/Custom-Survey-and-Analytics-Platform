@@ -40,7 +40,7 @@ The backend is built with Django Rest Framework, offering a robust API for user 
 - **HTTP Client**: Axios
 - **Data Visualization**: Chart.js, react-chartjs-2, react-d3-cloud
 - **UI**: React Hook Form, React Hot Toast, DND Kit for drag-and-drop
-- ***Integration Testing**: Selenium
+- **Integration Testing**: Selenium
 
 ## Getting Started
 
