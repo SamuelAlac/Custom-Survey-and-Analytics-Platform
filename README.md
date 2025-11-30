@@ -29,7 +29,7 @@ The backend is built with Django Rest Framework, offering a robust API for user 
 - **Framework**: Django, Django REST Framework
 - **Authentication**: Simple JWT for token-based authentication
 - **Database**: SQLite (default), compatible with PostgreSQL
-- **API Testing**: REST Client files for VS Code
+- **API Testing**: REST Client files for VS Code, Postman
 
 ### Frontend
 - **Framework/Library**: React, TypeScript
@@ -40,6 +40,7 @@ The backend is built with Django Rest Framework, offering a robust API for user 
 - **HTTP Client**: Axios
 - **Data Visualization**: Chart.js, react-chartjs-2, react-d3-cloud
 - **UI**: React Hook Form, React Hot Toast, DND Kit for drag-and-drop
+- ***Integration Testing**: Selenium
 
 ## Getting Started
 
