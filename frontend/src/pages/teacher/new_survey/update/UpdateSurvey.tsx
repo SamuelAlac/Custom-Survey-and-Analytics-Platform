@@ -3,7 +3,6 @@ import { useState, useEffect } from "react"
 import { useSurveyAssignmentWithSurvey } from "../../../../features/survey_assignment/hooks"
 import { useSections } from "../../../../features/section/hooks"
 import toast from "react-hot-toast"
-import { updateSurveyAssignment } from "../../../../features/survey/api"
 
 const UpdateSurvey = () => {
   const { id } = useParams<{ id: string }>()
