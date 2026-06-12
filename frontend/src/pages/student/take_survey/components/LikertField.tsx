@@ -28,7 +28,7 @@ export const LikertField = ({ question, register, setValue }: LikertFieldProps) 
 
   return (
     <fieldset className="space-y-5">
-      <legend className="text-2xl font-semibold">{question?.order}. {question?.text} <span className='text-red-600'> *</span></legend>
+      <legend className="text-2xl font-semibold">{question?.order}. {question?.text}</legend>
       {selected && (
         <button type="button" onClick={handleClear} className='text-red-500 mb-3'>
           Remove Answer
