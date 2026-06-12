@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { deleteResponse, getResponses } from "./api"
-import { deleteSurvey } from "../survey/api"
 
 export const useResponses = () =>{
     return useQuery({
@@ -27,7 +26,7 @@ export const useDeleteResponseMutation = () =>{
         return { previousResponses }
         },
 
-        onError: (err, id, context: any) => {
+        onError: (err, context: any) => {
         console.error('Error deleting response', err);
         if (context?.previousSurveys) {
             queryClient.setQueryData(['surveyassignmentwithquestionandanswer'], context.previousSurveys);

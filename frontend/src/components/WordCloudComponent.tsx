@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback, useMemo } from "react";
+import { forwardRef, useCallback, useMemo } from "react";
 import WordCloud from "react-d3-cloud";
 
 type Word = { text: string; value: number };

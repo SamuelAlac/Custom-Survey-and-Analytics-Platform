@@ -1,21 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { deleteSurvey } from "./api"
 
-// export const useDeleteSurveyMutation = () =>{
-//     const queryClient = useQueryClient()
-//     return useMutation({
-//         mutationKey: ['deletesurvey'],
-//         mutationFn: (id: any) => deleteSurvey(id),
-//         onSuccess: () =>{
-//             queryClient.invalidateQueries({ queryKey: ['surveyassignments'] })
-//             queryClient.invalidateQueries({ queryKey: ['surveyassignmentwithquestionandanswer'] })
-//         },
-//         onError: (error) =>{
-//             console.log(`Error deleting survey ${error}`)
-//         }
-//     })
-// }
-
 export const useDeleteSurveyMutation = () => {
   const queryClient = useQueryClient();
 
@@ -34,7 +19,7 @@ export const useDeleteSurveyMutation = () => {
       return { previousSurveys };
     },
 
-    onError: (err, id, context: any) => {
+    onError: (err, context: any) => {
       console.error('Error deleting survey', err);
       if (context?.previousSurveys) {
         queryClient.setQueryData(['surveyassignments'], context.previousSurveys);
