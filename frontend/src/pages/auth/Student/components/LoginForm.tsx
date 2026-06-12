@@ -11,7 +11,7 @@ interface FormFields {
 
 const LoginForm = () => {
 
-    const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({})
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<FormFields>({})
     const navigate = useNavigate()
     const { login, loading, logout } = useAuth()
 

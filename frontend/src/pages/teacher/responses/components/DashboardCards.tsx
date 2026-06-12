@@ -1,6 +1,6 @@
 import CountUp from "react-countup"
 import { useResponses } from "../../../../features/response/hooks"
-import { useRecentSurveyAssignments, useSurveyAssignments } from "../../../../features/survey_assignment/hooks"
+import { useRecentSurveyAssignments } from "../../../../features/survey_assignment/hooks"
 import { useSections } from "../../../../features/section/hooks"
 
 export const DashboardCards = () => {

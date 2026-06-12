@@ -3,7 +3,6 @@ import { Outlet, Link, useNavigate } from 'react-router-dom'
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useAuth } from '../context/AuthContext';
-import { FaUserCircle } from "react-icons/fa";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();

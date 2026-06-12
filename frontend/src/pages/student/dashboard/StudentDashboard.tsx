@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import { useUserResponses, useUserSurveys } from "../../../features/user/hooks"
 import { CompletedSurveyList } from "./components/CompletedSurveyList"
 import { PendingSurveyList } from "./components/PendingSurveyList"

@@ -26,7 +26,7 @@ export const ResponseForm = ({ survey_questions, id }: ResponseFormProps) => {
   const currentQuestions = sortedQuestions.slice(startIndex, startIndex + QUESTIONS_PER_PAGE);
 
 
-  const { register, handleSubmit, setValue, setError, reset } = useForm<FormValues>({
+  const { register, handleSubmit, setValue, reset } = useForm<FormValues>({
     defaultValues: {}
   })
   const navigate = useNavigate()

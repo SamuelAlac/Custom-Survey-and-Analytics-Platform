@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const McqFieldSkeleton = () => {
   return (
     <div className="space-y-5">

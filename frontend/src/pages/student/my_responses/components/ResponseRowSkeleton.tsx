@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const ResponseRowSkeleton = () => {
   return (
     <tr className='hover:bg-black/5'>

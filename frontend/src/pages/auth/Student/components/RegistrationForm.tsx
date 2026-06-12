@@ -16,7 +16,7 @@ interface FormFields {
 
 const RegistrationForm = () => {
 
-    const { register, handleSubmit, setError, formState: { errors, isSubmitting } } = useForm<FormFields>({})
+    const { register, handleSubmit, setError, formState: { errors } } = useForm<FormFields>({})
     const navigate = useNavigate()
 
     const { data } = useSections()

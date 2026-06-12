@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom'
 import { formatDate } from '../../../../libs/formatDate'
 import { useSurveyAssignmentWithResponses } from '../../../../features/survey_assignment/hooks'
-import { useSectionStudents } from '../../../../features/section/hooks'
 import CountUp from 'react-countup'
 
 export const RecentSurveyCard = ({ survey, sectionData }: { survey:any; sectionData:any }) => {

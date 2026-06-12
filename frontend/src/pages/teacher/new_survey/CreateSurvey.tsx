@@ -302,35 +302,6 @@ const CreateSurvey = () => {
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
-
-  
-  const handleSaveDraft = async () => {
-    setIsSubmitting(true)
-    try {
-      const surveyData = {
-        title: surveyTitle,
-        dueDate,
-        assignedSection,
-        questions: droppedItems,
-        status: 'draft',
-        createdAt: new Date().toISOString()
-      }
-      
-      
-      console.log('Saving draft:', surveyData)
-      
-      
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      alert('Survey saved as draft!')
-    } catch (error) {
-      console.error('Error saving draft:', error)
-      alert('Error saving draft. Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
   
   const handlePublish = async () => {
     if (!validateForm()) {
@@ -554,12 +525,12 @@ const CreateSurvey = () => {
             <DropZone data-drop-zone="true">
               <SortableContext items={droppedItems} strategy={verticalListSortingStrategy}>
                 {droppedItems.length === 0 ? (
-                  <div className="text-center text-gray-500 min-h-[150px] flex flex-col items-center justify-center">
+                  <div className="text-center text-gray-500 min-h-37.5 flex flex-col items-center justify-center">
                     <img src="/drag_n_drop_icon.svg" alt="Drag and drop icon" className="mx-auto mb-4 w-12 h-12" />
                     <p className="text-sm">Drag and drop your questions here</p>
                   </div>
                 ) : (
-                  <div className="space-y-3 min-h-[100px]">
+                  <div className="space-y-3 min-h-25">
                     {droppedItems.map((item) => (
                       <SortableItem
                         key={item.id}
@@ -574,7 +545,7 @@ const CreateSurvey = () => {
                       />
                     ))}
                     
-                    <div className="min-h-[50px] flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-transparent hover:border-gray-300 rounded-lg transition-colors">
+                    <div className="min-h-12.5 flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-transparent hover:border-gray-300 rounded-lg transition-colors">
                       Drop here to add more questions
                     </div>
                   </div>
