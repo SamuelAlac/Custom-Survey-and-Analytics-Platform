@@ -30,7 +30,7 @@ const LoginForm = () => {
                 }
             }
         } catch (error: any) {
-                toast.error('Invalid student number or password. Please try again.')
+                toast.error('Invalid student email or password. Please try again.')
                 if (error?.email) {
                 setError("email", { type: "server", message: error.id[0] });
                 }
